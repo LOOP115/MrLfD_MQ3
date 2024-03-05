@@ -208,12 +208,12 @@ PrefabInstance:
     - target: {fileID: 2859147190566827361, guid: bf018bf093319f840a7314cb25167d8c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.478
+      value: -0.47799683
       objectReference: {fileID: 0}
     - target: {fileID: 2859147190566827361, guid: bf018bf093319f840a7314cb25167d8c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.7826456
+      value: 0.78263855
       objectReference: {fileID: 0}
     - target: {fileID: 2859147190566827361, guid: bf018bf093319f840a7314cb25167d8c,
         type: 3}
@@ -233,11 +233,16 @@ PrefabInstance:
     - target: {fileID: 2859147190566827362, guid: bf018bf093319f840a7314cb25167d8c,
         type: 3}
       propertyPath: m_Name
-      value: Dialog Variant
+      value: Dialog
       objectReference: {fileID: 0}
     - target: {fileID: 2859147190566827362, guid: bf018bf093319f840a7314cb25167d8c,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2859147190566827369, guid: bf018bf093319f840a7314cb25167d8c,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2859147191025677217, guid: bf018bf093319f840a7314cb25167d8c,

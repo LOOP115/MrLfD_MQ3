@@ -14,4 +14,14 @@ public class TogglePanel : MonoBehaviour
             panel.SetActive(!panel.activeSelf);
         }
     }
+
+    // URL to open
+    public string url = "https://www.google.com/";
+
+    // Call this method to open the URL in the default web browser
+    public void OpenURL()
+    {
+        Application.OpenURL(url);
+    }
+
 }

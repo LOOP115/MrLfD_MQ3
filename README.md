@@ -23,8 +23,15 @@
 
 ## Design Elements
 
-- Home menu
-- Status Visualisations
+- Panels
+  - Manipulability
+  - Franka wrist camera live view
+  - Past Demonstrations
+  - Learning outcome preview
+  - Sorting rules
+- Demonstration mode
+- Home Menu
+  - Tabs for different panels
 - Stop Button
 
 

@@ -25,7 +25,7 @@
 
 - Panels
   - Manipulability
-  - Franka wrist camera live view
+  - Live view of Franka's wrist camera
   - Past Demonstrations
   - Learning outcome preview
   - Sorting rules

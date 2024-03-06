@@ -1,4 +1,4 @@
-# Mixed Reality Workstation for LfD on Quest 3
+# Mixed Reality Workstation for LfD
 
 
 
@@ -26,12 +26,14 @@
 - Panels
   - Manipulability
   - Live view of Franka's wrist camera
-  - Past Demonstrations
+- LfD mode
+  - Past demonstrations
   - Learning outcome preview
-  - Sorting rules
-- Demonstration mode
+- Sorting mode
 - Home Menu
   - Tabs for different panels
+    - Toggle Visibility
+  - Buttons to open/close all tabs
 - Stop Button
 
 

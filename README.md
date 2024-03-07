@@ -41,10 +41,3 @@
 - Stop Button
 
 
-
-
-
-## Interactions
-
-- The user can grab and place two virtual spheres of different colours, overlaying them on the table to represent two categories.
-

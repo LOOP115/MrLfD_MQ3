@@ -30,6 +30,10 @@
   - Past demonstrations
   - Learning outcome preview
 - Sorting mode
+  - Spawn red or blue spheres
+  - Delete red or blue spheres
+  - Clear all spheres
+  - Lock / Unlock the spheres
 - Home Menu
   - Tabs for different panels
     - Toggle Visibility
@@ -43,3 +47,4 @@
 ## Interactions
 
 - The user can grab and place two virtual spheres of different colours, overlaying them on the table to represent two categories.
+

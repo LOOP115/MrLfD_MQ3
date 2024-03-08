@@ -43,7 +43,3 @@
   - Buttons to open/close all tabs
 - Stop Button
 
-
-
-## 
-

@@ -4,10 +4,12 @@
 
 ## Requirements
 
-- Editor Version: `2022.3.19f1`
+- Unity Editor Version: `2022.3.19f1 (>= 2022.3)`
 - Packages
   - [Meta XR All-in-One SDK](https://assetstore.unity.com/packages/tools/integration/meta-xr-all-in-one-sdk-269657)
+  - [Depth API](https://github.com/oculus-samples/Unity-DepthAPI)
   - [ROS TCP Connector](https://github.com/Unity-Technologies/ROS-TCP-Connector)
+  - [URDF Importer](https://github.com/Unity-Technologies/URDF-Importer)
 
 
 
@@ -16,9 +18,13 @@
 ## Resources
 
 - [Meta Interaction SDK Overview](https://developer.oculus.com/documentation/unity/unity-isdk-interaction-sdk-overview/)
-
+- [Meta XR Interaction SDK OVR Samples](https://assetstore.unity.com/packages/tools/integration/meta-xr-interaction-sdk-ovr-samples-268521)
 - [Unity Robotics Hub](https://github.com/Unity-Technologies/Unity-Robotics-Hub/tree/main)
-  - [ROS Unity Integration](https://github.com/Unity-Technologies/Unity-Robotics-Hub/blob/main/tutorials/ros_unity_integration/README.md)
+  - Setup [ROS Unity Integration](https://github.com/Unity-Technologies/Unity-Robotics-Hub/blob/main/tutorials/ros_unity_integration/README.md)
+  - Setup [URDF Importer](https://github.com/Unity-Technologies/URDF-Importer)
+    - [URDF Tutorial](https://github.com/Unity-Technologies/Unity-Robotics-Hub/blob/main/tutorials/urdf_importer/urdf_tutorial.md)
+    - [URDF Tutorial Appendix](https://github.com/Unity-Technologies/Unity-Robotics-Hub/blob/main/tutorials/urdf_importer/urdf_appendix.md##Convex-Mesh-Collider)
+- [Pick-and-Place Tutorial](https://github.com/Unity-Technologies/Unity-Robotics-Hub/tree/main/tutorials/pick_and_place)
 
 
 
@@ -43,3 +49,14 @@
   - Buttons to open/close all tabs
 - Stop Button
 
+
+
+
+
+## Troubleshooting
+
+#### [Fail to export Android package due to URDF importer](https://github.com/Unity-Technologies/URDF-Importer/issues/212)
+
+- Enter into `Packages/com.unity.robotics.urdf-importer/Runtime/UnityMeshImporter/Plugins/AssimpNet/Native/win/x86/`
+- Delete `assimp.dll` and `assimp.dll.meta`
+- Note: Packages are stored in `Library/PackageCache/` if using Unity's Package Manager.

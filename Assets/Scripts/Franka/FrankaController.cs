@@ -59,8 +59,8 @@ namespace Franka.Control
 
         void Update()
         {
-            bool SelectionInput1 = Input.GetKeyDown("right");
-            bool SelectionInput2 = Input.GetKeyDown("left");
+            bool SelectionInput1 = OVRInput.GetDown(OVRInput.Button.One);
+            bool SelectionInput2 = OVRInput.GetDown(OVRInput.Button.Two);
 
             SetSelectedJointIndex(selectedIndex); // to make sure it is in the valid range
             UpdateDirection(selectedIndex);
@@ -126,7 +126,7 @@ namespace Franka.Control
                 return;
             }
 
-            float moveDirection = Input.GetAxis("Vertical");
+            float moveDirection = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).y;
             FrankaJointControl current = articulationChain[jointIndex].GetComponent<FrankaJointControl>();
             if (previousIndex != jointIndex)
             {

@@ -19,6 +19,7 @@
 
 - [Meta Interaction SDK Overview](https://developer.oculus.com/documentation/unity/unity-isdk-interaction-sdk-overview/)
 - [Meta XR Interaction SDK OVR Samples](https://assetstore.unity.com/packages/tools/integration/meta-xr-interaction-sdk-ovr-samples-268521)
+- [Map Controllers](https://developer.oculus.com/documentation/unity/unity-ovrinput/)
 - [Unity Robotics Hub](https://github.com/Unity-Technologies/Unity-Robotics-Hub/tree/main)
   - Setup [ROS Unity Integration](https://github.com/Unity-Technologies/Unity-Robotics-Hub/blob/main/tutorials/ros_unity_integration/README.md)
   - Setup [URDF Importer](https://github.com/Unity-Technologies/URDF-Importer)
@@ -40,6 +41,13 @@
 - Speed: 30
 - Torque: 100
 - Acceleration: 10
+
+
+
+### Basic Operations
+
+- Use the **A** and **B** buttons to select the articulation body you want to move.
+- Use the **right thumb stick** to move the articulation body clockwise and counter-clockwise.
 
 
 

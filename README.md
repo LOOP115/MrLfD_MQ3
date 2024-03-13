@@ -46,8 +46,8 @@
 
 ### Basic Operations
 
-- Use the **A** and **B** buttons to select the articulation body you want to move.
-- Use the **right thumb stick** to move the articulation body clockwise and counter-clockwise.
+- Use the **A** and **B** buttons to select the joint you want to move.
+- Use the **right thumb stick** to move the joint clockwise and counter-clockwise.
 
 
 

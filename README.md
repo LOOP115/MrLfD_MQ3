@@ -30,6 +30,21 @@
 
 
 
+## Franka Controller
+
+### Parameters
+
+- Stiffness: 10000
+- Damping: 100
+- Force Limit: 1000
+- Speed: 30
+- Torque: 100
+- Acceleration: 10
+
+
+
+
+
 ## Design Elements
 
 - Panels
@@ -55,8 +70,17 @@
 
 ## Troubleshooting
 
+### Problems with Android build
+
 #### [Fail to export Android package due to URDF importer](https://github.com/Unity-Technologies/URDF-Importer/issues/212)
 
 - Enter into `Packages/com.unity.robotics.urdf-importer/Runtime/UnityMeshImporter/Plugins/AssimpNet/Native/win/x86/`
 - Delete `assimp.dll` and `assimp.dll.meta`
 - Note: Packages are stored in `Library/PackageCache/` if using Unity's Package Manager.
+
+
+
+#### [Unable to build due to namespace errors](https://github.com/Unity-Technologies/Unity-Robotics-Hub/issues/215)
+
+- Tick the `Android` checkbox in `Platforms` of `Unity.Robotics.URDFImporter.asmdef`
+

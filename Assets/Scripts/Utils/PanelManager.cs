@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TogglePanel : MonoBehaviour
+public class TogglePanelStatus : MonoBehaviour
 {
     // Reference to the panel GameObject
     public GameObject panel;

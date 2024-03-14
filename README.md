@@ -44,7 +44,17 @@
 
 
 
-### Basic Operations
+### Instructions
+
+#### Spawn
+
+- Move your right hand and press button **A** to spawn Franka at the position of your right controller.
+
+#### Remove
+
+- Remove the last Franka spawned.
+
+#### Joint Controller
 
 - Use the **A** and **B** buttons to select the joint you want to move.
 - Use the **right thumb stick** to move the joint clockwise and counter-clockwise.

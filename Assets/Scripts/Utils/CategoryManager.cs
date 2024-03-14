@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnSphere : MonoBehaviour
+public class CategoryManager : MonoBehaviour
 {
     public GameObject spherePrefab;
     public Material transparentBlue;

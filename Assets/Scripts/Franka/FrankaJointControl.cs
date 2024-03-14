@@ -5,7 +5,7 @@ using Unity.Robotics.UrdfImporter;
 
 public class FrankaJointControl : MonoBehaviour
 {
-    Franka.Control.Controller controller;
+    Franka.Control.JointController controller;
 
     public Unity.Robotics.UrdfImporter.Control.RotationDirection direction;
     public Unity.Robotics.UrdfImporter.Control.ControlType controltype;
@@ -18,7 +18,7 @@ public class FrankaJointControl : MonoBehaviour
     void Start()
     {
         direction = 0;
-        controller = (Franka.Control.Controller)this.GetComponentInParent(typeof(Franka.Control.Controller));
+        controller = (Franka.Control.JointController)this.GetComponentInParent(typeof(Franka.Control.JointController));
         joint = this.GetComponent<ArticulationBody>();
         controller.UpdateControlType(this);
         speed = controller.speed;

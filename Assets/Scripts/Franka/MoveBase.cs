@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MoveFrankaBase : MonoBehaviour
+public class MoveBase : MonoBehaviour
 {
     public float moveSpeed = 1.0f;
     public float rotateSpeed = 90.0f; // Degrees per second

@@ -1,30 +1,40 @@
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
+using Franka.Control;
 
 public class FrankaManager : MonoBehaviour
 {
-    // public bool isPaused = false;
     public GameObject frankaPrefab;
     public TextMeshProUGUI textComponent;
-    private List<GameObject> frankas = new List<GameObject>();
+    private bool isSpawned = false;
+    private GameObject franka;
+    public List<GameObject> toggles;
+    private MoveBase moveBase;
+    private JointController jointController;
 
+    
 
     void Update()
     {
-        // if (isPaused)
-        // {
-        //     return;
-        // }
-        
-        textComponent.text = "Move your right hand and press A to\nspawn Franka at the position of your right controller.";
-
-        if (OVRInput.GetDown(OVRInput.Button.One))
+        if (isSpawned)
         {
-            SpawnFranka();
-            // Deactivate this GameObject after the spawn operation is complete
-            textComponent.text = "";
-            DeactivateManager();
+            textComponent.text = "Only one Franka is allowed for now.\nPress A to exit.";
+            if (OVRInput.GetDown(OVRInput.Button.One))
+            {
+                textComponent.text = "";
+                DeactivateManager();
+            }
+        } else
+        {
+            textComponent.text = "Move your right hand and press A to\nspawn Franka at the position of your right controller.";
+            if (OVRInput.GetDown(OVRInput.Button.One))
+            {
+                SpawnFranka();
+                textComponent.text = "";
+                DeactivateManager();
+            }
         }
     }
 
@@ -33,8 +43,11 @@ public class FrankaManager : MonoBehaviour
         if (frankaPrefab != null)
         {
             Vector3 handPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
-            GameObject franka = Instantiate(frankaPrefab, handPosition, Quaternion.identity);
-            frankas.Add(franka);
+            franka = Instantiate(frankaPrefab, handPosition, Quaternion.identity);
+            moveBase = franka.GetComponent<MoveBase>();
+            jointController = franka.GetComponent<JointController>();
+            isSpawned = true;
+            ActivateAllToggles();
         }
         else
         {
@@ -42,25 +55,72 @@ public class FrankaManager : MonoBehaviour
         }
     }
 
-    public void DeleteLastFranka()
+    public void RemoveFranka()
     {
-        if (frankas.Count > 0)
+        if (franka != null)
         {
-            GameObject toDelete = frankas[frankas.Count - 1];
-            frankas.RemoveAt(frankas.Count - 1);
-            Destroy(toDelete);
+            Destroy(franka);
+            isSpawned = false;
+            DeactivateAllToggles();
         }
     }
 
-    public void ClearAllFrankas()
+    // Function to activate all toggles
+    public void ActivateAllToggles()
     {
-        foreach (GameObject franka in frankas)
+        foreach (var toggle in toggles)
         {
-            Destroy(franka);
+            if (toggle != null)
+            {
+                Toggle toggleComponent = toggle.GetComponent<Toggle>();
+                if (toggleComponent != null)
+                {
+                    toggleComponent.interactable = true;
+                }
+            }
         }
-        frankas.Clear(); // Clear the list after destroying all spheres
     }
-    
+
+    // Function to deactivate all toggles
+    public void DeactivateAllToggles()
+    {
+        foreach (var toggle in toggles)
+        {
+            if (toggle != null)
+            {
+                Toggle toggleComponent = toggle.GetComponent<Toggle>();
+                if (toggleComponent != null)
+                {
+                    toggleComponent.interactable = false;
+                }
+            }
+        }
+    }
+
+    public void setBase()
+    {
+        if (franka != null)
+        {
+            if (moveBase != null)
+            {
+                moveBase = franka.GetComponent<MoveBase>();
+                moveBase.enabled = !moveBase.enabled;
+            }
+        }
+    }
+
+    public void setJointController()
+    {
+        if (franka != null)
+        {
+            if (jointController != null)
+            {
+                jointController = franka.GetComponent<JointController>();
+                jointController.enabled = !jointController.enabled;
+            }
+        }
+    }
+
     private void DeactivateManager()
     {
         gameObject.SetActive(false);

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Franka.Control
 {
-    public class Controller : MonoBehaviour
+    public class JointController : MonoBehaviour
     {
         private ArticulationBody[] articulationChain;
         // Stores original colors of the part being highlighted

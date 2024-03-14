@@ -31,9 +31,9 @@
 
 
 
-## Franka Controller
+## Franka
 
-### Parameters
+### Controller Parameters
 
 - Stiffness: 10000
 - Damping: 100
@@ -46,13 +46,15 @@
 
 ### Instructions
 
-#### Spawn
+#### Basic
 
-- Move your right hand and press button **A** to spawn Franka at the position of your right controller.
+- **Spawn**: Move your right hand and press button **A** to spawn Franka at the position of your right controller.
 
-#### Remove
+- **Remove**: Remove the spawned Franka.
 
-- Remove the last Franka spawned.
+#### Base Lock
+
+
 
 #### Joint Controller
 
@@ -66,6 +68,7 @@
 ## Design Elements
 
 - Panels
+  - Franka Control Panel
   - Manipulability
   - Live view of Franka's wrist camera
 - LfD mode

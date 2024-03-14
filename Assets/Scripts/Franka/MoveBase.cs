@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class MoveBase : MonoBehaviour
 {
-    public float moveSpeed = 1.0f;
-    public float rotateSpeed = 90.0f; // Degrees per second
+    public float moveSpeed = 0.1f;
+    public float rotateSpeed = 45.0f; // Degrees per second
 
     private ArticulationBody articulationBody;
 
@@ -15,14 +15,30 @@ public class MoveBase : MonoBehaviour
 
     void Update()
     {
-        // Get the left thumbstick's current state
-        Vector2 input = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+        // Get the right thumbstick's current state
+        Vector2 input = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
 
         // Calculate the new position based on the input
         Vector3 newPos = articulationBody.transform.position + new Vector3(input.x, 0, input.y) * moveSpeed * Time.deltaTime;
 
-        // Keep the current rotation unchanged
-        Quaternion newRot = articulationBody.transform.rotation;
+        // Get the primary thumbstick's current state for rotation
+        Vector2 rotationInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+        
+        bool moveUp = OVRInput.Get(OVRInput.RawButton.Y);
+        if (moveUp)
+        {
+            newPos += Vector3.up * moveSpeed * Time.deltaTime;
+        }
+
+        bool moveDown = OVRInput.Get(OVRInput.RawButton.X);
+        if (moveDown)
+        {
+            newPos -= Vector3.up * moveSpeed * Time.deltaTime;
+        }
+
+        // Calculate the new rotation around the Y-axis based on the thumbstick's X-axis
+        float newYRotation = rotationInput.x * rotateSpeed * Time.deltaTime;
+        Quaternion newRot = articulationBody.transform.rotation * Quaternion.Euler(0, -newYRotation, 0);
 
         // Apply teleportation to the new position with the current rotation
         articulationBody.TeleportRoot(newPos, newRot);

@@ -66,7 +66,7 @@ public class FrankaManager : MonoBehaviour
     }
 
     // Function to activate all toggles
-    public void ActivateAllToggles()
+    private void ActivateAllToggles()
     {
         foreach (var toggle in toggles)
         {
@@ -82,7 +82,7 @@ public class FrankaManager : MonoBehaviour
     }
 
     // Function to deactivate all toggles
-    public void DeactivateAllToggles()
+    private void DeactivateAllToggles()
     {
         foreach (var toggle in toggles)
         {

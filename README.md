@@ -44,22 +44,29 @@
 
 
 
-### Instructions
+### Franka Control Panel
 
-#### Basic
+#### Initialize the virtual Franka
 
-- **Spawn**: Move your right hand and press button **A** to spawn Franka at the position of your right controller.
+- **Spawn:**
+  - Move your right hand and press **A** to spawn Franka at the position of your right controller.
 
-- **Remove**: Remove the spawned Franka.
+  - Only one Franka is allowed.
 
-#### Base Lock
+- **Remove:** Remove the spawned Franka.
+
+- **Adjust the Position:**
+  - Use the **right thumbstick** to move Franka horizontally.
+  - Press **Y** to move up, **X** to move down.
+  - Use the **left thumbstick** to rotate Franka around the Y axis.
+- **Lock:** Lock the base link to disable adjusting Franka's position.
 
 
 
 #### Joint Controller
 
-- Use the **A** and **B** buttons to select the joint you want to move.
-- Use the **right thumb stick** to move the joint clockwise and counter-clockwise.
+- Press **A** and **B** to select the joint you want to move.
+- Use the **right thumbstick** to move the joint clockwise and counter-clockwise.
 
 
 

@@ -1,6 +1,6 @@
 # Mixed Reality Workstation for LfD
 
-
+<br>
 
 ## Requirements
 
@@ -11,9 +11,7 @@
   - [ROS TCP Connector](https://github.com/Unity-Technologies/ROS-TCP-Connector)
   - [URDF Importer](https://github.com/Unity-Technologies/URDF-Importer)
 
-
-
-
+<br>
 
 ## Resources
 
@@ -27,9 +25,7 @@
     - [URDF Tutorial Appendix](https://github.com/Unity-Technologies/Unity-Robotics-Hub/blob/main/tutorials/urdf_importer/urdf_appendix.md##Convex-Mesh-Collider)
 - [Pick-and-Place Tutorial](https://github.com/Unity-Technologies/Unity-Robotics-Hub/tree/main/tutorials/pick_and_place)
 
-
-
-
+<br>
 
 ## Franka
 
@@ -41,8 +37,6 @@
 - Speed: 30
 - Torque: 100
 - Acceleration: 10
-
-
 
 ### Franka Control Panel
 
@@ -61,16 +55,12 @@
   - Use the **left thumbstick** to rotate Franka around the Y axis.
 - **Lock:** Lock the base link to disable adjusting Franka's position.
 
-
-
 #### Joint Controller
 
 - Press **A** and **B** to select the joint you want to move.
 - Use the **right thumbstick** to move the joint clockwise and counter-clockwise.
 
-
-
-
+<br>
 
 ## Design Elements
 
@@ -92,9 +82,7 @@
   - Buttons to open/close all tabs
 - Stop Button
 
-
-
-
+<br>
 
 ## Troubleshooting
 
@@ -105,8 +93,6 @@
 - Enter into `Packages/com.unity.robotics.urdf-importer/Runtime/UnityMeshImporter/Plugins/AssimpNet/Native/win/x86/`
 - Delete `assimp.dll` and `assimp.dll.meta`
 - Note: Packages are stored in `Library/PackageCache/` if using Unity's Package Manager.
-
-
 
 #### [Unable to build due to namespace errors](https://github.com/Unity-Technologies/Unity-Robotics-Hub/issues/215)
 

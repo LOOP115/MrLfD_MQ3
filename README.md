@@ -58,7 +58,7 @@
 
 #### Joint Controller
 
-- Press **A** and **B** to select the joint you want to move.
+- Press **A** and **B** to switch the joint you want to move.
 - Use the **right thumbstick** to move the joint clockwise and counter-clockwise.
 
 <br>

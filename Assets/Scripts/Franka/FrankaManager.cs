@@ -11,7 +11,8 @@ public class FrankaManager : MonoBehaviour
     private bool isSpawned = false;
     private GameObject franka;
     public List<GameObject> toggles;
-    
+    public List<GameObject> binaryToggles;
+
     private MoveBase moveBase;
     private MoveToStart moveToStart;
     private GripperController gripperController;
@@ -46,7 +47,7 @@ public class FrankaManager : MonoBehaviour
         if (frankaPrefab != null)
         {
             Vector3 handPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
-            franka = Instantiate(frankaPrefab, handPosition, Quaternion.identity);
+            franka = Instantiate(frankaPrefab, handPosition, Quaternion.Euler(0, 180, 0));
 
             moveBase = franka.GetComponent<MoveBase>();
             moveToStart = franka.GetComponent<MoveToStart>();
@@ -54,7 +55,10 @@ public class FrankaManager : MonoBehaviour
             jointController = franka.GetComponent<JointController>();
 
             isSpawned = true;
+
+            // Reset all toggles
             ActivateAllToggles();
+            ResetBinaryToggles();
         }
         else
         {
@@ -100,6 +104,18 @@ public class FrankaManager : MonoBehaviour
                 {
                     toggleComponent.interactable = false;
                 }
+            }
+        }
+    }
+
+    private void ResetBinaryToggles()
+    {
+        foreach (var toggle in binaryToggles)
+        {
+            ToggleImage toggleImage = toggle.GetComponent<ToggleImage>();
+            if (toggleImage != null)
+            {
+                toggleImage.SetImage1Active();
             }
         }
     }

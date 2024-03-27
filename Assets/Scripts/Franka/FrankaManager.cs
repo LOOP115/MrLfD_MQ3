@@ -10,16 +10,17 @@ public class FrankaManager : MonoBehaviour
     public TextMeshProUGUI textComponent;
     private bool isSpawned = false;
     private GameObject franka;
-    public List<GameObject> toggles;
-    public List<GameObject> binaryToggles;
 
     private MoveBase moveBase;
     private MoveToStart moveToStart;
     private GripperController gripperController;
     private JointController jointController;
+    private FrankaSubscriber frankaSubscriber;
+
+    public List<GameObject> toggles;
+    public List<GameObject> binaryToggles;
 
     
-
     void Update()
     {
         if (isSpawned)
@@ -65,6 +66,7 @@ public class FrankaManager : MonoBehaviour
             Debug.LogError("Prefab or RightHandAnchor is not set.");
         }
     }
+
 
     public void RemoveFranka()
     {
@@ -136,16 +138,16 @@ public class FrankaManager : MonoBehaviour
         }
     }
 
-    public void setMoveToStart()
-    {
-        if (franka != null)
-        {
-            if (moveToStart != null)
-            {
-                moveToStart.enabled = !moveToStart.enabled;
-            }
-        }
-    }
+    // public void setMoveToStart()
+    // {
+    //     if (franka != null)
+    //     {
+    //         if (moveToStart != null)
+    //         {
+    //             moveToStart.enabled = !moveToStart.enabled;
+    //         }
+    //     }
+    // }
 
     public void setGripper()
     {
@@ -169,6 +171,16 @@ public class FrankaManager : MonoBehaviour
         }
     }
 
+    public void setFrankaSubscriber()
+    {
+        if (franka != null)
+        {
+            if (frankaSubscriber != null)
+            {
+                frankaSubscriber.enabled = !frankaSubscriber.enabled;
+            }
+        }
+    }
 
     public void ResetFranka()
     {

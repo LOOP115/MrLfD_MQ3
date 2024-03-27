@@ -28,6 +28,8 @@ public static class FrankaConstants
     public static readonly int NumFingers = 2;
 
     public static readonly float FingerOpen = 0.04f;
+
+    public static readonly float FingerClose = 0.0f;
     
     public static readonly string[] FingerName = new string[]
     {

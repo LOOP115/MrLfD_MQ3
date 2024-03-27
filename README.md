@@ -54,6 +54,7 @@
   - Press **Y** to move up, **X** to move down.
   - Use the **left thumbstick** to rotate Franka around the Y axis.
 - **Lock:** Lock the base link to disable adjusting Franka's position.
+- **Reset**: Move the Franka to default initial configuration.
 
 #### Joint Controller
 

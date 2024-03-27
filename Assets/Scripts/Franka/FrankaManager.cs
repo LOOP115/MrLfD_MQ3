@@ -11,7 +11,10 @@ public class FrankaManager : MonoBehaviour
     private bool isSpawned = false;
     private GameObject franka;
     public List<GameObject> toggles;
+    
     private MoveBase moveBase;
+    private MoveToStart moveToStart;
+    private GripperController gripperController;
     private JointController jointController;
 
     
@@ -44,8 +47,12 @@ public class FrankaManager : MonoBehaviour
         {
             Vector3 handPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
             franka = Instantiate(frankaPrefab, handPosition, Quaternion.identity);
+
             moveBase = franka.GetComponent<MoveBase>();
+            moveToStart = franka.GetComponent<MoveToStart>();
+            gripperController = franka.GetComponent<GripperController>();
             jointController = franka.GetComponent<JointController>();
+
             isSpawned = true;
             ActivateAllToggles();
         }
@@ -97,14 +104,40 @@ public class FrankaManager : MonoBehaviour
         }
     }
 
+    private void DeactivateManager()
+    {
+        gameObject.SetActive(false);
+    }
+
     public void setBase()
     {
         if (franka != null)
         {
             if (moveBase != null)
             {
-                moveBase = franka.GetComponent<MoveBase>();
                 moveBase.enabled = !moveBase.enabled;
+            }
+        }
+    }
+
+    public void setMoveToStart()
+    {
+        if (franka != null)
+        {
+            if (moveToStart != null)
+            {
+                moveToStart.enabled = !moveToStart.enabled;
+            }
+        }
+    }
+
+    public void setGripper()
+    {
+        if (franka != null)
+        {
+            if (gripperController != null)
+            {
+                gripperController.enabled = !gripperController.enabled;
             }
         }
     }
@@ -115,14 +148,44 @@ public class FrankaManager : MonoBehaviour
         {
             if (jointController != null)
             {
-                jointController = franka.GetComponent<JointController>();
-                jointController.enabled = !jointController.enabled;
+                jointController.setController();
             }
         }
     }
 
-    private void DeactivateManager()
+
+    public void ResetFranka()
     {
-        gameObject.SetActive(false);
+        if (franka != null)
+        {
+            if (moveToStart != null && gripperController != null)
+            {
+                moveToStart.Reset();
+                gripperController.Open();
+            }
+        }
     }
+
+    public void OpenGripper()
+    {
+        if (franka != null)
+        {
+            if (gripperController != null)
+            {
+                gripperController.Open();
+            }
+        }
+    }
+
+    public void CloseGripper()
+    {
+        if (franka != null)
+        {
+            if (gripperController != null)
+            {
+                gripperController.Close();
+            }
+        }
+    }
+
 }

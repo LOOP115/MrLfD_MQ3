@@ -7,14 +7,12 @@ public class FrankaToUnity : MonoBehaviour
 {
     // The topic to subscribe to
     private readonly string topicName = "/franka_joints";
-
-    public GameObject Franka;
     
     // Array to hold the joint Articulation Bodies
     private ArticulationBody[] jointArticulationBodies;
 
     public float topicHz = 200.0f; // Frequency to check for new messages
-    private float jointAssignmentWait => 1 / topicHz; // Time to wait after setting each joint position
+    private float jointAssignmentWait = 0.001f; // Time to wait after setting each joint position
 
 
     void Start()
@@ -25,7 +23,7 @@ public class FrankaToUnity : MonoBehaviour
         for (var i = 0; i < FrankaConstants.NumJoints; i++)
         {
             linkName += FrankaConstants.LinkNames[i];
-            jointArticulationBodies[i] = Franka.transform.Find(linkName).GetComponent<ArticulationBody>();
+            jointArticulationBodies[i] = transform.Find(linkName).GetComponent<ArticulationBody>();
         }
 
         // Establish ROS connection and subscribe to the topic
@@ -54,11 +52,9 @@ public class FrankaToUnity : MonoBehaviour
                 var jointXDrive = jointArticulationBodies[jointIndex].xDrive;
                 jointXDrive.target = (float)jointsMsg.joints[jointIndex] * Mathf.Rad2Deg; // Convert to degrees
                 jointArticulationBodies[jointIndex].xDrive = jointXDrive;
-
-                // Wait for a bit before moving to the next joint
-                yield return new WaitForSeconds(jointAssignmentWait);
             }
         }
+        yield return new WaitForSeconds(jointAssignmentWait);
     }
 
 }

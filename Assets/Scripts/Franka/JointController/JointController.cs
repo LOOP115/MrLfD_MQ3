@@ -1,9 +1,9 @@
-using System;
 using Unity.Robotics;
 using RotationDirection = Unity.Robotics.UrdfImporter.Control.RotationDirection;
 using ControlType = Unity.Robotics.UrdfImporter.Control.ControlType;
 using FKRobot = Unity.Robotics.UrdfImporter.Control.FKRobot;
 using UnityEngine;
+
 
 namespace Franka.Control
 {
@@ -20,15 +20,18 @@ namespace Franka.Control
         public int selectedIndex;
 
         public ControlType control = ControlType.PositionControl;
-        public float stiffness;
-        public float damping;
-        public float forceLimit;
-        public float speed = 5f; // Units: degree/s
+        public float stiffness = 10000f;
+        public float damping = 100f;
+        public float forceLimit = 1000f;
+        public float speed = 30f; // Units: degree/s
         public float torque = 100f; // Units: Nm or N
-        public float acceleration = 5f;// Units: m/s^2 / degree/s^2
+        public float acceleration = 10f;// Units: m/s^2 / degree/s^2
 
         [Tooltip("Color to highlight the currently selected join")]
         public Color highLightColor = new Color(1.0f, 0, 0, 1.0f);
+
+        private bool controllerActive = false;
+
 
         void Start()
         {
@@ -59,6 +62,11 @@ namespace Franka.Control
 
         void Update()
         {
+            if (!controllerActive)
+            {
+                return;
+            }
+
             bool SelectionInput1 = OVRInput.GetDown(OVRInput.Button.One);
             bool SelectionInput2 = OVRInput.GetDown(OVRInput.Button.Two);
 
@@ -79,6 +87,11 @@ namespace Franka.Control
             UpdateDirection(selectedIndex);
         }
 
+        public void setController()
+        {
+            controllerActive = !controllerActive;
+        }
+        
         /// <summary>
         /// Highlights the color of the robot by changing the color of the part to a color set by the user in the inspector window
         /// </summary>

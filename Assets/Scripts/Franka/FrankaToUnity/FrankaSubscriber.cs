@@ -3,7 +3,7 @@ using Unity.Robotics.ROSTCPConnector;
 using RosMessageTypes.CtrlInterfaces;
 using System.Collections;
 
-public class FrankaToUnity : MonoBehaviour
+public class FrankaSubscriber : MonoBehaviour
 {
     // The topic to subscribe to
     private readonly string topicName = "/franka_joints";
@@ -11,7 +11,7 @@ public class FrankaToUnity : MonoBehaviour
     // Array to hold the joint Articulation Bodies
     private ArticulationBody[] jointArticulationBodies;
 
-    public float topicHz = 200.0f; // Frequency to check for new messages
+    // public float topicHz = 200.0f; // Frequency to check for new messages
     private float jointAssignmentWait = 0.001f; // Time to wait after setting each joint position
 
 

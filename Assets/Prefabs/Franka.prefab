@@ -296,6 +296,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4441892989755162206, guid: 7ecfb694cdaa3cf4badc5017a79ccc3a,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1944186805082696194}
+    - targetCorrespondingSourceObject: {fileID: 4441892989755162206, guid: 7ecfb694cdaa3cf4badc5017a79ccc3a,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 6495933944524736249}
     - targetCorrespondingSourceObject: {fileID: 4441892989755162206, guid: 7ecfb694cdaa3cf4badc5017a79ccc3a,
         type: 3}
@@ -308,10 +312,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4441892989755162206, guid: 7ecfb694cdaa3cf4badc5017a79ccc3a,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1944186805082696194}
-    - targetCorrespondingSourceObject: {fileID: 4441892989755162206, guid: 7ecfb694cdaa3cf4badc5017a79ccc3a,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 4241092754851755557}
   m_SourcePrefab: {fileID: 100100000, guid: 7ecfb694cdaa3cf4badc5017a79ccc3a, type: 3}
 --- !u!1 &4252421480813252766 stripped
@@ -320,6 +320,28 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 479462857356488384}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1944186805082696194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4252421480813252766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6efcb0c45a2595f469c842d72939f1b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedJoint: 
+  selectedIndex: 0
+  control: 0
+  stiffness: 10000
+  damping: 100
+  forceLimit: 1000
+  speed: 30
+  torque: 100
+  acceleration: 10
+  highLightColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &6495933944524736249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,28 +382,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jointAssignmentWait: 0.1
---- !u!114 &1944186805082696194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4252421480813252766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6efcb0c45a2595f469c842d72939f1b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedJoint: 
-  selectedIndex: 0
-  control: 0
-  stiffness: 10000
-  damping: 100
-  forceLimit: 1000
-  speed: 30
-  torque: 100
-  acceleration: 10
-  highLightColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &4241092754851755557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,4 +394,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd9afc8aff171eb418cc45a3397ae7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topicHz: 200

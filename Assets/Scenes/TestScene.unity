@@ -25269,7 +25269,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &786511331
 Transform:
   m_ObjectHideFlags: 0
@@ -47638,7 +47638,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd9afc8aff171eb418cc45a3397ae7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Franka: {fileID: 790736943}
   topicHz: 20
 --- !u!1 &1758177070
 GameObject:
@@ -48160,6 +48159,19 @@ MonoBehaviour:
   m_FlexibleWidth: 1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1783578433774224180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790736943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd9afc8aff171eb418cc45a3397ae7c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topicHz: 200
 --- !u!1001 &4809881208885678197
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48226,12 +48238,16 @@ PrefabInstance:
     - target: {fileID: 4252421480813252766, guid: 76a9cbcddfd4e544a968d96f87cda9dd,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4252421480813252766, guid: 76a9cbcddfd4e544a968d96f87cda9dd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1783578433774224180}
   m_SourcePrefab: {fileID: 100100000, guid: 76a9cbcddfd4e544a968d96f87cda9dd, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

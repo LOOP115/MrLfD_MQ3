@@ -8,18 +8,18 @@ public class FrankaManager : MonoBehaviour
 {
     public GameObject frankaPrefab;
     public TextMeshProUGUI textComponent;
-    private bool isSpawned = false;
+    public List<GameObject> toggles;
+    public List<GameObject> binaryToggles;
+    
     private GameObject franka;
+    private bool isSpawned = false;
 
     private MoveBase moveBase;
     private MoveToStart moveToStart;
     private GripperController gripperController;
     private JointController jointController;
     private FrankaSubscriber frankaSubscriber;
-
-    public List<GameObject> toggles;
-    public List<GameObject> binaryToggles;
-
+    
     
     void Update()
     {

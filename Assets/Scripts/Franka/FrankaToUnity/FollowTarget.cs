@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using RosMessageTypes.CtrlInterfaces;
-using Unity.Robotics.ROSTCPConnector;
 using Unity.Robotics.ROSTCPConnector.ROSGeometry;
 
 
@@ -15,20 +14,17 @@ public class FollowTarget : MonoBehaviour
     private Vector3 lastTargetPosition;
 
     public string topicName = "/unity_target_pose";
-    
-    private ROSConnection ros;
+
+    private RosConnector rosConnector;
     // public float publishHz = 20.0f;
     // private float publishFrequency => 1.0f / publishHz;
     // private float timeElapsed;
     
 
-
     void Start()
     {
+        rosConnector = FindObjectOfType<RosConnector>();
         StartCoroutine(DelaySpawnEndEffectorTarget());
-        
-        ros = ROSConnection.GetOrCreateInstance();
-        ros.RegisterPublisher<PosTargetMsg>(topicName);
     }
 
     private void Update()
@@ -49,7 +45,7 @@ public class FollowTarget : MonoBehaviour
                 rot_w = targetRotation.w
             };
 
-            ros.Publish(topicName, targetPoseMsg);
+            rosConnector.GetBridge().Publish(topicName, targetPoseMsg);
             lastTargetPosition = endEffectorTarget.transform.position;
         }
 

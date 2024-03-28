@@ -14,12 +14,13 @@ public class FrankaManager : MonoBehaviour
     private GameObject franka;
     private bool isSpawned = false;
 
+    private JointController jointController;
     private MoveBase moveBase;
     private MoveToStart moveToStart;
     private GripperController gripperController;
-    private JointController jointController;
     private FrankaSubscriber frankaSubscriber;
-    
+    private JointsPublisher jointsPublisher;
+
     
     void Update()
     {
@@ -50,11 +51,13 @@ public class FrankaManager : MonoBehaviour
             Vector3 handPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
             franka = Instantiate(frankaPrefab, handPosition, Quaternion.Euler(0, 180, 0));
 
+            jointController = franka.GetComponent<JointController>();
             moveBase = franka.GetComponent<MoveBase>();
             moveToStart = franka.GetComponent<MoveToStart>();
             gripperController = franka.GetComponent<GripperController>();
-            jointController = franka.GetComponent<JointController>();
-
+            frankaSubscriber = franka.GetComponent<FrankaSubscriber>();
+            jointsPublisher = franka.GetComponent<JointsPublisher>();
+            
             isSpawned = true;
 
             // Reset all toggles
@@ -72,9 +75,11 @@ public class FrankaManager : MonoBehaviour
     {
         if (franka != null)
         {
+            frankaSubscriber.Unsubscribe();
             Destroy(franka);
             isSpawned = false;
             DeactivateAllToggles();
+            ResetBinaryToggles();
         }
     }
 

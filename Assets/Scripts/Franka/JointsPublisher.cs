@@ -1,25 +1,16 @@
 using UnityEngine;
-using Unity.Robotics.ROSTCPConnector;
 using Unity.Robotics.UrdfImporter;
 using RosMessageTypes.CtrlInterfaces;
 
 
 public class JointsPublisher : MonoBehaviour
 {
-    // Variables required for ROS communication
-    [SerializeField]
-    string m_TopicName = "/unity_franka_joints";
-
-    [SerializeField]
-    GameObject m_Franka;
-
     // Robot Joints
-    UrdfJointRevolute[] m_JointArticulationBodies;
+    private UrdfJointRevolute[] jointArticulationBodies;
 
     // ROS Connector
-    ROSConnection m_Ros;
+    private RosConnector rosConnector;
 
-    
     public float PublishHz = 20.0f;
     private float PublishFrequency => 1.0f / PublishHz;
 
@@ -27,17 +18,14 @@ public class JointsPublisher : MonoBehaviour
 
     void Start()
     {
-        // Get ROS connection static instance
-        m_Ros = ROSConnection.GetOrCreateInstance();
-        m_Ros.RegisterPublisher<FrankaJointsMsg>(m_TopicName);
-
-        m_JointArticulationBodies = new UrdfJointRevolute[FrankaConstants.NumJoints];
+        rosConnector = FindObjectOfType<RosConnector>();
+        jointArticulationBodies = new UrdfJointRevolute[FrankaConstants.NumJoints];
 
         var linkName = string.Empty;
         for (var i = 0; i < FrankaConstants.NumJoints; i++)
         {
             linkName += FrankaConstants.LinkNames[i];
-            m_JointArticulationBodies[i] = m_Franka.transform.Find(linkName).GetComponent<UrdfJointRevolute>();
+            jointArticulationBodies[i] = transform.Find(linkName).GetComponent<UrdfJointRevolute>();
         }
     }
 
@@ -50,11 +38,11 @@ public class JointsPublisher : MonoBehaviour
             var jointsMsg = new FrankaJointsMsg();
             for (var i = 0; i < FrankaConstants.NumJoints; i++)
             {
-                jointsMsg.joints[i] = m_JointArticulationBodies[i].GetPosition();
+                jointsMsg.joints[i] = jointArticulationBodies[i].GetPosition();
             }
 
             // Finally send the message to server_endpoint.py running in ROS
-            m_Ros.Publish(m_TopicName, jointsMsg);
+            rosConnector.GetBridge().Publish(rosConnector.topicUnityFrankaJoints, jointsMsg);
 
             timeElapsed = 0;
         }

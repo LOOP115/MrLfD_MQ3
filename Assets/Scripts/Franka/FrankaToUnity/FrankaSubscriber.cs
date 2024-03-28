@@ -1,22 +1,21 @@
 using UnityEngine;
-using Unity.Robotics.ROSTCPConnector;
 using RosMessageTypes.CtrlInterfaces;
 using System.Collections;
 
 public class FrankaSubscriber : MonoBehaviour
 {
-    // The topic to subscribe to
-    private readonly string topicName = "/franka_joints";
-    
     // Array to hold the joint Articulation Bodies
     private ArticulationBody[] jointArticulationBodies;
 
     // public float topicHz = 200.0f; // Frequency to check for new messages
     private float jointAssignmentWait = 0.001f; // Time to wait after setting each joint position
 
+    private RosConnector rosConnector;
+
 
     void Start()
     {
+        rosConnector = FindObjectOfType<RosConnector>();
         jointArticulationBodies = new ArticulationBody[FrankaConstants.NumJoints];
         
         var linkName = string.Empty;
@@ -27,7 +26,7 @@ public class FrankaSubscriber : MonoBehaviour
         }
 
         // Establish ROS connection and subscribe to the topic
-        ROSConnection.GetOrCreateInstance().Subscribe<FrankaJointsMsg>(topicName, UpdateJointPositions);
+        rosConnector.GetBridge().Subscribe<FrankaJointsMsg>(rosConnector.topicFrankaJoints, UpdateJointPositions);
     }
 
     
@@ -55,6 +54,11 @@ public class FrankaSubscriber : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(jointAssignmentWait);
+    }
+
+    public void Unsubscribe()
+    {
+        rosConnector.GetBridge().Unsubscribe(rosConnector.topicFrankaJoints);
     }
 
 }

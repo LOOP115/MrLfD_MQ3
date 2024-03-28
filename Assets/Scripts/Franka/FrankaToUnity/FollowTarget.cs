@@ -33,7 +33,7 @@ public class FollowTarget : MonoBehaviour
 
     private void Update()
     {
-        if (endEffectorTarget.transform.position != lastTargetPosition)
+        if (endEffectorTarget != null && endEffectorTarget.transform.position != lastTargetPosition)
         {
             var targetPosition = endEffectorTarget.transform.localPosition.To<FLU>();
             var targetRotation = endEffectorTarget.transform.localRotation.To<FLU>();

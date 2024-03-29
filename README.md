@@ -81,7 +81,7 @@
   - Tabs for different panels
     - Toggle Visibility
   - Buttons to open/close all tabs
-- Stop Button
+  - Quit game
 
 <br>
 

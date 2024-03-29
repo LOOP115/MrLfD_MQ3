@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GeneralUtils : MonoBehaviour
+public class ObjectUtils : MonoBehaviour
 {
     public GameObject targetObject; // Assign the target GameObject in the Inspector
 

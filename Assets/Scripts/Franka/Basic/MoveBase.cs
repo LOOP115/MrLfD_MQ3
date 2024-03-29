@@ -42,5 +42,7 @@ public class MoveBase : MonoBehaviour
 
         // Apply teleportation to the new position with the current rotation
         articulationBody.TeleportRoot(newPos, newRot);
+        gameObject.transform.position = newPos;
+        gameObject.transform.rotation = newRot;
     }
 }

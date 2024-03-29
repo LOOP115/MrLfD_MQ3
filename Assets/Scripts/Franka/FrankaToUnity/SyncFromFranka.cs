@@ -2,7 +2,7 @@ using UnityEngine;
 using RosMessageTypes.CtrlInterfaces;
 using System.Collections;
 
-public class PullFromFranka : MonoBehaviour
+public class SyncFromFranka : MonoBehaviour
 {
     // Array to hold the joint Articulation Bodies
     private ArticulationBody[] jointArticulationBodies;
@@ -53,7 +53,7 @@ public class PullFromFranka : MonoBehaviour
         yield return new WaitForSeconds(jointAssignmentWait);
     }
 
-    public void subscribe()
+    public void Subscribe()
     {
         rosConnector.GetBridge().Subscribe<FrankaJointsMsg>(rosConnector.topicFrankaJoints, UpdateJointPositions);
     }

@@ -87,11 +87,12 @@ namespace Franka.Control
             UpdateDirection(selectedIndex);
         }
 
-        public void setController()
+        public void setControllerState(bool state)
         {
-            controllerActive = !controllerActive;
+            controllerActive = state;
         }
-        
+
+
         /// <summary>
         /// Highlights the color of the robot by changing the color of the part to a color set by the user in the inspector window
         /// </summary>

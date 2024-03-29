@@ -12,6 +12,7 @@ public class EndEffectorTarget : MonoBehaviour
     public GameObject world;
     private GameObject endEffectorTarget;
     private Vector3 lastTargetPosition;
+    private bool isSpawned = false;
 
     public string topicName = "/unity_target_pose";
 
@@ -24,11 +25,17 @@ public class EndEffectorTarget : MonoBehaviour
     void Start()
     {
         rosConnector = FindObjectOfType<RosConnector>();
-        StartCoroutine(DelaySpawnEndEffectorTarget());
     }
 
     private void Update()
     {
+        if (!isSpawned && endEffectorTarget == null)
+        {
+            StartCoroutine(DelaySpawnCenterTarget());
+            isSpawned = true;
+            return;
+        }
+        
         if (endEffectorTarget != null && endEffectorTarget.transform.position != lastTargetPosition)
         {
             var targetPosition = endEffectorTarget.transform.localPosition.To<FLU>();
@@ -49,7 +56,6 @@ public class EndEffectorTarget : MonoBehaviour
             lastTargetPosition = endEffectorTarget.transform.position;
         }
 
-        // Teleport target
         if (OVRInput.GetDown(OVRInput.Button.One))
         {
             if (endEffectorTarget != null)
@@ -62,14 +68,15 @@ public class EndEffectorTarget : MonoBehaviour
 
     }
 
-
-    IEnumerator DelaySpawnEndEffectorTarget()
+    IEnumerator DelaySpawnCenterTarget()
     {
         yield return new WaitForSeconds(0.5f);
-        SpawnEndEffectorTarget();
+        SpawnCenterTarget();
     }
 
-    private void SpawnEndEffectorTarget()
+
+    // Spawn the target in the center of the two fingers of Franka
+    private void SpawnCenterTarget()
     {
         if (frankaLeftFinger != null && frankaRightFinger != null)
         {
@@ -89,6 +96,15 @@ public class EndEffectorTarget : MonoBehaviour
         {
             Debug.LogError("Left and Right Finger GameObjects are not set.");
         }
+    }
+
+    public void RemoveTarget()
+    {
+        if (endEffectorTarget != null)
+        {
+            Destroy(endEffectorTarget);
+        }
+
     }
 
 }

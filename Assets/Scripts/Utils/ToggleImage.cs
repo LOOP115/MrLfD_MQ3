@@ -41,4 +41,9 @@ public class ToggleImage : MonoBehaviour
         }
     }
 
+    public bool Image1isActive()
+    {
+        return isImage1Active;
+    }
+
 }

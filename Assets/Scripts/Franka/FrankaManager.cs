@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 using Franka.Control;
+using Unity.VisualScripting;
 
 public class FrankaManager : MonoBehaviour
 {
@@ -10,6 +12,10 @@ public class FrankaManager : MonoBehaviour
     public TextMeshProUGUI textComponent;
     public List<GameObject> toggles;
     public List<GameObject> binaryToggles;
+    
+    public Toggle moveBaseToggle;
+    public Toggle jointControllerToggle;
+    public Toggle followTargetToggle;
     
     private GameObject franka;
     private bool isSpawned = false;
@@ -19,7 +25,7 @@ public class FrankaManager : MonoBehaviour
     private MoveToStart moveToStart;
     private MoveBase moveBase;
     private EndEffectorTarget endEffectorTarget;
-    private PullFromFranka pullFromFranka;
+    private SyncFromFranka syncFromFranka;
     private JointsPublisher jointsPublisher;
 
     
@@ -57,14 +63,14 @@ public class FrankaManager : MonoBehaviour
             moveToStart = franka.GetComponent<MoveToStart>();
             moveBase = franka.GetComponent<MoveBase>();
             endEffectorTarget = franka.GetComponent<EndEffectorTarget>();
-            pullFromFranka = franka.GetComponent<PullFromFranka>();
+            syncFromFranka = franka.GetComponent<SyncFromFranka>();
             jointsPublisher = franka.GetComponent<JointsPublisher>();
             
             isSpawned = true;
 
             // Reset all toggles
             ActivateAllToggles();
-            ResetBinaryToggles();
+            // ResetBinaryToggles();
         }
         else
         {
@@ -72,16 +78,27 @@ public class FrankaManager : MonoBehaviour
         }
     }
 
-
     public void RemoveFranka()
     {
         if (franka != null)
         {
-            pullFromFranka.Unsubscribe();
+            syncFromFranka.Unsubscribe();
             Destroy(franka);
             isSpawned = false;
             DeactivateAllToggles();
             ResetBinaryToggles();
+        }
+    }
+
+    public void ResetFranka()
+    {
+        if (franka != null)
+        {
+            if (moveToStart != null && gripperController != null)
+            {
+                moveToStart.Reset();
+                gripperController.Open();
+            }
         }
     }
 
@@ -134,93 +151,135 @@ public class FrankaManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void setBase()
-    {
-        if (franka != null)
-        {
-            if (moveBase != null)
-            {
-                moveBase.enabled = !moveBase.enabled;
-            }
-        }
-    }
-
-    // public void setMoveToStart()
+    
+    // private void stopAllControllersExcept(Toggle maintain)
     // {
     //     if (franka != null)
     //     {
-    //         if (moveToStart != null)
+    //         if (jointController != null)
     //         {
-    //             moveToStart.enabled = !moveToStart.enabled;
+    //             jointController.setControllerState(false);
+    //         }
+    //         if (moveBase != null)
+    //         {
+    //             moveBase.enabled = false;
+    //         }
+    //         if (endEffectorTarget != null)
+    //         {
+    //             endEffectorTarget.RemoveTarget();
+    //             endEffectorTarget.enabled = false;
+    //             syncFromFranka.Unsubscribe();
     //         }
     //     }
     // }
 
-    public void setGripper()
+
+    public void toggleMoveBase()
     {
         if (franka != null)
         {
-            if (gripperController != null)
+            if (moveBaseToggle != null)
             {
-                gripperController.enabled = !gripperController.enabled;
+                ToggleImage toggleImage = moveBaseToggle.GetComponent<ToggleImage>();
+                if (toggleImage.Image1isActive())
+                {
+                    moveBase.enabled = true;
+                }
+                else
+                {
+                    moveBase.enabled = false;
+                }
+                toggleImage.SwitchToggleImage();
             }
         }
     }
 
-    public void setJointController()
+    public void toggleJointController()
     {
         if (franka != null)
         {
-            if (jointController != null)
+            if (jointControllerToggle != null)
             {
-                jointController.setController();
+                ToggleImage toggleImage = jointControllerToggle.GetComponent<ToggleImage>();
+                if (toggleImage.Image1isActive())
+                {
+                    jointController.setControllerState(true);
+                }
+                else
+                {
+                    jointController.setControllerState(false);
+                }
+                toggleImage.SwitchToggleImage();
             }
         }
     }
 
-    public void setFrankaSubscriber()
+    public void toggleFollowTarget()
     {
         if (franka != null)
         {
-            if (pullFromFranka != null)
+            if (followTargetToggle != null)
             {
-                pullFromFranka.enabled = !pullFromFranka.enabled;
+                ToggleImage toggleImage = followTargetToggle.GetComponent<ToggleImage>();
+                if (toggleImage.Image1isActive())
+                {
+                    startFollowTarget();
+                }
+                else
+                {
+                    stopFollowTarget();
+                }
+                toggleImage.SwitchToggleImage();
+            }
+        }
+    }
+    
+    private void startFollowTarget()
+    {
+        if (franka != null)
+        {
+            if (endEffectorTarget != null && syncFromFranka != null)
+            {
+                endEffectorTarget.enabled = true;
+                syncFromFranka.Subscribe();
             }
         }
     }
 
-    public void ResetFranka()
+    private void stopFollowTarget()
     {
         if (franka != null)
         {
-            if (moveToStart != null && gripperController != null)
+            if (endEffectorTarget != null && syncFromFranka != null)
             {
-                moveToStart.Reset();
-                gripperController.Open();
+                endEffectorTarget.RemoveTarget();
+                endEffectorTarget.enabled = false;
+                syncFromFranka.Unsubscribe();
             }
         }
     }
 
-    public void OpenGripper()
-    {
-        if (franka != null)
-        {
-            if (gripperController != null)
-            {
-                gripperController.Open();
-            }
-        }
-    }
 
-    public void CloseGripper()
-    {
-        if (franka != null)
-        {
-            if (gripperController != null)
-            {
-                gripperController.Close();
-            }
-        }
-    }
+    // public void OpenGripper()
+    // {
+    //     if (franka != null)
+    //     {
+    //         if (gripperController != null)
+    //         {
+    //             gripperController.Open();
+    //         }
+    //     }
+    // }
+
+    // public void CloseGripper()
+    // {
+    //     if (franka != null)
+    //     {
+    //         if (gripperController != null)
+    //         {
+    //             gripperController.Close();
+    //         }
+    //     }
+    // }
 
 }

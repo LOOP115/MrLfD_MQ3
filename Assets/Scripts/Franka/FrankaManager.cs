@@ -15,10 +15,11 @@ public class FrankaManager : MonoBehaviour
     private bool isSpawned = false;
 
     private JointController jointController;
-    private MoveBase moveBase;
-    private MoveToStart moveToStart;
     private GripperController gripperController;
-    private FrankaSubscriber frankaSubscriber;
+    private MoveToStart moveToStart;
+    private MoveBase moveBase;
+    private EndEffectorTarget endEffectorTarget;
+    private PullFromFranka pullFromFranka;
     private JointsPublisher jointsPublisher;
 
     
@@ -52,10 +53,11 @@ public class FrankaManager : MonoBehaviour
             franka = Instantiate(frankaPrefab, handPosition, Quaternion.Euler(0, 180, 0));
 
             jointController = franka.GetComponent<JointController>();
-            moveBase = franka.GetComponent<MoveBase>();
-            moveToStart = franka.GetComponent<MoveToStart>();
             gripperController = franka.GetComponent<GripperController>();
-            frankaSubscriber = franka.GetComponent<FrankaSubscriber>();
+            moveToStart = franka.GetComponent<MoveToStart>();
+            moveBase = franka.GetComponent<MoveBase>();
+            endEffectorTarget = franka.GetComponent<EndEffectorTarget>();
+            pullFromFranka = franka.GetComponent<PullFromFranka>();
             jointsPublisher = franka.GetComponent<JointsPublisher>();
             
             isSpawned = true;
@@ -75,7 +77,7 @@ public class FrankaManager : MonoBehaviour
     {
         if (franka != null)
         {
-            frankaSubscriber.Unsubscribe();
+            pullFromFranka.Unsubscribe();
             Destroy(franka);
             isSpawned = false;
             DeactivateAllToggles();
@@ -180,9 +182,9 @@ public class FrankaManager : MonoBehaviour
     {
         if (franka != null)
         {
-            if (frankaSubscriber != null)
+            if (pullFromFranka != null)
             {
-                frankaSubscriber.enabled = !frankaSubscriber.enabled;
+                pullFromFranka.enabled = !pullFromFranka.enabled;
             }
         }
     }

@@ -9141,11 +9141,11 @@ GameObject:
   - component: {fileID: 8018677153575620145}
   - component: {fileID: 4674676170184379773}
   - component: {fileID: 7798365730008150551}
-  - component: {fileID: 8381003220165892046}
-  - component: {fileID: 1232181649108248848}
   - component: {fileID: 8929343744363353223}
-  - component: {fileID: 3878465469143133896}
+  - component: {fileID: 1232181649108248848}
+  - component: {fileID: 8381003220165892046}
   - component: {fileID: 3537612527588664081}
+  - component: {fileID: 3878465469143133896}
   - component: {fileID: 7351278590340566411}
   m_Layer: 0
   m_Name: Franka
@@ -9209,33 +9209,6 @@ MonoBehaviour:
   torque: 100
   acceleration: 10
   highLightColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!114 &8381003220165892046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7815038884790468017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1002c95fd1d4904890e906f234bd907, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 0.1
-  rotateSpeed: 45
---- !u!114 &1232181649108248848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7815038884790468017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d1a1d5ca17ba3e44b534a3bb1ea0846, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jointAssignmentWait: 0.1
 --- !u!114 &8929343744363353223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9249,7 +9222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jointAssignmentWait: 0.1
---- !u!114 &3878465469143133896
+--- !u!114 &1232181649108248848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9258,9 +9231,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 7815038884790468017}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd9afc8aff171eb418cc45a3397ae7c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d1a1d5ca17ba3e44b534a3bb1ea0846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jointAssignmentWait: 0.1
+--- !u!114 &8381003220165892046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7815038884790468017}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1002c95fd1d4904890e906f234bd907, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0.1
+  rotateSpeed: 45
 --- !u!114 &3537612527588664081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9279,7 +9267,7 @@ MonoBehaviour:
     type: 3}
   world: {fileID: 2465380122723505249}
   topicName: /unity_target_pose
---- !u!114 &7351278590340566411
+--- !u!114 &3878465469143133896
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9287,6 +9275,18 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815038884790468017}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd9afc8aff171eb418cc45a3397ae7c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7351278590340566411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7815038884790468017}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7518c9da10929cd4eaeecc586a8b33ea, type: 3}
   m_Name: 

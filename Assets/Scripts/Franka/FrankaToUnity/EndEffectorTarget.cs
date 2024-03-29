@@ -4,7 +4,7 @@ using RosMessageTypes.CtrlInterfaces;
 using Unity.Robotics.ROSTCPConnector.ROSGeometry;
 
 
-public class FollowTarget : MonoBehaviour
+public class EndEffectorTarget : MonoBehaviour
 {
     public GameObject frankaLeftFinger;
     public GameObject frankaRightFinger;

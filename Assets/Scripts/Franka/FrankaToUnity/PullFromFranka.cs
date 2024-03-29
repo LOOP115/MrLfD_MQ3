@@ -2,7 +2,7 @@ using UnityEngine;
 using RosMessageTypes.CtrlInterfaces;
 using System.Collections;
 
-public class FrankaSubscriber : MonoBehaviour
+public class PullFromFranka : MonoBehaviour
 {
     // Array to hold the joint Articulation Bodies
     private ArticulationBody[] jointArticulationBodies;
@@ -24,9 +24,6 @@ public class FrankaSubscriber : MonoBehaviour
             linkName += FrankaConstants.LinkNames[i];
             jointArticulationBodies[i] = transform.Find(linkName).GetComponent<ArticulationBody>();
         }
-
-        // Establish ROS connection and subscribe to the topic
-        rosConnector.GetBridge().Subscribe<FrankaJointsMsg>(rosConnector.topicFrankaJoints, UpdateJointPositions);
     }
 
     
@@ -56,6 +53,11 @@ public class FrankaSubscriber : MonoBehaviour
         yield return new WaitForSeconds(jointAssignmentWait);
     }
 
+    public void subscribe()
+    {
+        rosConnector.GetBridge().Subscribe<FrankaJointsMsg>(rosConnector.topicFrankaJoints, UpdateJointPositions);
+    }
+    
     public void Unsubscribe()
     {
         rosConnector.GetBridge().Unsubscribe(rosConnector.topicFrankaJoints);

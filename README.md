@@ -1,4 +1,6 @@
-# XR Control Panel for Franka on Quest 3
+# Franka_Quest3
+
+This is the Unity endpoint for [Franka_XR](https://github.com/LOOP115/Franka_XR_Hub), offering features such as an XR control interface for Franka on Quest 3.
 
 <br>
 

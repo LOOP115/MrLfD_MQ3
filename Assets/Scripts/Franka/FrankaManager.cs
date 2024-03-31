@@ -10,9 +10,20 @@ public class FrankaManager : MonoBehaviour
 {
     public GameObject frankaPrefab;
     public TextMeshProUGUI textComponent;
-    public List<GameObject> toggles;
-    public List<GameObject> binaryToggles;
+    public List<GameObject> monoToggles;
+    public List<GameObject> dualToggles;
     
+    private List<GameObject> toggles
+    {
+        get
+        {
+            List<GameObject> toggles = new List<GameObject>(monoToggles);
+            toggles.AddRange(dualToggles);
+            return toggles;
+        }
+    }
+
+    public Toggle resetToggle;
     public Toggle moveBaseToggle;
     public Toggle jointControllerToggle;
     public Toggle followTargetToggle;
@@ -68,9 +79,7 @@ public class FrankaManager : MonoBehaviour
             
             isSpawned = true;
 
-            // Reset all toggles
-            ActivateAllToggles();
-            // ResetBinaryToggles();
+            ActivateToggles();
         }
         else
         {
@@ -85,7 +94,7 @@ public class FrankaManager : MonoBehaviour
             syncFromFranka.Unsubscribe();
             Destroy(franka);
             isSpawned = false;
-            DeactivateAllToggles();
+            DeactivateTogglesExcept();
             ResetBinaryToggles();
         }
     }
@@ -103,7 +112,7 @@ public class FrankaManager : MonoBehaviour
     }
 
     // Function to activate all toggles
-    private void ActivateAllToggles()
+    private void ActivateToggles()
     {
         foreach (var toggle in toggles)
         {
@@ -119,16 +128,19 @@ public class FrankaManager : MonoBehaviour
     }
 
     // Function to deactivate all toggles
-    private void DeactivateAllToggles()
+    private void DeactivateTogglesExcept(List<GameObject> togglesToMaintain = null)
     {
         foreach (var toggle in toggles)
         {
             if (toggle != null)
             {
-                Toggle toggleComponent = toggle.GetComponent<Toggle>();
-                if (toggleComponent != null)
+                if (togglesToMaintain == null || !togglesToMaintain.Contains(toggle))
                 {
-                    toggleComponent.interactable = false;
+                    Toggle toggleComponent = toggle.GetComponent<Toggle>();
+                    if (toggleComponent != null)
+                    {
+                        toggleComponent.interactable = false;
+                    }
                 }
             }
         }
@@ -136,7 +148,7 @@ public class FrankaManager : MonoBehaviour
 
     private void ResetBinaryToggles()
     {
-        foreach (var toggle in binaryToggles)
+        foreach (var toggle in dualToggles)
         {
             ToggleImage toggleImage = toggle.GetComponent<ToggleImage>();
             if (toggleImage != null)

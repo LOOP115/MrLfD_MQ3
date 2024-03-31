@@ -103,6 +103,7 @@ public class EndEffectorTarget : MonoBehaviour
         if (endEffectorTarget != null)
         {
             Destroy(endEffectorTarget);
+            isSpawned = false;
         }
 
     }

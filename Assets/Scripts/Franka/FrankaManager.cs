@@ -5,10 +5,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Franka.Control;
 using Unity.VisualScripting;
+using System;
 
 public class FrankaManager : MonoBehaviour
 {
     public GameObject frankaPrefab;
+    private GameObject franka;
+    private bool isSpawned = false;
     public TextMeshProUGUI textComponent;
     public List<GameObject> monoToggles;
     public List<GameObject> dualToggles;
@@ -23,13 +26,13 @@ public class FrankaManager : MonoBehaviour
         }
     }
 
-    public Toggle resetToggle;
-    public Toggle moveBaseToggle;
-    public Toggle jointControllerToggle;
-    public Toggle followTargetToggle;
-    
-    private GameObject franka;
-    private bool isSpawned = false;
+    public GameObject resetToggle;
+    public GameObject baseLockToggle;
+    public GameObject jointControllerToggle;
+    public GameObject followTargetToggle;
+
+    private Dictionary<string, Action> modeActions;
+    private Dictionary<string, GameObject> modeToggles;
 
     private JointController jointController;
     private GripperController gripperController;
@@ -39,6 +42,24 @@ public class FrankaManager : MonoBehaviour
     private SyncFromFranka syncFromFranka;
     private JointsPublisher jointsPublisher;
 
+
+    void Start()
+    {
+        modeToggles = new Dictionary<string, GameObject>
+        {
+            { FrankaConstants.BaseLock, baseLockToggle },
+            { FrankaConstants.JointController, jointControllerToggle },
+            { FrankaConstants.FollowTarget, followTargetToggle }
+        };
+
+        modeActions = new Dictionary<string, Action>
+        {
+            { FrankaConstants.BaseLock, toggleBaseLock },
+            { FrankaConstants.JointController, toggleJointController },
+            { FrankaConstants.FollowTarget, toggleFollowTarget }
+        };
+    }
+    
     
     void Update()
     {
@@ -163,50 +184,75 @@ public class FrankaManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    
-    // private void stopAllControllersExcept(Toggle maintain)
-    // {
-    //     if (franka != null)
-    //     {
-    //         if (jointController != null)
-    //         {
-    //             jointController.setControllerState(false);
-    //         }
-    //         if (moveBase != null)
-    //         {
-    //             moveBase.enabled = false;
-    //         }
-    //         if (endEffectorTarget != null)
-    //         {
-    //             endEffectorTarget.RemoveTarget();
-    //             endEffectorTarget.enabled = false;
-    //             syncFromFranka.Unsubscribe();
-    //         }
-    //     }
-    // }
 
+    public void toggleMode(string mode)
+    {
+        if (franka == null)
+        {
+            return;
+        }
 
-    public void toggleMoveBase()
+        if (modeActions.TryGetValue(mode, out Action toggleAction))
+        {
+            // turnOffModesExcept(new List<string> {mode});
+            toggleAction.Invoke();
+        }
+        else
+        {
+            Debug.LogError("Invalid mode: " + mode);
+        }
+    }
+
+    private void turnOffModesExcept(List<string> modesToMaintain)
+    {
+        foreach (var mode in FrankaConstants.Modes)
+        {
+            if (!modesToMaintain.Contains(mode))
+            {
+                turnOffMode(mode);
+            }
+        }
+    }
+
+    private void turnOffMode(string mode)
+    {
+        if (modeToggles.TryGetValue(mode, out GameObject toggleObject) && modeActions.TryGetValue(mode, out Action toggleAction))
+        {
+            ToggleImage toggleImage = toggleObject.GetComponent<ToggleImage>();
+            if (!toggleImage.Image1isActive())
+            {
+                toggleAction.Invoke();
+            }
+        }
+        else
+        {
+            Debug.LogError("Invalid mode: " + mode);
+        }
+    }
+
+    private void toggleBaseLock()
     {
         if (franka != null)
         {
-            if (moveBaseToggle != null)
+            if (baseLockToggle != null)
             {
-                ToggleImage toggleImage = moveBaseToggle.GetComponent<ToggleImage>();
+                ToggleImage toggleImage = baseLockToggle.GetComponent<ToggleImage>();
                 if (toggleImage.Image1isActive())
                 {
                     moveBase.enabled = true;
+                    DeactivateTogglesExcept(new List<GameObject> {baseLockToggle});
                 }
                 else
                 {
                     moveBase.enabled = false;
+                    ActivateToggles();
                 }
                 toggleImage.SwitchToggleImage();
             }
         }
     }
 
-    public void toggleJointController()
+    private void toggleJointController()
     {
         if (franka != null)
         {
@@ -216,17 +262,19 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     jointController.setControllerState(true);
+                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, jointControllerToggle});
                 }
                 else
                 {
                     jointController.setControllerState(false);
+                    ActivateToggles();
                 }
                 toggleImage.SwitchToggleImage();
             }
         }
     }
 
-    public void toggleFollowTarget()
+    private void toggleFollowTarget()
     {
         if (franka != null)
         {
@@ -236,10 +284,12 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startFollowTarget();
+                    DeactivateTogglesExcept(new List<GameObject> {followTargetToggle});
                 }
                 else
                 {
                     stopFollowTarget();
+                    ActivateToggles();
                 }
                 toggleImage.SwitchToggleImage();
             }

@@ -37,4 +37,16 @@ public static class FrankaConstants
         "world/panda_link0/panda_link1/panda_link2/panda_link3/panda_link4/panda_link5/panda_link6/panda_link7/panda_link8/panda_hand/panda_leftfinger"
     };
     
+
+    public static readonly string BaseLock = "BaseLock";
+    public static readonly string JointController = "JointController";
+    public static readonly string FollowTarget = "FollowTarget";
+
+    public static readonly string[] Modes = new string[]
+    {
+        BaseLock,
+        JointController,
+        FollowTarget
+    };
+
 }

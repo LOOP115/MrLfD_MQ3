@@ -33,11 +33,11 @@ This is the Unity endpoint for [Franka_XR](https://github.com/LOOP115/Franka_XR_
   - Acceleration: 10
 
 
-### Control Modes
+## Control Modes
 
 Several control modes are provided for Franka. Activate them by toggling the buttons. Note that only one mode can be active at a time; activating a new mode automatically disables the others.
 
-#### Base Lock
+### Base Lock
 
 Lock or unlock the base link, controlling Franka's **global position**.
 
@@ -45,14 +45,14 @@ Lock or unlock the base link, controlling Franka's **global position**.
 - Press **Y** to move up, **X** to move down.
 - Use the **left thumbstick** to rotate Franka around the Y axis.
 
-#### Joint Controller
+### Joint Controller
 
 Move Franka's joints with Quest 3 controllers.
 
 - Press **A** and **B** to switch the joint you want to move.
 - Use the **right thumbstick** to move the joint clockwise and counter-clockwise.
 
-#### Follow Target
+### Follow Target
 
 Adjust the target's position in Unity using Quest 3 controllers or hand movements. Once the target's position is modified, it is published immediately. Franka then receives these updates and reaches the target using MoveIt2. Simultaneously, the trajectory is published back to Unity, synchronizing the virtual Franka with its counterparts in Gazebo or the real world.
 

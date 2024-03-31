@@ -34093,7 +34093,7 @@ MonoBehaviour:
   - {fileID: 550538959}
   - {fileID: 836503490}
   resetToggle: {fileID: 584924802}
-  baseLockToggle: {fileID: 0}
+  baseLockToggle: {fileID: 1125250113}
   jointControllerToggle: {fileID: 550538959}
   followTargetToggle: {fileID: 836503490}
 --- !u!1 &1164241667

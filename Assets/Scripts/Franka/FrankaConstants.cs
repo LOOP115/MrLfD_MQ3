@@ -40,12 +40,15 @@ public static class FrankaConstants
 
     public static readonly string BaseLock = "BaseLock";
     public static readonly string JointController = "JointController";
+    public static readonly string ReachTarget = "ReachTarget";
     public static readonly string FollowTarget = "FollowTarget";
+
 
     public static readonly string[] Modes = new string[]
     {
         BaseLock,
         JointController,
+        ReachTarget,
         FollowTarget
     };
 

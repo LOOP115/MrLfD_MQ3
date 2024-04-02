@@ -29,6 +29,7 @@ public class FrankaManager : MonoBehaviour
     public GameObject resetToggle;
     public GameObject baseLockToggle;
     public GameObject jointControllerToggle;
+    public GameObject reachTargetToggle;
     public GameObject followTargetToggle;
 
     private Dictionary<string, Action> modeActions;
@@ -37,9 +38,11 @@ public class FrankaManager : MonoBehaviour
     private JointController jointController;
     private GripperController gripperController;
     private MoveToStart moveToStart;
-    private MoveBase moveBase;
-    private EndEffectorTarget endEffectorTarget;
     private SyncFromFranka syncFromFranka;
+    
+    private MoveBase moveBase;
+    private ReachTarget reachTarget;
+    private FollowTarget followTarget;
     private JointsPublisher jointsPublisher;
 
 
@@ -49,6 +52,7 @@ public class FrankaManager : MonoBehaviour
         {
             { FrankaConstants.BaseLock, baseLockToggle },
             { FrankaConstants.JointController, jointControllerToggle },
+            { FrankaConstants.ReachTarget, reachTargetToggle },
             { FrankaConstants.FollowTarget, followTargetToggle }
         };
 
@@ -56,6 +60,7 @@ public class FrankaManager : MonoBehaviour
         {
             { FrankaConstants.BaseLock, toggleBaseLock },
             { FrankaConstants.JointController, toggleJointController },
+            { FrankaConstants.ReachTarget, toggleReachTarget },
             { FrankaConstants.FollowTarget, toggleFollowTarget }
         };
     }
@@ -93,9 +98,11 @@ public class FrankaManager : MonoBehaviour
             jointController = franka.GetComponent<JointController>();
             gripperController = franka.GetComponent<GripperController>();
             moveToStart = franka.GetComponent<MoveToStart>();
-            moveBase = franka.GetComponent<MoveBase>();
-            endEffectorTarget = franka.GetComponent<EndEffectorTarget>();
             syncFromFranka = franka.GetComponent<SyncFromFranka>();
+            
+            moveBase = franka.GetComponent<MoveBase>();
+            reachTarget = franka.GetComponent<ReachTarget>();
+            followTarget = franka.GetComponent<FollowTarget>();
             jointsPublisher = franka.GetComponent<JointsPublisher>();
             
             isSpawned = true;
@@ -274,6 +281,28 @@ public class FrankaManager : MonoBehaviour
         }
     }
 
+    private void toggleReachTarget()
+    {
+        if (franka != null)
+        {
+            if (reachTargetToggle != null)
+            {
+                ToggleImage toggleImage = reachTargetToggle.GetComponent<ToggleImage>();
+                if (toggleImage.Image1isActive())
+                {
+                    startReachTarget();
+                    DeactivateTogglesExcept(new List<GameObject> {reachTargetToggle});
+                }
+                else
+                {
+                    stopReachTarget();
+                    ActivateToggles();
+                }
+                toggleImage.SwitchToggleImage();
+            }
+        }
+    }
+
     private void toggleFollowTarget()
     {
         if (franka != null)
@@ -296,13 +325,38 @@ public class FrankaManager : MonoBehaviour
         }
     }
     
+    private void startReachTarget()
+    {
+        if (franka != null)
+        {
+            if (reachTarget != null && syncFromFranka != null)
+            {
+                reachTarget.enabled = true;
+                syncFromFranka.Subscribe();
+            }
+        }
+    }
+
+    private void stopReachTarget()
+    {
+        if (franka != null)
+        {
+            if (reachTarget != null && syncFromFranka != null)
+            {
+                reachTarget.RemoveTarget();
+                reachTarget.enabled = false;
+                syncFromFranka.Unsubscribe();
+            }
+        }
+    }
+
     private void startFollowTarget()
     {
         if (franka != null)
         {
-            if (endEffectorTarget != null && syncFromFranka != null)
+            if (followTarget != null && syncFromFranka != null)
             {
-                endEffectorTarget.enabled = true;
+                followTarget.enabled = true;
                 syncFromFranka.Subscribe();
             }
         }
@@ -312,10 +366,10 @@ public class FrankaManager : MonoBehaviour
     {
         if (franka != null)
         {
-            if (endEffectorTarget != null && syncFromFranka != null)
+            if (followTarget != null && syncFromFranka != null)
             {
-                endEffectorTarget.RemoveTarget();
-                endEffectorTarget.enabled = false;
+                followTarget.RemoveTarget();
+                followTarget.enabled = false;
                 syncFromFranka.Unsubscribe();
             }
         }

@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8661873775328169459}
   m_Layer: 0
   m_Name: Collisions
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 7480243665597525852}
   m_Layer: 0
   m_Name: Collisions
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 4220443965248115379}
   m_Layer: 0
   m_Name: Collisions
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -710,7 +710,7 @@ GameObject:
   - component: {fileID: 8562284865899631056}
   m_Layer: 0
   m_Name: panda_leftfinger
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -755,7 +755,7 @@ ArticulationBody:
   m_Enabled: 1
   serializedVersion: 5
   m_Mass: 0.22384535
-  m_ParentAnchorPosition: {x: 0.000000042146848, y: 0.058399796, z: -0.000000042146848}
+  m_ParentAnchorPosition: {x: 0, y: 0.058399737, z: 0}
   m_ParentAnchorRotation: {x: 0, y: 1.0000008, z: 0, w: 0.00000011920929}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
   m_AnchorRotation: {x: 0, y: 1, z: -0, w: 0}
@@ -1139,7 +1139,7 @@ GameObject:
   - component: {fileID: 9130054317949659303}
   m_Layer: 0
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1791,7 +1791,7 @@ GameObject:
   - component: {fileID: 1173019588146566364}
   m_Layer: 0
   m_Name: link0_0
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1891,7 +1891,7 @@ GameObject:
   - component: {fileID: 4517216104474584553}
   m_Layer: 0
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2269,7 +2269,7 @@ GameObject:
   - component: {fileID: 3861896021549710174}
   m_Layer: 0
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2526,7 +2526,7 @@ GameObject:
   - component: {fileID: 416067809298132335}
   m_Layer: 0
   m_Name: Collisions
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2654,7 +2654,7 @@ GameObject:
   - component: {fileID: 4336624370909726412}
   m_Layer: 0
   m_Name: world
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2994,7 +2994,7 @@ GameObject:
   - component: {fileID: 1609784290644209024}
   m_Layer: 0
   m_Name: panda_rightfinger
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3039,7 +3039,7 @@ ArticulationBody:
   m_Enabled: 1
   serializedVersion: 5
   m_Mass: 0.22384535
-  m_ParentAnchorPosition: {x: 0.000000042146848, y: 0.058399796, z: -0.000000042146848}
+  m_ParentAnchorPosition: {x: 0, y: 0.058399737, z: 0}
   m_ParentAnchorRotation: {x: 0, y: -0.00000011920929, z: 0, w: 1.0000008}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
   m_AnchorRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -3224,7 +3224,7 @@ GameObject:
   - component: {fileID: 6262770215296342019}
   m_Layer: 0
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3314,7 +3314,7 @@ GameObject:
   - component: {fileID: 6583084648659089186}
   m_Layer: 0
   m_Name: Collisions
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3620,7 +3620,7 @@ GameObject:
   - component: {fileID: 5447462933581363513}
   m_Layer: 0
   m_Name: panda_hand
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3668,7 +3668,7 @@ ArticulationBody:
   m_Enabled: 1
   serializedVersion: 5
   m_Mass: 0.14060766
-  m_ParentAnchorPosition: {x: 0.00000004214685, y: -0.0000004172325, z: -0.000000042146844}
+  m_ParentAnchorPosition: {x: 0, y: -0.00000035762787, z: 0}
   m_ParentAnchorRotation: {x: -0.000000021073426, y: -0.000000021073426, z: 0.7071073,
     w: 0.7071073}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
@@ -3900,7 +3900,7 @@ GameObject:
   - component: {fileID: 7722184063893525800}
   m_Layer: 0
   m_Name: Collisions
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3947,7 +3947,7 @@ GameObject:
   - component: {fileID: 8634595274681363697}
   m_Layer: 0
   m_Name: panda_link8
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3993,7 +3993,7 @@ ArticulationBody:
   m_Enabled: 1
   serializedVersion: 5
   m_Mass: 1
-  m_ParentAnchorPosition: {x: -0.000000074505834, y: 0.1069994, z: -0.000000059604645}
+  m_ParentAnchorPosition: {x: -0.000000074505834, y: 0.10699946, z: 0}
   m_ParentAnchorRotation: {x: 0.27059826, y: 0.27059826, z: 0.653282, w: 0.653282}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
   m_AnchorRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
@@ -4958,7 +4958,7 @@ GameObject:
   - component: {fileID: 59979901210652744}
   m_Layer: 0
   m_Name: unnamed
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5007,7 +5007,7 @@ GameObject:
   - component: {fileID: 7085977771232558931}
   m_Layer: 0
   m_Name: panda_link1
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5739,7 +5739,7 @@ GameObject:
   - component: {fileID: 1642730140715788641}
   m_Layer: 0
   m_Name: panda_hand_tcp
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5784,7 +5784,7 @@ ArticulationBody:
   m_Enabled: 1
   serializedVersion: 5
   m_Mass: 1
-  m_ParentAnchorPosition: {x: 0.000000031610135, y: 0.10339995, z: -0.000000052683557}
+  m_ParentAnchorPosition: {x: -0.000000010536712, y: 0.10340001, z: -0.000000010536712}
   m_ParentAnchorRotation: {x: -0.0000000842937, y: -0.0000000842937, z: 0.7071074,
     w: 0.7071074}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
@@ -6632,7 +6632,7 @@ GameObject:
   - component: {fileID: 247141972800117425}
   m_Layer: 0
   m_Name: Collisions
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6680,7 +6680,7 @@ GameObject:
   - component: {fileID: 6458024053005285201}
   m_Layer: 0
   m_Name: panda_link0
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6828,7 +6828,7 @@ GameObject:
   - component: {fileID: 7721364567077378619}
   m_Layer: 0
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6872,7 +6872,7 @@ GameObject:
   - component: {fileID: 7543110981813575334}
   m_Layer: 0
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6920,7 +6920,7 @@ GameObject:
   - component: {fileID: 3037134844116870670}
   m_Layer: 0
   m_Name: panda_link6
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6966,7 +6966,7 @@ ArticulationBody:
   m_Enabled: 1
   serializedVersion: 5
   m_Mass: 1.5025805
-  m_ParentAnchorPosition: {x: 1.1368686e-13, y: 0.0000011920934, z: 0}
+  m_ParentAnchorPosition: {x: 1.1368686e-13, y: 0.000001072884, z: 0}
   m_ParentAnchorRotation: {x: 0, y: 0, z: -1.0000006, w: 0}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
   m_AnchorRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
@@ -7068,7 +7068,7 @@ GameObject:
   - component: {fileID: 8764790845294219696}
   m_Layer: 0
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7196,7 +7196,7 @@ GameObject:
   - component: {fileID: 698152166687984598}
   m_Layer: 0
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7866,7 +7866,7 @@ GameObject:
   - component: {fileID: 2050994946117621171}
   m_Layer: 0
   m_Name: panda_link4
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7912,7 +7912,7 @@ ArticulationBody:
   m_Enabled: 1
   serializedVersion: 5
   m_Mass: 2.3104763
-  m_ParentAnchorPosition: {x: -2.8421716e-14, y: 0.000000178814, z: 0.08249998}
+  m_ParentAnchorPosition: {x: -2.8421716e-14, y: 0.000000178814, z: 0.0825}
   m_ParentAnchorRotation: {x: 0, y: 0, z: -1.0000004, w: 0}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
   m_AnchorRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
@@ -8515,7 +8515,7 @@ GameObject:
   - component: {fileID: 7396310885651513100}
   m_Layer: 0
   m_Name: Collisions
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8674,7 +8674,7 @@ GameObject:
   - component: {fileID: 3975165104757692698}
   m_Layer: 0
   m_Name: link0
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8807,7 +8807,7 @@ GameObject:
   - component: {fileID: 5193511438481492506}
   m_Layer: 0
   m_Name: Collisions
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9098,7 +9098,7 @@ GameObject:
   - component: {fileID: 8779847685076307833}
   m_Layer: 0
   m_Name: Collisions
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9143,9 +9143,10 @@ GameObject:
   - component: {fileID: 7798365730008150551}
   - component: {fileID: 8929343744363353223}
   - component: {fileID: 1232181649108248848}
+  - component: {fileID: 3878465469143133896}
   - component: {fileID: 8381003220165892046}
   - component: {fileID: 3537612527588664081}
-  - component: {fileID: 3878465469143133896}
+  - component: {fileID: -437138562484276616}
   - component: {fileID: 7351278590340566411}
   m_Layer: 0
   m_Name: Franka
@@ -9162,15 +9163,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815038884790468017}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.856, z: 1.337}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7080607741343706647}
   - {fileID: 1464319844006961439}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4674676170184379773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9235,6 +9236,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jointAssignmentWait: 0.1
+--- !u!114 &3878465469143133896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7815038884790468017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd9afc8aff171eb418cc45a3397ae7c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8381003220165892046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9266,19 +9279,24 @@ MonoBehaviour:
   endEffectorTargetPrefab: {fileID: 5270983659149341059, guid: 504a739c83fc2ca47a574e11dd02d195,
     type: 3}
   world: {fileID: 2465380122723505249}
-  topicName: /unity_target_pose
---- !u!114 &3878465469143133896
+--- !u!114 &-437138562484276616
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815038884790468017}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd9afc8aff171eb418cc45a3397ae7c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ee3d434cc0098c4299e9136d8595ca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  frankaLeftFinger: {fileID: 895107845850260518}
+  frankaRightFinger: {fileID: 2766257419686135558}
+  endEffectorTargetPrefab: {fileID: 425434923050910873, guid: 727a185d0cb9c5940b49b9170cd7bbbb,
+    type: 3}
+  world: {fileID: 2465380122723505249}
+  publishHz: 10
 --- !u!114 &7351278590340566411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9353,7 +9371,7 @@ GameObject:
   - component: {fileID: 2855289629326763019}
   m_Layer: 0
   m_Name: panda_link5
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9399,7 +9417,7 @@ ArticulationBody:
   m_Enabled: 1
   serializedVersion: 5
   m_Mass: 2.6226425
-  m_ParentAnchorPosition: {x: -0.38400102, y: 0, z: -0.0825}
+  m_ParentAnchorPosition: {x: -0.3840009, y: 0, z: -0.0825}
   m_ParentAnchorRotation: {x: 0, y: 0, z: 0, w: 1.0000005}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
   m_AnchorRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
@@ -9745,7 +9763,7 @@ GameObject:
   - component: {fileID: 816279368280665766}
   m_Layer: 0
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9838,7 +9856,7 @@ GameObject:
   - component: {fileID: 3089478578046758785}
   m_Layer: 0
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9969,7 +9987,7 @@ GameObject:
   - component: {fileID: 2934398709649972331}
   m_Layer: 0
   m_Name: panda_link7
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10015,7 +10033,7 @@ ArticulationBody:
   m_Enabled: 1
   serializedVersion: 5
   m_Mass: 0.5237668
-  m_ParentAnchorPosition: {x: -0.0000011920935, y: 0, z: 0.08799994}
+  m_ParentAnchorPosition: {x: -0.0000010728842, y: 0, z: 0.088}
   m_ParentAnchorRotation: {x: 0, y: 0, z: -1.0000007, w: 0}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
   m_AnchorRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
@@ -10232,7 +10250,7 @@ GameObject:
   - component: {fileID: 1435092400595856513}
   m_Layer: 0
   m_Name: Collisions
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10970,7 +10988,7 @@ GameObject:
   - component: {fileID: 2425648201177763595}
   m_Layer: 0
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11201,7 +11219,7 @@ GameObject:
   - component: {fileID: 5732816978722221618}
   m_Layer: 0
   m_Name: panda_link3
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11435,7 +11453,7 @@ GameObject:
   - component: {fileID: 3590338100002877714}
   m_Layer: 0
   m_Name: panda_link2
-  m_TagString: Untagged
+  m_TagString: franka
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

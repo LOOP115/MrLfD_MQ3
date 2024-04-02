@@ -52,7 +52,7 @@ Move Franka's joints with Quest 3 controllers.
 - Press **A** and **B** to switch the joint you want to move.
 - Use the **right thumbstick** to move the joint clockwise and counter-clockwise.
 
-### Follow Target
+### Reach Target
 
 Adjust the target's position in Unity using Quest 3 controllers or hand movements. Once the target's position is modified, it is published immediately. Franka then receives these updates and reaches the target using MoveIt2. Simultaneously, the trajectory is published back to Unity, synchronizing the virtual Franka with its counterparts in Gazebo or the real world.
 

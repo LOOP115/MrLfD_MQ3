@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public static class FrankaConstants
 {
     public static readonly int NumJoints = 7;
@@ -51,5 +53,18 @@ public static class FrankaConstants
         ReachTarget,
         FollowTarget
     };
+
+
+    public static readonly float targetSimilarThreshold = 0.02f;
+    public static readonly float targetMoveThreshold = 0.001f;
+
+    public static bool similarPosition(Vector3 pos1, Vector3 pos2)
+    {
+        bool xSimilar = Mathf.Abs(pos1.x - pos2.x) <= targetSimilarThreshold;
+        bool ySimilar = Mathf.Abs(pos1.y - pos2.y) <= targetSimilarThreshold;
+        bool zSimilar = Mathf.Abs(pos1.z - pos2.z) <= targetSimilarThreshold;
+
+        return xSimilar && ySimilar && zSimilar;
+    }
 
 }

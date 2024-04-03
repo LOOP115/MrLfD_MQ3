@@ -45,6 +45,8 @@ public class FrankaManager : MonoBehaviour
     private FollowTarget followTarget;
     private JointsPublisher jointsPublisher;
 
+    private RosConnector rosConnector;
+
 
     void Start()
     {
@@ -63,6 +65,8 @@ public class FrankaManager : MonoBehaviour
             { FrankaConstants.ReachTarget, toggleReachTarget },
             { FrankaConstants.FollowTarget, toggleFollowTarget }
         };
+
+        rosConnector = FindObjectOfType<RosConnector>();
     }
     
     
@@ -131,6 +135,10 @@ public class FrankaManager : MonoBehaviour
     {
         if (franka != null)
         {
+            if (rosConnector != null)
+            {
+                rosConnector.GetBridge().Publish(rosConnector.topicUnityCommand, FrankaConstants.cmdMoveToStart);
+            }
             if (moveToStart != null && gripperController != null)
             {
                 moveToStart.Reset();

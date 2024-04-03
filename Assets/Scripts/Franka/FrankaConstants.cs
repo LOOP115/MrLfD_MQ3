@@ -1,4 +1,5 @@
 using UnityEngine;
+using RosMessageTypes.CtrlInterfaces;
 
 public static class FrankaConstants
 {
@@ -66,5 +67,11 @@ public static class FrankaConstants
 
         return xSimilar && ySimilar && zSimilar;
     }
+
+
+    public static UnityCommandMsg cmdMoveToStart = new UnityCommandMsg
+    {
+        command = "move_to_start"
+    };
 
 }

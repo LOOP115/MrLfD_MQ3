@@ -9293,10 +9293,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frankaLeftFinger: {fileID: 895107845850260518}
   frankaRightFinger: {fileID: 2766257419686135558}
-  endEffectorTargetPrefab: {fileID: 425434923050910873, guid: 727a185d0cb9c5940b49b9170cd7bbbb,
+  endEffectorTargetPrefab: {fileID: 7979426305563732659, guid: adbac9c9e57909e4490e0e98aa25d079,
     type: 3}
   world: {fileID: 2465380122723505249}
-  publishHz: 10
 --- !u!114 &7351278590340566411
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -656,6 +656,7 @@ Transform:
   m_Children:
   - {fileID: 1164241668}
   - {fileID: 1871802007}
+  - {fileID: 1401157647}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &122401272
@@ -17969,7 +17970,7 @@ PrefabInstance:
     - target: {fileID: 775873853866972292, guid: fb12961b98d40ad4c9a2fb064dc0cbd8,
         type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 775873853866972292, guid: fb12961b98d40ad4c9a2fb064dc0cbd8,
         type: 3}
@@ -17978,7 +17979,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 775873853866972292, guid: fb12961b98d40ad4c9a2fb064dc0cbd8,
         type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 775873853866972292, guid: fb12961b98d40ad4c9a2fb064dc0cbd8,
+        type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1129026870}
+    - target: {fileID: 775873853866972292, guid: fb12961b98d40ad4c9a2fb064dc0cbd8,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 1129026870}
     - target: {fileID: 775873853866972292, guid: fb12961b98d40ad4c9a2fb064dc0cbd8,
@@ -17993,8 +18004,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 775873853866972292, guid: fb12961b98d40ad4c9a2fb064dc0cbd8,
         type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 775873853866972292, guid: fb12961b98d40ad4c9a2fb064dc0cbd8,
+        type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ResetFranka
+      objectReference: {fileID: 0}
+    - target: {fileID: 775873853866972292, guid: fb12961b98d40ad4c9a2fb064dc0cbd8,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: ResetUnityFranka
       objectReference: {fileID: 0}
     - target: {fileID: 775873853866972292, guid: fb12961b98d40ad4c9a2fb064dc0cbd8,
         type: 3}
@@ -18003,7 +18024,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 775873853866972292, guid: fb12961b98d40ad4c9a2fb064dc0cbd8,
         type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: FrankaManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 775873853866972292, guid: fb12961b98d40ad4c9a2fb064dc0cbd8,
+        type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 775873853866972292, guid: fb12961b98d40ad4c9a2fb064dc0cbd8,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 775873854086117998, guid: fb12961b98d40ad4c9a2fb064dc0cbd8,
@@ -34103,6 +34134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frankaPrefab: {fileID: 7815038884790468017, guid: d10f1febe5a4dee4d8431fb589bdd68c,
     type: 3}
+  fixedUpdateFPS: 60
   textComponent: {fileID: 233852983}
   monoToggles:
   - {fileID: 2119841901}
@@ -40632,12 +40664,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401157645}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 109215373}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1447904725
 GameObject:
@@ -48850,5 +48882,4 @@ SceneRoots:
   - {fileID: 1908591605}
   - {fileID: 648253800}
   - {fileID: 1129026869}
-  - {fileID: 1401157647}
   - {fileID: 109215373}

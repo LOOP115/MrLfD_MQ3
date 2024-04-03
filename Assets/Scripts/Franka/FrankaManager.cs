@@ -10,6 +10,7 @@ using System;
 public class FrankaManager : MonoBehaviour
 {
     public GameObject frankaPrefab;
+    public float fixedUpdateFPS = 30.0f;
     private GameObject franka;
     private bool isSpawned = false;
     public TextMeshProUGUI textComponent;
@@ -67,6 +68,7 @@ public class FrankaManager : MonoBehaviour
         };
 
         rosConnector = FindObjectOfType<RosConnector>();
+        Time.fixedDeltaTime = 1.0f / fixedUpdateFPS;
     }
     
     
@@ -133,12 +135,16 @@ public class FrankaManager : MonoBehaviour
 
     public void ResetFranka()
     {
+        if (rosConnector != null)
+        {
+            rosConnector.GetBridge().Publish(rosConnector.topicUnityCommand, FrankaConstants.cmdMoveToStart);
+        }
+    }
+
+    public void ResetUnityFranka()
+    {
         if (franka != null)
         {
-            if (rosConnector != null)
-            {
-                rosConnector.GetBridge().Publish(rosConnector.topicUnityCommand, FrankaConstants.cmdMoveToStart);
-            }
             if (moveToStart != null && gripperController != null)
             {
                 moveToStart.Reset();
@@ -379,6 +385,7 @@ public class FrankaManager : MonoBehaviour
                 followTarget.RemoveTarget();
                 followTarget.enabled = false;
                 syncFromFranka.Unsubscribe();
+                // rosConnector.GetBridge().Publish(rosConnector.topicUnityCommand, FrankaConstants.cmdMoveToStart);
             }
         }
     }

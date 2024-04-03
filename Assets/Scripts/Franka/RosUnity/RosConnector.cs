@@ -19,8 +19,8 @@ public class RosConnector : MonoBehaviour
         bridge = ROSConnection.GetOrCreateInstance();
         bridge.ShowHud = false;
         bridge.RegisterPublisher<PosTargetMsg>(topicUnityTargetPose);
-        bridge.RegisterPublisher<FrankaJointsMsg>(topicUnityFrankaJoints);
         bridge.RegisterPublisher<UnityCommandMsg>(topicUnityCommand);
+        bridge.RegisterPublisher<FrankaJointsMsg>(topicUnityFrankaJoints);
     }
 
     public ROSConnection GetBridge()

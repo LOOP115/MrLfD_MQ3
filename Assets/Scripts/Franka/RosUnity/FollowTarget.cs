@@ -15,18 +15,17 @@ public class FollowTarget : MonoBehaviour
     private bool isSpawned = false;
 
     private RosConnector rosConnector;
-    // private float publishHz = 60.0f;
-    // private float publishFrequency => 1.0f / publishHz;
-    // private float timeElapsed;
+    private float publishHz = 0.5f;
+    private float publishFrequency => 1.0f / publishHz;
+    private float timeElapsed;
 
     private Vector3 lastFramePosition;
     private bool isTargetStill = true;
-    
+
 
     void Start()
     {
         rosConnector = FindObjectOfType<RosConnector>();
-        Time.fixedDeltaTime = 0.01667f * 2;
     }
 
     private void FixedUpdate()
@@ -37,10 +36,6 @@ public class FollowTarget : MonoBehaviour
             isSpawned = true;
             return;
         }
-
-        // timeElapsed += Time.deltaTime;
-        // if (timeElapsed > publishFrequency)
-        // {
 
         // Check if the target has moved since the last frame
         if (endEffectorTarget != null)
@@ -62,9 +57,10 @@ public class FollowTarget : MonoBehaviour
             }
             // Update lastFramePosition for the next frame's comparison
             lastFramePosition = endEffectorTarget.transform.position;
-        }        
-        
-        if (endEffectorTarget != null && isTargetStill && !FrankaConstants.similarPosition(endEffectorTarget.transform.position, lastTargetPosition))
+        } 
+
+        // timeElapsed += Time.fixedDeltaTime;
+        if (endEffectorTarget != null)
         {
             var targetPosition = endEffectorTarget.transform.localPosition.To<FLU>();
             var targetRotation = endEffectorTarget.transform.localRotation.To<FLU>();
@@ -80,12 +76,22 @@ public class FollowTarget : MonoBehaviour
                 rot_w = targetRotation.w
             };
 
-            rosConnector.GetBridge().Publish(rosConnector.topicUnityTargetPose, targetPoseMsg);
-            lastTargetPosition = endEffectorTarget.transform.position;
-        }
-        // timeElapsed = 0;
+            // if (!isTargetStill)
+            // {
+            //     if (timeElapsed > publishFrequency)
+            //     {
+            //         rosConnector.GetBridge().Publish(rosConnector.topicUnityTargetPose, targetPoseMsg);
+            //     }
+            //     timeElapsed = 0;
+            // }
 
-        // }
+            if (isTargetStill && !FrankaConstants.similarPosition(endEffectorTarget.transform.position, lastTargetPosition))
+            {
+                rosConnector.GetBridge().Publish(rosConnector.topicUnityTargetPose, targetPoseMsg);
+                lastTargetPosition = endEffectorTarget.transform.position;
+            }
+        }
+            
     }
 
     IEnumerator DelaySpawnCenterTarget()
@@ -104,7 +110,20 @@ public class FollowTarget : MonoBehaviour
             Vector3 rightFingerPosition = frankaRightFinger.transform.position;
             Vector3 endEffectorTargetPosition = (leftFingerPosition + rightFingerPosition) / 2;
             endEffectorTargetPosition.y -= 0.045f;
-            endEffectorTarget = Instantiate(endEffectorTargetPrefab, endEffectorTargetPosition, Quaternion.Euler(-180, 0, 0));
+            
+            GameObject instantiatedGameObject = Instantiate(endEffectorTargetPrefab, endEffectorTargetPosition, Quaternion.Euler(-180, 0, 0));
+            Transform targetChild = instantiatedGameObject.transform.Find("Target");
+            // Check if the child was found to avoid NullReferenceException
+            if (targetChild != null)
+            {
+                // Set endEffectorTarget to the found child GameObject
+                endEffectorTarget = targetChild.gameObject;
+            }
+            else
+            {
+                Debug.LogError("Child named 'target' was not found in the instantiated GameObject.");
+            }
+
             lastTargetPosition = endEffectorTargetPosition;
             lastFramePosition = endEffectorTargetPosition;
 

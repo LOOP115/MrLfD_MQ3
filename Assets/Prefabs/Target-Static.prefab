@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3390942981961764195}
   - component: {fileID: 5815492272996830905}
   m_Layer: 0
-  m_Name: EndEffectorTarget
+  m_Name: Target-Static
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

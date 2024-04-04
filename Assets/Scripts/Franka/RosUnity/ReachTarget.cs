@@ -19,10 +19,16 @@ public class ReachTarget : MonoBehaviour
     // private float publishFrequency => 1.0f / publishHz;
     // private float timeElapsed;
     
+    private GripperController gripperController;
+    private bool isGripperClosed = false;
+    private GameObject rightHandAnchor;
+    
 
     void Start()
     {
         rosConnector = FindObjectOfType<RosConnector>();
+        gripperController = FindObjectOfType<GripperController>();
+        rightHandAnchor = GameObject.Find("RightHandAnchor");
     }
 
     private void Update()
@@ -33,45 +39,17 @@ public class ReachTarget : MonoBehaviour
             isSpawned = true;
             return;
         }
-        
-        if (endEffectorTarget != null && endEffectorTarget.transform.position != lastTargetPosition)
-        {
-            var targetPosition = endEffectorTarget.transform.localPosition.To<FLU>();
-            var targetRotation = endEffectorTarget.transform.localRotation.To<FLU>();
-            
-            var targetPoseMsg = new PosTargetMsg
-            {
-                pos_x = targetPosition.x,
-                pos_y = targetPosition.y,
-                pos_z = targetPosition.z,
-                rot_x = targetRotation.x,
-                rot_y = targetRotation.y,
-                rot_z = targetRotation.z,
-                rot_w = targetRotation.w
-            };
-
-            rosConnector.GetBridge().Publish(rosConnector.topicUnityTargetPose, targetPoseMsg);
-            lastTargetPosition = endEffectorTarget.transform.position;
-        }
-
-        if (OVRInput.GetDown(OVRInput.Button.One))
-        {
-            if (endEffectorTarget != null)
-            {
-                Vector3 handPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
-                handPosition.y += 0.05f;
-                endEffectorTarget.transform.position = handPosition;
-            }
-        }
-
+        publishTarget();
+        changeTarget();
+        toggleGripper();
     }
+
 
     IEnumerator DelaySpawnCenterTarget()
     {
         yield return new WaitForSeconds(0.5f);
         SpawnCenterTarget();
     }
-
 
     // Spawn the target in the center of the two fingers of Franka
     private void SpawnCenterTarget()
@@ -104,6 +82,59 @@ public class ReachTarget : MonoBehaviour
             isSpawned = false;
         }
 
+    }
+
+    private void publishTarget()
+    {
+        if (endEffectorTarget != null && endEffectorTarget.transform.position != lastTargetPosition)
+        {
+            var targetPosition = endEffectorTarget.transform.localPosition.To<FLU>();
+            var targetRotation = endEffectorTarget.transform.localRotation.To<FLU>();
+            
+            var targetPoseMsg = new PosTargetMsg
+            {
+                pos_x = targetPosition.x,
+                pos_y = targetPosition.y,
+                pos_z = targetPosition.z,
+                rot_x = targetRotation.x,
+                rot_y = targetRotation.y,
+                rot_z = targetRotation.z,
+                rot_w = targetRotation.w
+            };
+
+            rosConnector.GetBridge().Publish(rosConnector.topicUnityTargetPose, targetPoseMsg);
+            lastTargetPosition = endEffectorTarget.transform.position;
+        }
+    }
+    
+    private void changeTarget()
+    {
+        if (OVRInput.GetDown(OVRInput.Button.One))
+        {
+            if (endEffectorTarget != null)
+            {
+                Vector3 handPosition = rightHandAnchor.transform.position;
+                handPosition.y += 0.05f;
+                endEffectorTarget.transform.position = handPosition;
+            }
+        }
+    }
+
+    private void toggleGripper()
+    {
+        if (OVRInput.GetDown(OVRInput.Button.Three))
+        {
+            if (isGripperClosed)
+            {
+                gripperController.Open();
+                isGripperClosed = false;
+            }
+            else
+            {
+                gripperController.Close();
+                isGripperClosed = true;
+            }
+        }
     }
 
 }

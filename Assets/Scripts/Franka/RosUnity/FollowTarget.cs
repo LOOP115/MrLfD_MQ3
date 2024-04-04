@@ -22,6 +22,11 @@ public class FollowTarget : MonoBehaviour
     private Vector3 lastFramePosition;
     private bool isTargetStill = true;
 
+    private float rotX;
+    private float rotY;
+    private float rotZ;
+    private float rotW;
+
 
     void Start()
     {
@@ -70,10 +75,10 @@ public class FollowTarget : MonoBehaviour
                 pos_x = targetPosition.x,
                 pos_y = targetPosition.y,
                 pos_z = targetPosition.z,
-                rot_x = targetRotation.x,
-                rot_y = targetRotation.y,
-                rot_z = targetRotation.z,
-                rot_w = targetRotation.w
+                rot_x = rotX,
+                rot_y = rotY,
+                rot_z = rotZ,
+                rot_w = rotW
             };
 
             // if (!isTargetStill)
@@ -126,6 +131,10 @@ public class FollowTarget : MonoBehaviour
 
             lastTargetPosition = endEffectorTargetPosition;
             lastFramePosition = endEffectorTargetPosition;
+            rotX = endEffectorTarget.transform.rotation.x;
+            rotY = endEffectorTarget.transform.rotation.y;
+            rotZ = endEffectorTarget.transform.rotation.z;
+            rotW = endEffectorTarget.transform.rotation.w;
 
             if (world != null)
             {

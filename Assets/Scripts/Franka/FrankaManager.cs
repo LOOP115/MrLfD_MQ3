@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Franka.Control;
 using System;
-using UnityEditor.UI;
 
 public class FrankaManager : MonoBehaviour
 {
@@ -32,8 +31,9 @@ public class FrankaManager : MonoBehaviour
     public GameObject jointControllerToggle;
     public GameObject reachTargetToggle;
     public GameObject followTargetToggle;
+    public GameObject invisibleToggle;
     public GameObject jointDialsToggle;
-
+    
     private Dictionary<string, Action> modeActions;
     private Dictionary<string, GameObject> modeToggles;
 
@@ -47,8 +47,9 @@ public class FrankaManager : MonoBehaviour
     private FollowTarget followTarget;
     private JointsPublisher jointsPublisher;
     
+    private InvisibleFranka invisibleFranka;
     private SliderManager sliderManager;
-
+    
     private RosConnector rosConnector;
 
 
@@ -60,7 +61,8 @@ public class FrankaManager : MonoBehaviour
             { FrankaConstants.JointController, jointControllerToggle },
             { FrankaConstants.ReachTarget, reachTargetToggle },
             { FrankaConstants.FollowTarget, followTargetToggle },
-            { FrankaConstants.JointDials, jointDialsToggle }
+            { FrankaConstants.JointDials, jointDialsToggle },
+            { FrankaConstants.Invisible, invisibleToggle }
         };
 
         modeActions = new Dictionary<string, Action>
@@ -69,7 +71,8 @@ public class FrankaManager : MonoBehaviour
             { FrankaConstants.JointController, toggleJointController },
             { FrankaConstants.ReachTarget, toggleReachTarget },
             { FrankaConstants.FollowTarget, toggleFollowTarget },
-            { FrankaConstants.JointDials, toggleJointDials }
+            { FrankaConstants.JointDials, toggleJointDials },
+            { FrankaConstants.Invisible, toggleFrankaVisibility }
         };
 
         rosConnector = FindObjectOfType<RosConnector>();
@@ -117,6 +120,7 @@ public class FrankaManager : MonoBehaviour
             jointsPublisher = franka.GetComponent<JointsPublisher>();
 
             sliderManager = franka.GetComponent<SliderManager>();
+            invisibleFranka = franka.GetComponent<InvisibleFranka>();
             
             isSpawned = true;
 
@@ -290,7 +294,7 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     jointController.setControllerState(true);
-                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, jointControllerToggle, jointDialsToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, jointControllerToggle, jointDialsToggle, invisibleToggle});
                 }
                 else
                 {
@@ -312,7 +316,7 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startReachTarget();
-                    DeactivateTogglesExcept(new List<GameObject> {reachTargetToggle, jointDialsToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {reachTargetToggle, jointDialsToggle, invisibleToggle});
                 }
                 else
                 {
@@ -334,7 +338,7 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startFollowTarget();
-                    DeactivateTogglesExcept(new List<GameObject> {followTargetToggle, jointDialsToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {followTargetToggle, jointDialsToggle, invisibleToggle});
                 }
                 else
                 {
@@ -367,6 +371,28 @@ public class FrankaManager : MonoBehaviour
             }
         }
     }
+
+    private void toggleFrankaVisibility()
+    {
+        if (franka != null)
+        {
+            if (invisibleFranka != null)
+            {
+                ToggleImage toggleImage = invisibleToggle.GetComponent<ToggleImage>();
+                if (toggleImage.Image1isActive())
+                {
+                    invisibleFranka.SetVisibility(false);
+                }
+                else
+                {
+                    invisibleFranka.SetVisibility(true);
+                }
+                toggleImage.SwitchToggleImage();
+            }
+        }
+    }
+
+
     
     private void startReachTarget()
     {

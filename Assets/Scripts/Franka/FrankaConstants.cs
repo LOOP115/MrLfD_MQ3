@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public static class FrankaConstants
 {
     public static readonly int NumJoints = 7;
+
+    public static readonly int NumParts = 14;
     
     public static readonly float[] StartJointPositionsRadians = new float[]
     {
@@ -28,7 +30,7 @@ public static class FrankaConstants
         "/panda_link7"
     };
 
-    public static readonly string[] VisualPaths = new string[]
+    public static readonly string[] LinkNamesFromBase = new string[]
     {
         "world/panda_link0",
         "/panda_link1",
@@ -37,6 +39,22 @@ public static class FrankaConstants
         "/panda_link4",
         "/panda_link5",
         "/panda_link6"
+    };
+
+    
+    public static readonly string[] LinkNamesAll = new string[]
+    {
+        "world",
+        "/panda_link0",
+        "/panda_link1",
+        "/panda_link2",
+        "/panda_link3",
+        "/panda_link4",
+        "/panda_link5",
+        "/panda_link6",
+        "/panda_link7",
+        "/panda_link8",
+        "/panda_hand"
     };
 
     
@@ -51,6 +69,8 @@ public static class FrankaConstants
         "world/panda_link0/panda_link1/panda_link2/panda_link3/panda_link4/panda_link5/panda_link6/panda_link7/panda_link8/panda_hand/panda_rightfinger",
         "world/panda_link0/panda_link1/panda_link2/panda_link3/panda_link4/panda_link5/panda_link6/panda_link7/panda_link8/panda_hand/panda_leftfinger"
     };
+
+    public static readonly string HandTCPName = "world/panda_link0/panda_link1/panda_link2/panda_link3/panda_link4/panda_link5/panda_link6/panda_link7/panda_link8/panda_hand/panda_hand_tcp";
     
 
     public static readonly string BaseLock = "BaseLock";
@@ -58,6 +78,7 @@ public static class FrankaConstants
     public static readonly string ReachTarget = "ReachTarget";
     public static readonly string FollowTarget = "FollowTarget";
     public static readonly string JointDials = "JointDials";
+    public static readonly string Invisible = "Invisible";
 
 
     public static readonly string[] Modes = new string[]

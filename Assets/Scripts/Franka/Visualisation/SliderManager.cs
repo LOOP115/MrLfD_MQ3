@@ -13,7 +13,12 @@ public class SliderManager : MonoBehaviour
     // private RosConnector rosConnector;
     private ROSConnection rosConnection;
 
+    private const string sliderPath = "/Dial-Hollow/Slider";
+    private const string fillPath = "Fill Area/Fill";
+    private const string backgroundPath = "OuterBorder";
+
     public Material sliderFillMaterial;
+    private Material sliderBackgroundMaterial;
 
 
     void Start()
@@ -25,11 +30,12 @@ public class SliderManager : MonoBehaviour
         var linkName = string.Empty;
         for (var i = 0; i < FrankaConstants.NumJoints; i++)
         {
-            linkName += FrankaConstants.VisualPaths[i];
-            var sliderName = linkName + "/Dial-Hollow/Slider";
+            linkName += FrankaConstants.LinkNamesFromBase[i];
+            var sliderName = linkName + sliderPath;
             sliders[i] = transform.Find(sliderName).gameObject;
             InitializeSlider(sliders[i]);
         }
+        sliderBackgroundMaterial = sliders[0].transform.Find(backgroundPath).GetComponent<Image>().material;
         Subscribe(true);
     }
 
@@ -39,7 +45,7 @@ public class SliderManager : MonoBehaviour
         // Create a new material instance for this slider
         Material sliderMaterialInstance = new Material(sliderFillMaterial);
 
-        Image targetImage = slider.transform.Find("Fill Area/Fill").GetComponent<Image>();
+        Image targetImage = slider.transform.Find(fillPath).GetComponent<Image>();
         if (targetImage != null)
         {
             targetImage.material = sliderMaterialInstance;
@@ -66,7 +72,7 @@ public class SliderManager : MonoBehaviour
         // Clean up created material instances to avoid memory leaks
         foreach (var slider in sliders)
         {
-            Image targetImage = slider.transform.Find("Fill Area/Fill").GetComponent<Image>();
+            Image targetImage = slider.transform.Find(fillPath).GetComponent<Image>();
             if (targetImage != null && targetImage.material != null)
             {
                 Destroy(targetImage.material);
@@ -138,7 +144,15 @@ public class SliderManager : MonoBehaviour
     {
         foreach (var slider in sliders)
         {
-            slider.SetActive(true);
+            Image targetImage = slider.transform.Find(fillPath).GetComponent<Image>();
+            if (targetImage != null)
+            {
+                targetImage.material.SetFloat("_MinDist", 0.4f);
+            }
+            if (sliderBackgroundMaterial != null)
+            {
+                sliderBackgroundMaterial.SetFloat("_MinDist", 0.4f);
+            }
         }
     }
 
@@ -146,7 +160,15 @@ public class SliderManager : MonoBehaviour
     {
         foreach (var slider in sliders)
         {
-            slider.SetActive(false);
+            Image targetImage = slider.transform.Find(fillPath).GetComponent<Image>();
+            if (targetImage != null)
+            {
+                targetImage.material.SetFloat("_MinDist", 0.6f);
+            }
+            if (sliderBackgroundMaterial != null)
+            {
+                sliderBackgroundMaterial.SetFloat("_MinDist", 0.6f);
+            }
         }
     }
 

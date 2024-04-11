@@ -1,82 +1,48 @@
-Shader "Custom/UI/CircularSliderFillDepth"
+Shader "Custom/UICircularSliderFillDepth"
 {
     Properties
     {
-        [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
-        _Color ("Tint", Color) = (1,1,1,1)
+        _MainTex ("Texture", 2D) = "white" {}
+        _Color ("Color", Color) = (1,1,1,1)
         _MinDist ("Min Distance", Float) = 0.25
         _SliderValue ("Slider Value", Range(0,1)) = 0
-
-        _StencilComp ("Stencil Comparison", Float) = 8
-        _Stencil ("Stencil ID", Float) = 0
-        _StencilOp ("Stencil Operation", Float) = 0
-        _StencilWriteMask ("Stencil Write Mask", Float) = 255
-        _StencilReadMask ("Stencil Read Mask", Float) = 255
-
-        _ColorMask ("Color Mask", Float) = 15
-
-        [Toggle(UNITY_UI_ALPHACLIP)] _UseUIAlphaClip ("Use Alpha Clip", Float) = 0
     }
-
     SubShader
     {
-        Tags
-        {
-            "Queue"="Transparent"
-            "IgnoreProjector"="True"
-            "RenderType"="Transparent"
-            "PreviewType"="Plane"
-            "CanUseSpriteAtlas"="True"
-        }
+        Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
+        LOD 100
 
-        Stencil
-        {
-            Ref [_Stencil]
-            Comp [_StencilComp]
-            Pass [_StencilOp]
-            ReadMask [_StencilReadMask]
-            WriteMask [_StencilWriteMask]
-        }
-
-        Cull Off
-        Lighting Off
-        ZWrite Off
-        ZTest [unity_GUIZTestMode]
         Blend SrcAlpha OneMinusSrcAlpha
-        ColorMask [_ColorMask]
+        ZWrite Off
+        Cull Off
+        Fog { Mode Off }
 
         Pass
         {
-            Name "Combined"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma target 2.0
             #include "UnityCG.cginc"
-            #include "UnityUI.cginc"
             #include "Packages/com.meta.xr.depthapi/Runtime/BiRP/EnvironmentOcclusionBiRP.cginc"
 
-            #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
-            #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
-            
             // DepthAPI Environment Occlusion
             #pragma multi_compile _ HARD_OCCLUSION SOFT_OCCLUSION
 
-            struct appdata_t
+            struct appdata
             {
-                float4 vertex   : POSITION;
-                float4 color    : COLOR;
-                float2 texcoord : TEXCOORD0;
-                UNITY_VERTEX_INPUT_INSTANCE_ID
+                float4 vertex : POSITION;
+                float2 uv : TEXCOORD0;
             };
 
             struct v2f
             {
-                float4 vertex   : SV_POSITION;
-                fixed4 color    : COLOR;
-                float2 texcoord  : TEXCOORD0;
-                float4 worldPosition : TEXCOORD1;
-                UNITY_VERTEX_OUTPUT_STEREO
+                float2 uv : TEXCOORD0;
+                float4 vertex : SV_POSITION;
+
+                META_DEPTH_VERTEX_OUTPUT(1) // the number should stand for the previous TEXCOORD# + 1
+
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+                UNITY_VERTEX_OUTPUT_STEREO // required for stereo
             };
 
             sampler2D _MainTex;
@@ -84,61 +50,46 @@ Shader "Custom/UI/CircularSliderFillDepth"
             fixed4 _Color;
             float _MinDist;
             float _SliderValue;
-            float4 _ClipRect; // Assume this is defined as (xMin, yMin, xMax, yMax)
 
-            float ClipAlpha(float2 position, float4 clipRect) {
-                bool isInside =
-                    position.x >= clipRect.x &&
-                    position.y >= clipRect.y &&
-                    position.x <= clipRect.z &&
-                    position.y <= clipRect.w;
-                return isInside ? 1.0 : 0.0;
+            v2f vert (appdata v)
+            {
+                v2f o;
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+
+                // UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o); // required to support stereo
+             
+                // v.vertex (object space coordinate) might have a different name in your vert shader
+                META_DEPTH_INITIALIZE_VERTEX_OUTPUT(o, v.vertex);
+                return o;
             }
 
-            v2f vert(appdata_t v)
+            half4 frag (v2f i) : SV_Target
             {
-                v2f OUT;
-                UNITY_SETUP_INSTANCE_ID(v);
-                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT);
-                OUT.worldPosition = v.vertex;
-                OUT.vertex = UnityObjectToClipPos(OUT.worldPosition);
-                OUT.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
-                OUT.color = v.color * _Color;
-                return OUT;
-            }
-
-            half4 frag(v2f IN) : SV_Target
-            {
-                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
+                // Calculate distance from the UV center (0.5, 0.5) to the current fragment
                 float2 center = float2(0.5, 0.5);
-                float dist = distance(IN.texcoord, center);
-            
+                float dist = distance(i.uv, center);
+
+                // Discard fragments closer than _MinDist to the center
                 if(dist < _MinDist)
                 {
                     discard;
                 }
-            
-                // Adjust the calculation for colorChange here
-                // Ensure it transitions from red (1,0,0) to green (0,1,0) based on _SliderValue
-                float distanceFromMiddle = abs(_SliderValue - 0.5) * 2;
-                fixed3 colorStart = fixed3(0, 1, 0); // Green
-                fixed3 colorEnd = fixed3(1, 0, 0); // Red
-                fixed3 colorChange = lerp(colorStart, colorEnd, distanceFromMiddle);
-            
-                // Apply the corrected color change
-                half4 color = tex2D(_MainTex, IN.texcoord) * IN.color;
-                color.rgb = colorChange; // Directly set the color instead of multiplying
-            
-                #ifdef UNITY_UI_CLIP_RECT
-                color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
-                #endif
-            
-                #ifdef UNITY_UI_ALPHACLIP
-                clip (color.a - 0.001);
-                #endif
+
+                // Calculate how far the value is from 0.5
+                float distanceFromMiddle = abs(_SliderValue - 0.5) * 2; // Normalized to range [0, 1]
+                // Linearly interpolate between green and red based on distance from the middle
+                // Closer to 0.5 (green) if distanceFromMiddle is small, closer to ends (red) if large
+                fixed3 colorChange = lerp(fixed3(0,1,0), fixed3(1,0,0), distanceFromMiddle);
+                half4 col = tex2D(_MainTex, i.uv);
+                col.rgb *= colorChange; // Apply the blended color
                 
-                META_DEPTH_OCCLUDE_OUTPUT_PREMULTIPLY_WORLDPOS(IN.worldPosition.xyz, color, 0.0);
-                return color;
+                col.a *= _Color.a; // Apply the alpha value from _Color to the output color
+                
+                META_DEPTH_OCCLUDE_OUTPUT_PREMULTIPLY(i, col, 0.0);
+                return col;
             }
             ENDCG
         }

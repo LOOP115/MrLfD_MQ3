@@ -36,7 +36,8 @@ public class SliderManager : MonoBehaviour
             InitializeSlider(sliders[i]);
         }
         sliderBackgroundMaterial = sliders[0].transform.Find(backgroundPath).GetComponent<Image>().material;
-        Subscribe(true);
+        sliderBackgroundMaterial.SetFloat("_MinDist", 0.6f);
+        // Subscribe(true);
     }
 
 

@@ -30,7 +30,8 @@ namespace BioIK {
 
 		private int DoF;
 
-		void Awake() {
+        [System.Obsolete]
+        void Awake() {
 			EditorApplication.playmodeStateChanged += PlaymodeStateChanged;
 			Target = (BioIK)target;
 			TargetTransform = Target.transform;

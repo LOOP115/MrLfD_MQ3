@@ -26,6 +26,7 @@ public class FrankaManager : MonoBehaviour
         }
     }
 
+    public GameObject removeToggle;
     public GameObject resetToggle;
     public GameObject baseLockToggle;
     public GameObject jointControllerToggle;
@@ -141,6 +142,7 @@ public class FrankaManager : MonoBehaviour
             isSpawned = false;
             DeactivateTogglesExcept();
             ResetBinaryToggles();
+            sliderManager.DeactivateSliders();
         }
     }
 
@@ -160,6 +162,30 @@ public class FrankaManager : MonoBehaviour
             {
                 moveToStart.Reset();
                 gripperController.Open();
+            }
+        }
+    }
+
+    private void ActivateToggle(GameObject toggle)
+    {
+        if (toggle != null)
+        {
+            Toggle toggleComponent = toggle.GetComponent<Toggle>();
+            if (toggleComponent != null)
+            {
+                toggleComponent.interactable = true;
+            }
+        }
+    }
+
+    private void DeactivateToggle(GameObject toggle)
+    {
+        if (toggle != null)
+        {
+            Toggle toggleComponent = toggle.GetComponent<Toggle>();
+            if (toggleComponent != null)
+            {
+                toggleComponent.interactable = false;
             }
         }
     }
@@ -359,12 +385,12 @@ public class FrankaManager : MonoBehaviour
                 ToggleImage toggleImage = jointDialsToggle.GetComponent<ToggleImage>();
                 if (toggleImage.Image1isActive())
                 {
-                    // sliderManager.Subscribe();
+                    sliderManager.Subscribe(true);
                     sliderManager.ActivateSliders();
                 }
                 else
                 {
-                    // sliderManager.Unsubscribe();
+                    sliderManager.Unsubscribe(true);
                     sliderManager.DeactivateSliders();
                 }
                 toggleImage.SwitchToggleImage();

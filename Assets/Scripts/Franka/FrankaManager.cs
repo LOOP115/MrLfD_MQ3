@@ -142,7 +142,6 @@ public class FrankaManager : MonoBehaviour
             isSpawned = false;
             DeactivateTogglesExcept();
             ResetBinaryToggles();
-            sliderManager.DeactivateSliders();
         }
     }
 
@@ -387,11 +386,13 @@ public class FrankaManager : MonoBehaviour
                 {
                     sliderManager.Subscribe(true);
                     sliderManager.ActivateSliders();
+                    DeactivateToggle(removeToggle);
                 }
                 else
                 {
                     sliderManager.Unsubscribe(true);
                     sliderManager.DeactivateSliders();
+                    ActivateToggle(removeToggle);
                 }
                 toggleImage.SwitchToggleImage();
             }

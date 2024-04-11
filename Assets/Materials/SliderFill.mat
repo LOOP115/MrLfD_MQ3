@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SliderFill
-  m_Shader: {fileID: 4800000, guid: 0ebc4361f1903da46961d466a6627b18, type: 3}
+  m_Shader: {fileID: 4800000, guid: 825db10ff5b5eac42ab749a2f825ae8a, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -71,7 +71,7 @@ Material:
     - _GlossyReflections: 1
     - _MaxDist: 0.45
     - _Metallic: 0
-    - _MinDist: 0.6
+    - _MinDist: 0.4
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02

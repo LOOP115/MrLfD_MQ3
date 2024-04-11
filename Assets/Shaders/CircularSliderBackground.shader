@@ -79,6 +79,16 @@ Shader "Custom/UI/CircularSliderBackground"
             fixed4 _Color;
             float _MinDist;
             float _SliderValue;
+            float4 _ClipRect;
+
+            float ClipAlpha(float2 position, float4 clipRect) {
+                bool isInside =
+                    position.x >= clipRect.x &&
+                    position.y >= clipRect.y &&
+                    position.x <= clipRect.z &&
+                    position.y <= clipRect.w;
+                return isInside ? 1.0 : 0.0;
+            }
 
             v2f vert(appdata_t v)
             {

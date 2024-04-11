@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SliderBackground
-  m_Shader: {fileID: 4800000, guid: 6b2398befee5556478111a09f1099624, type: 3}
+  m_Shader: {fileID: 4800000, guid: e88a17bb14ac08f44b01bcc0654d3f6e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

@@ -1,5 +1,6 @@
 using UnityEngine;
 using RosMessageTypes.CtrlInterfaces;
+using System.Collections.Generic;
 
 public static class FrankaConstants
 {
@@ -27,6 +28,17 @@ public static class FrankaConstants
         "/panda_link7"
     };
 
+    public static readonly string[] VisualPaths = new string[]
+    {
+        "world/panda_link0",
+        "/panda_link1",
+        "/panda_link2",
+        "/panda_link3",
+        "/panda_link4",
+        "/panda_link5",
+        "/panda_link6"
+    };
+
     
     public static readonly int NumFingers = 2;
 
@@ -45,6 +57,7 @@ public static class FrankaConstants
     public static readonly string JointController = "JointController";
     public static readonly string ReachTarget = "ReachTarget";
     public static readonly string FollowTarget = "FollowTarget";
+    public static readonly string JointDials = "JointDials";
 
 
     public static readonly string[] Modes = new string[]
@@ -73,5 +86,34 @@ public static class FrankaConstants
     {
         command = "move_to_start"
     };
+
+
+    public struct JointLimits
+    {
+        public float minDegrees;
+        public float maxDegrees;
+
+        public JointLimits(float min, float max)
+        {
+            minDegrees = min;
+            maxDegrees = max;
+        }
+    }
+
+    public static readonly List<JointLimits> JointLimitsList = new List<JointLimits>
+    {
+        new JointLimits(-166f, 166f),
+        new JointLimits(-101f, 101f),
+        new JointLimits(-166f, 166f),
+        new JointLimits(-176f, -4f),
+        new JointLimits(-166f, 166f),
+        new JointLimits(-1f, 215f),
+        new JointLimits(-166f, 166f)
+    };
+
+    public static readonly string topicUnityFrankaJoints = "/unity_franka_joints";
+    public static readonly string topicUnityTargetPose = "/unity_target_pose";
+    public static readonly string topicUnityCommand = "/unity_command";
+    public static readonly string topicFrankaJoints = "/franka_joints";
 
 }

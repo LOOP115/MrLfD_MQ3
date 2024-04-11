@@ -102,7 +102,7 @@ public class ReachTarget : MonoBehaviour
                 rot_w = targetRotation.w
             };
 
-            rosConnector.GetBridge().Publish(rosConnector.topicUnityTargetPose, targetPoseMsg);
+            rosConnector.GetBridge().Publish(FrankaConstants.topicUnityTargetPose, targetPoseMsg);
             lastTargetPosition = endEffectorTarget.transform.position;
         }
     }

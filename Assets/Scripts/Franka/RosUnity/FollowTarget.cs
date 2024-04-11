@@ -96,7 +96,7 @@ public class FollowTarget : MonoBehaviour
 
             if (isTargetStill && !FrankaConstants.similarPosition(endEffectorTarget.transform.position, lastTargetPosition))
             {
-                rosConnector.GetBridge().Publish(rosConnector.topicUnityTargetPose, targetPoseMsg);
+                rosConnector.GetBridge().Publish(FrankaConstants.topicUnityTargetPose, targetPoseMsg);
                 lastTargetPosition = endEffectorTarget.transform.position;
             }
         }

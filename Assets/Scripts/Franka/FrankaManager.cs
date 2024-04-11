@@ -4,8 +4,8 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using Franka.Control;
-using Unity.VisualScripting;
 using System;
+using UnityEditor.UI;
 
 public class FrankaManager : MonoBehaviour
 {
@@ -32,6 +32,7 @@ public class FrankaManager : MonoBehaviour
     public GameObject jointControllerToggle;
     public GameObject reachTargetToggle;
     public GameObject followTargetToggle;
+    public GameObject jointDialsToggle;
 
     private Dictionary<string, Action> modeActions;
     private Dictionary<string, GameObject> modeToggles;
@@ -45,6 +46,8 @@ public class FrankaManager : MonoBehaviour
     private ReachTarget reachTarget;
     private FollowTarget followTarget;
     private JointsPublisher jointsPublisher;
+    
+    private SliderManager sliderManager;
 
     private RosConnector rosConnector;
 
@@ -56,7 +59,8 @@ public class FrankaManager : MonoBehaviour
             { FrankaConstants.BaseLock, baseLockToggle },
             { FrankaConstants.JointController, jointControllerToggle },
             { FrankaConstants.ReachTarget, reachTargetToggle },
-            { FrankaConstants.FollowTarget, followTargetToggle }
+            { FrankaConstants.FollowTarget, followTargetToggle },
+            { FrankaConstants.JointDials, jointDialsToggle }
         };
 
         modeActions = new Dictionary<string, Action>
@@ -64,7 +68,8 @@ public class FrankaManager : MonoBehaviour
             { FrankaConstants.BaseLock, toggleBaseLock },
             { FrankaConstants.JointController, toggleJointController },
             { FrankaConstants.ReachTarget, toggleReachTarget },
-            { FrankaConstants.FollowTarget, toggleFollowTarget }
+            { FrankaConstants.FollowTarget, toggleFollowTarget },
+            { FrankaConstants.JointDials, toggleJointDials }
         };
 
         rosConnector = FindObjectOfType<RosConnector>();
@@ -110,6 +115,8 @@ public class FrankaManager : MonoBehaviour
             reachTarget = franka.GetComponent<ReachTarget>();
             followTarget = franka.GetComponent<FollowTarget>();
             jointsPublisher = franka.GetComponent<JointsPublisher>();
+
+            sliderManager = franka.GetComponent<SliderManager>();
             
             isSpawned = true;
 
@@ -137,7 +144,7 @@ public class FrankaManager : MonoBehaviour
     {
         if (rosConnector != null)
         {
-            rosConnector.GetBridge().Publish(rosConnector.topicUnityCommand, FrankaConstants.cmdMoveToStart);
+            rosConnector.GetBridge().Publish(FrankaConstants.topicUnityCommand, FrankaConstants.cmdMoveToStart);
         }
     }
 
@@ -283,7 +290,7 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     jointController.setControllerState(true);
-                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, jointControllerToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, jointControllerToggle, jointDialsToggle});
                 }
                 else
                 {
@@ -305,7 +312,7 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startReachTarget();
-                    DeactivateTogglesExcept(new List<GameObject> {reachTargetToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {reachTargetToggle, jointDialsToggle});
                 }
                 else
                 {
@@ -327,12 +334,34 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startFollowTarget();
-                    DeactivateTogglesExcept(new List<GameObject> {followTargetToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {followTargetToggle, jointDialsToggle});
                 }
                 else
                 {
                     stopFollowTarget();
                     ActivateToggles();
+                }
+                toggleImage.SwitchToggleImage();
+            }
+        }
+    }
+
+    private void toggleJointDials()
+    {
+        if (franka != null)
+        {
+            if (sliderManager != null)
+            {
+                ToggleImage toggleImage = jointDialsToggle.GetComponent<ToggleImage>();
+                if (toggleImage.Image1isActive())
+                {
+                    // sliderManager.Subscribe();
+                    sliderManager.ActivateSliders();
+                }
+                else
+                {
+                    // sliderManager.Unsubscribe();
+                    sliderManager.DeactivateSliders();
                 }
                 toggleImage.SwitchToggleImage();
             }
@@ -385,7 +414,6 @@ public class FrankaManager : MonoBehaviour
                 followTarget.RemoveTarget();
                 followTarget.enabled = false;
                 syncFromFranka.Unsubscribe();
-                // rosConnector.GetBridge().Publish(rosConnector.topicUnityCommand, FrankaConstants.cmdMoveToStart);
             }
         }
     }

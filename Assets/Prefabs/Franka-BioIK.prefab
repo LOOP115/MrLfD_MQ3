@@ -3083,7 +3083,7 @@ MonoBehaviour:
   Root: {fileID: 2740004620112836109}
   Solution: []
   SelectedSegment: {fileID: 8530445800350150361}
-  Scroll: {x: 0, y: 4975}
+  Scroll: {x: 0, y: 5335}
 --- !u!114 &2740004620112836109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11841,9 +11841,9 @@ MonoBehaviour:
   Segment: {fileID: 8530445800350150361}
   Weight: 1
   Target: {fileID: 2636640209917011419}
-  TPX: -1.6506173610687256
+  TPX: -0.00019999999494757503
   TPY: 0.4855000078678131
-  TPZ: -1.3362882137298584
+  TPZ: 0.3073999881744385
   MaximumError: 0.001
 --- !u!114 &9215449108970738208
 MonoBehaviour:

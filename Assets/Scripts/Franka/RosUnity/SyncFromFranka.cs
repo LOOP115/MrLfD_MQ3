@@ -1,6 +1,7 @@
 using UnityEngine;
 using RosMessageTypes.CtrlInterfaces;
 using System.Collections;
+using Unity.Robotics.ROSTCPConnector;
 
 public class SyncFromFranka : MonoBehaviour
 {
@@ -10,12 +11,15 @@ public class SyncFromFranka : MonoBehaviour
     // public float topicHz = 200.0f; // Frequency to check for new messages
     private float jointAssignmentWait = 0.001f; // Time to wait after setting each joint position
 
-    private RosConnector rosConnector;
+    // private RosConnector rosConnector;
+
+    private ROSConnection rosConnection;
 
 
     void Start()
     {
-        rosConnector = FindObjectOfType<RosConnector>();
+        // rosConnector = FindObjectOfType<RosConnector>();
+        rosConnection = ROSConnection.GetOrCreateInstance();
         jointArticulationBodies = new ArticulationBody[FrankaConstants.NumJoints];
         
         var linkName = string.Empty;
@@ -55,12 +59,14 @@ public class SyncFromFranka : MonoBehaviour
 
     public void Subscribe()
     {
-        rosConnector.GetBridge().Subscribe<FrankaJointsMsg>(rosConnector.topicFrankaJoints, UpdateJointPositions);
+        // rosConnector.GetBridge().Subscribe<FrankaJointsMsg>(FrankaConstants.topicFrankaJoints, UpdateJointPositions);
+        rosConnection.Subscribe<FrankaJointsMsg>(FrankaConstants.topicFrankaJoints, UpdateJointPositions);
     }
     
     public void Unsubscribe()
     {
-        rosConnector.GetBridge().Unsubscribe(rosConnector.topicFrankaJoints);
+        // rosConnector.GetBridge().Unsubscribe(FrankaConstants.topicFrankaJoints);
+        rosConnection.Unsubscribe(FrankaConstants.topicFrankaJoints);
     }
 
 }

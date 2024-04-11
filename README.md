@@ -61,6 +61,12 @@ Adjust the target's position in Unity using Quest 3 controllers or hand movement
 
 <br>
 
+### Follow Target
+
+
+
+
+
 ## Design Elements
 
 - Panels

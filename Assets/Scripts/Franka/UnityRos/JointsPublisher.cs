@@ -42,7 +42,7 @@ public class JointsPublisher : MonoBehaviour
             }
 
             // Finally send the message to server_endpoint.py running in ROS
-            rosConnector.GetBridge().Publish(rosConnector.topicUnityFrankaJoints, jointsMsg);
+            rosConnector.GetBridge().Publish(FrankaConstants.topicUnityFrankaJoints, jointsMsg);
 
             timeElapsed = 0;
         }

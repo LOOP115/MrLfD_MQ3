@@ -55,12 +55,12 @@ Shader "Custom/UICircularSliderFillDepth"
             v2f vert (appdata v)
             {
                 v2f o;
+                UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o); // required to support stereo
+                
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
-                // UNITY_SETUP_INSTANCE_ID(v);
-                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o); // required to support stereo
-             
                 // v.vertex (object space coordinate) might have a different name in your vert shader
                 META_DEPTH_INITIALIZE_VERTEX_OUTPUT(o, v.vertex);
                 return o;

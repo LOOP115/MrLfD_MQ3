@@ -17,9 +17,6 @@ public class JointsPublisherIK : MonoBehaviour
     {
         rosConnector = FindObjectOfType<RosConnector>();
         bioIK = baseLink.GetComponent<BioIK.BioIK>();
-
-        // Get bioIK joints
-
     }
 
     private void Update()

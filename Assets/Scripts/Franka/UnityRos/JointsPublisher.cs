@@ -11,7 +11,7 @@ public class JointsPublisher : MonoBehaviour
     // ROS Connector
     private RosConnector rosConnector;
 
-    public float PublishHz = 20.0f;
+    private float PublishHz = 100.0f;
     private float PublishFrequency => 1.0f / PublishHz;
 
     private float timeElapsed;
@@ -29,23 +29,22 @@ public class JointsPublisher : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        timeElapsed += Time.deltaTime;
+        // timeElapsed += Time.deltaTime;
 
-        if (timeElapsed > PublishFrequency)
+        // if (timeElapsed > PublishFrequency)
+        // {
+        var jointsMsg = new FrankaJointsMsg();
+        for (var i = 0; i < FrankaConstants.NumJoints; i++)
         {
-            var jointsMsg = new FrankaJointsMsg();
-            for (var i = 0; i < FrankaConstants.NumJoints; i++)
-            {
-                jointsMsg.joints[i] = jointArticulationBodies[i].GetPosition();
-            }
-
-            // Finally send the message to server_endpoint.py running in ROS
-            rosConnector.GetBridge().Publish(FrankaConstants.topicUnityFrankaJoints, jointsMsg);
-
-            timeElapsed = 0;
+            jointsMsg.joints[i] = jointArticulationBodies[i].GetPosition();
         }
+
+        rosConnector.GetBridge().Publish(FrankaConstants.topicUnityFrankaJoints, jointsMsg);
+
+        // timeElapsed = 0;
+        // }
     }
     
 }

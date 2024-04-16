@@ -9,7 +9,6 @@ using System;
 public class FrankaManager : MonoBehaviour
 {
     public GameObject frankaPrefab;
-    public float fixedUpdateFPS = 30.0f;
     private GameObject franka;
     private bool isSpawned = false;
     public TextMeshProUGUI textComponent;
@@ -52,7 +51,7 @@ public class FrankaManager : MonoBehaviour
     private SliderManager sliderManager;
     
     private RosConnector rosConnector;
-
+    // private float fixedUpdateFPS = 30.0f;
 
     void Start()
     {
@@ -77,7 +76,7 @@ public class FrankaManager : MonoBehaviour
         };
 
         rosConnector = FindObjectOfType<RosConnector>();
-        Time.fixedDeltaTime = 1.0f / fixedUpdateFPS;
+        // Time.fixedDeltaTime = 1.0f / fixedUpdateFPS;
     }
     
     

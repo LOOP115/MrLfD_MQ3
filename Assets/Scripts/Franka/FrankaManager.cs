@@ -27,7 +27,10 @@ public class FrankaManager : MonoBehaviour
 
     public GameObject removeToggle;
     public GameObject resetToggle;
+
+
     public GameObject baseLockToggle;
+    public GameObject gripperControllerToggle;
     public GameObject jointControllerToggle;
     public GameObject reachTargetToggle;
     public GameObject followTargetToggle;
@@ -62,6 +65,7 @@ public class FrankaManager : MonoBehaviour
         modeToggles = new Dictionary<string, GameObject>
         {
             { FrankaConstants.BaseLock, baseLockToggle },
+            { FrankaConstants.GripperController, gripperControllerToggle },
             { FrankaConstants.JointController, jointControllerToggle },
             { FrankaConstants.ReachTarget, reachTargetToggle },
             { FrankaConstants.FollowTarget, followTargetToggle },
@@ -73,6 +77,7 @@ public class FrankaManager : MonoBehaviour
         modeActions = new Dictionary<string, Action>
         {
             { FrankaConstants.BaseLock, toggleBaseLock },
+            { FrankaConstants.GripperController, toggleGripperController },
             { FrankaConstants.JointController, toggleJointController },
             { FrankaConstants.ReachTarget, toggleReachTarget },
             { FrankaConstants.FollowTarget, toggleFollowTarget },
@@ -317,6 +322,26 @@ public class FrankaManager : MonoBehaviour
         }
     }
 
+    private void toggleGripperController()
+    {
+        if (franka != null)
+        {
+            if (gripperControllerToggle != null)
+            {
+                ToggleImage toggleImage = gripperControllerToggle.GetComponent<ToggleImage>();
+                if (toggleImage.Image1isActive())
+                {
+                    gripperController.SetControllerStatus(true);
+                }
+                else
+                {
+                    gripperController.SetControllerStatus(false);
+                }
+                toggleImage.SwitchToggleImage();
+            }
+        }
+    }
+
     private void toggleJointController()
     {
         if (franka != null)
@@ -328,7 +353,7 @@ public class FrankaManager : MonoBehaviour
                 {
                     syncFromFranka.Unsubscribe();
                     jointController.setControllerState(true);
-                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, jointControllerToggle, jointDialsToggle, invisibleToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, gripperControllerToggle, jointControllerToggle, jointDialsToggle, invisibleToggle});
                 }
                 else
                 {
@@ -351,7 +376,7 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startReachTarget();
-                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, reachTargetToggle, jointDialsToggle, invisibleToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, gripperControllerToggle, reachTargetToggle, jointDialsToggle, invisibleToggle});
                 }
                 else
                 {
@@ -373,7 +398,7 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startFollowTarget();
-                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, followTargetToggle, jointDialsToggle, invisibleToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, gripperControllerToggle, followTargetToggle, jointDialsToggle, invisibleToggle});
                 }
                 else
                 {
@@ -395,7 +420,7 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startFollowTrajectory();
-                    DeactivateTogglesExcept(new List<GameObject> {followTrajectoryToggle, jointDialsToggle, invisibleToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {gripperControllerToggle, followTrajectoryToggle, jointDialsToggle, invisibleToggle});
                 }
                 else
                 {
@@ -417,10 +442,12 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     invisibleFranka.SetVisibility(false);
+                    DeactivateToggle(removeToggle);
                 }
                 else
                 {
                     invisibleFranka.SetVisibility(true);
+                    ActivateToggle(removeToggle);
                 }
                 toggleImage.SwitchToggleImage();
             }

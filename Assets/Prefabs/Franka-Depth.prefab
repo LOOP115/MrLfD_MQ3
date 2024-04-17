@@ -2931,7 +2931,6 @@ GameObject:
   - component: {fileID: 4648269776778880649}
   - component: {fileID: 8900141953156732879}
   - component: {fileID: 6880965204028067501}
-  - component: {fileID: 1130403904647984458}
   - component: {fileID: 2071273819345112470}
   m_Layer: 0
   m_Name: Franka-Depth
@@ -3128,19 +3127,6 @@ MonoBehaviour:
   endEffectorTargetPrefab: {fileID: 7979426305563732659, guid: adbac9c9e57909e4490e0e98aa25d079,
     type: 3}
   world: {fileID: 8429854166053825933}
---- !u!114 &1130403904647984458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931097996755639336}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07a95e65dda06294da0642061a951a85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ikBaseLink: {fileID: 0}
 --- !u!114 &2071273819345112470
 MonoBehaviour:
   m_ObjectHideFlags: 0

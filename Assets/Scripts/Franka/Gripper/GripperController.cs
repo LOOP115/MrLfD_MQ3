@@ -8,6 +8,7 @@ public class GripperController : MonoBehaviour
     public float jointAssignmentWait = 0.001f; // Time to wait after setting each joint position
 
     private bool isGripperClosed = false;
+    private bool controllerIsActive = false;
 
 
     void Start()
@@ -26,7 +27,17 @@ public class GripperController : MonoBehaviour
 
     void Update()
     {
-        toggleGripper();
+        if (controllerIsActive)
+        {
+            toggleGripper();
+        }
+        
+    }
+
+
+    public void SetControllerStatus(bool status)
+    {
+        controllerIsActive = status;
     }
 
 

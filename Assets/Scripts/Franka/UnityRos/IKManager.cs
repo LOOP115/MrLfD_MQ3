@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using RosMessageTypes.CtrlInterfaces;
-using System.Security.Cryptography;
 
 
 public class FrankaIK : MonoBehaviour

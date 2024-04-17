@@ -1,24 +1,29 @@
 using UnityEngine;
 
-// [RequireComponent(typeof(SphereCollider))]
 public class CollisionIgnorer : MonoBehaviour
 {
-    public string ignoredTag;
-    
+    public string ignoredTag = "Franka";
+
     private void OnCollisionEnter(Collision collision)
     {
-        // Check if the colliding object has the specific tag
         if (collision.gameObject.CompareTag(ignoredTag))
         {
-            // Optionally, you can perform additional logic here if needed,
-            // like logging or handling special cases when encountering the ignored object.
-            
-            // Physically ignore the collision
-            Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
+            // Retrieve all colliders on the current GameObject
+            Collider[] myColliders = GetComponentsInChildren<Collider>();
+            // Retrieve all colliders on the colliding GameObject
+            Collider[] otherColliders = collision.gameObject.GetComponentsInChildren<Collider>();
+
+            // Iterate over all combinations of my colliders and other colliders
+            foreach (Collider myCollider in myColliders)
+            {
+                foreach (Collider otherCollider in otherColliders)
+                {
+                    Physics.IgnoreCollision(otherCollider, myCollider, true);
+                }
+            }
         }
         else
         {
-            // Handle other collisions
             Debug.Log($"Collided with {collision.gameObject.name}");
         }
     }

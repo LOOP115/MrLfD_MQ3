@@ -8,6 +8,8 @@ TagManager:
   - SamplesInfoPanel
   - franka
   - franka-ik
+  - Franka
+  - FrankaIK
   layers:
   - Default
   - TransparentFX

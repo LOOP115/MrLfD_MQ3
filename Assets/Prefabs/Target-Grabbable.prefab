@@ -144,7 +144,7 @@ PrefabInstance:
     - target: {fileID: 5270983659149341059, guid: 504a739c83fc2ca47a574e11dd02d195,
         type: 3}
       propertyPath: m_Name
-      value: EndEffectorTargetGrab
+      value: Target-Grabbable
       objectReference: {fileID: 0}
     - target: {fileID: 5815492272996830905, guid: 504a739c83fc2ca47a574e11dd02d195,
         type: 3}
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8343ffec0a3df9b4b8afcffaf9c2cbe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoredTag: franka
+  ignoredTag: Franka
 --- !u!4 &3828593192256500667 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8782261448441038497, guid: 504a739c83fc2ca47a574e11dd02d195,

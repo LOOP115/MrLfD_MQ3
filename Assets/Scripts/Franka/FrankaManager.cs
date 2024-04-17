@@ -31,6 +31,9 @@ public class FrankaManager : MonoBehaviour
     public GameObject jointControllerToggle;
     public GameObject reachTargetToggle;
     public GameObject followTargetToggle;
+    public GameObject followTrajectoryToggle;
+
+
     public GameObject invisibleToggle;
     public GameObject jointDialsToggle;
     
@@ -45,7 +48,8 @@ public class FrankaManager : MonoBehaviour
     private MoveBase moveBase;
     private ReachTarget reachTarget;
     private FollowTarget followTarget;
-    private JointsPublisher jointsPublisher;
+    private FollowTrajectory followTrajectory;
+    // private JointsPublisher jointsPublisher;
     
     private InvisibleFranka invisibleFranka;
     private SliderManager sliderManager;
@@ -62,7 +66,8 @@ public class FrankaManager : MonoBehaviour
             { FrankaConstants.ReachTarget, reachTargetToggle },
             { FrankaConstants.FollowTarget, followTargetToggle },
             { FrankaConstants.JointDials, jointDialsToggle },
-            { FrankaConstants.Invisible, invisibleToggle }
+            { FrankaConstants.Invisible, invisibleToggle },
+            { FrankaConstants.FollowTrajectory, followTrajectoryToggle}
         };
 
         modeActions = new Dictionary<string, Action>
@@ -72,7 +77,8 @@ public class FrankaManager : MonoBehaviour
             { FrankaConstants.ReachTarget, toggleReachTarget },
             { FrankaConstants.FollowTarget, toggleFollowTarget },
             { FrankaConstants.JointDials, toggleJointDials },
-            { FrankaConstants.Invisible, toggleFrankaVisibility }
+            { FrankaConstants.Invisible, toggleFrankaVisibility },
+            { FrankaConstants.FollowTrajectory, toggleFollowTrajectory }
         };
 
         rosConnector = FindObjectOfType<RosConnector>();
@@ -117,13 +123,16 @@ public class FrankaManager : MonoBehaviour
             moveBase = franka.GetComponent<MoveBase>();
             reachTarget = franka.GetComponent<ReachTarget>();
             followTarget = franka.GetComponent<FollowTarget>();
-            jointsPublisher = franka.GetComponent<JointsPublisher>();
+            followTrajectory = franka.GetComponent<FollowTrajectory>();
+            // jointsPublisher = franka.GetComponent<JointsPublisher>();
 
-            sliderManager = franka.GetComponent<SliderManager>();
             invisibleFranka = franka.GetComponent<InvisibleFranka>();
+            sliderManager = franka.GetComponent<SliderManager>();
+            
             
             isSpawned = true;
 
+            // syncFromFranka.Subscribe();
             ActivateToggles();
         }
         else
@@ -158,7 +167,7 @@ public class FrankaManager : MonoBehaviour
         {
             if (moveToStart != null && gripperController != null)
             {
-                moveToStart.Reset();
+                // moveToStart.Reset();
                 gripperController.Open();
             }
         }
@@ -317,11 +326,13 @@ public class FrankaManager : MonoBehaviour
                 ToggleImage toggleImage = jointControllerToggle.GetComponent<ToggleImage>();
                 if (toggleImage.Image1isActive())
                 {
+                    syncFromFranka.Unsubscribe();
                     jointController.setControllerState(true);
                     DeactivateTogglesExcept(new List<GameObject> {resetToggle, jointControllerToggle, jointDialsToggle, invisibleToggle});
                 }
                 else
                 {
+                    syncFromFranka.Subscribe();
                     jointController.setControllerState(false);
                     ActivateToggles();
                 }
@@ -340,7 +351,7 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startReachTarget();
-                    DeactivateTogglesExcept(new List<GameObject> {reachTargetToggle, jointDialsToggle, invisibleToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, reachTargetToggle, jointDialsToggle, invisibleToggle});
                 }
                 else
                 {
@@ -362,12 +373,54 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startFollowTarget();
-                    DeactivateTogglesExcept(new List<GameObject> {followTargetToggle, jointDialsToggle, invisibleToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, followTargetToggle, jointDialsToggle, invisibleToggle});
                 }
                 else
                 {
                     stopFollowTarget();
                     ActivateToggles();
+                }
+                toggleImage.SwitchToggleImage();
+            }
+        }
+    }
+
+    private void toggleFollowTrajectory()
+    {
+        if (franka != null)
+        {
+            if (followTrajectoryToggle != null)
+            {
+                ToggleImage toggleImage = followTrajectoryToggle.GetComponent<ToggleImage>();
+                if (toggleImage.Image1isActive())
+                {
+                    startFollowTrajectory();
+                    DeactivateTogglesExcept(new List<GameObject> {followTrajectoryToggle, jointDialsToggle, invisibleToggle});
+                }
+                else
+                {
+                    stopFollowTrajectory();
+                    ActivateToggles();
+                }
+                toggleImage.SwitchToggleImage();
+            }
+        }
+    }
+
+    private void toggleFrankaVisibility()
+    {
+        if (franka != null)
+        {
+            if (invisibleFranka != null)
+            {
+                ToggleImage toggleImage = invisibleToggle.GetComponent<ToggleImage>();
+                if (toggleImage.Image1isActive())
+                {
+                    invisibleFranka.SetVisibility(false);
+                }
+                else
+                {
+                    invisibleFranka.SetVisibility(true);
                 }
                 toggleImage.SwitchToggleImage();
             }
@@ -398,28 +451,7 @@ public class FrankaManager : MonoBehaviour
         }
     }
 
-    private void toggleFrankaVisibility()
-    {
-        if (franka != null)
-        {
-            if (invisibleFranka != null)
-            {
-                ToggleImage toggleImage = invisibleToggle.GetComponent<ToggleImage>();
-                if (toggleImage.Image1isActive())
-                {
-                    invisibleFranka.SetVisibility(false);
-                }
-                else
-                {
-                    invisibleFranka.SetVisibility(true);
-                }
-                toggleImage.SwitchToggleImage();
-            }
-        }
-    }
 
-
-    
     private void startReachTarget()
     {
         if (franka != null)
@@ -427,7 +459,7 @@ public class FrankaManager : MonoBehaviour
             if (reachTarget != null && syncFromFranka != null)
             {
                 reachTarget.enabled = true;
-                syncFromFranka.Subscribe();
+                // syncFromFranka.Subscribe();
             }
         }
     }
@@ -440,7 +472,7 @@ public class FrankaManager : MonoBehaviour
             {
                 reachTarget.RemoveTarget();
                 reachTarget.enabled = false;
-                syncFromFranka.Unsubscribe();
+                // syncFromFranka.Unsubscribe();
             }
         }
     }
@@ -452,7 +484,7 @@ public class FrankaManager : MonoBehaviour
             if (followTarget != null && syncFromFranka != null)
             {
                 followTarget.enabled = true;
-                syncFromFranka.Subscribe();
+                // syncFromFranka.Subscribe();
             }
         }
     }
@@ -465,11 +497,35 @@ public class FrankaManager : MonoBehaviour
             {
                 followTarget.RemoveTarget();
                 followTarget.enabled = false;
-                syncFromFranka.Unsubscribe();
+                // syncFromFranka.Unsubscribe();
             }
         }
     }
 
+
+    private void startFollowTrajectory()
+    {
+        if (franka != null)
+        {
+            if (followTrajectory != null)
+            {
+                followTrajectory.SpawnFrankaIK();
+                // syncFromFranka.Subscribe();
+            }
+        }
+    }
+
+    private void stopFollowTrajectory()
+    {
+        if (franka != null)
+        {
+            if (followTrajectory != null)
+            {
+                followTrajectory.RemoveFrankaIK();
+                // syncFromFranka.Unsubscribe();
+            }
+        }
+    }
 
     // public void OpenGripper()
     // {

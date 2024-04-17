@@ -9769,9 +9769,8 @@ GameObject:
   - component: {fileID: 7818384191981287421}
   - component: {fileID: 8932453047469782119}
   - component: {fileID: 2085852120552590863}
-  - component: {fileID: 2867081344691067310}
   m_Layer: 0
-  m_Name: Franka-IK
+  m_Name: Franka-IK-Invisible
   m_TagString: robot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9786,7 +9785,7 @@ Transform:
   m_GameObject: {fileID: 5078589844449349180}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 1.133, y: 1.106, z: 0.901}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9845,18 +9844,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseLink: {fileID: 2215147727678673546}
---- !u!114 &2867081344691067310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5078589844449349180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bf181c7bc93e98498b8f360f0270444, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5093874079544309633
 GameObject:
   m_ObjectHideFlags: 0

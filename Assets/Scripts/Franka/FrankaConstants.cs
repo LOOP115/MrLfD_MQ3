@@ -77,9 +77,11 @@ public static class FrankaConstants
     public static readonly string JointController = "JointController";
     public static readonly string ReachTarget = "ReachTarget";
     public static readonly string FollowTarget = "FollowTarget";
-    public static readonly string JointDials = "JointDials";
-    public static readonly string Invisible = "Invisible";
+    public static readonly string FollowTrajectory = "FollowTrajectory";
 
+    public static readonly string Invisible = "Invisible";
+    public static readonly string JointDials = "JointDials";
+    
 
     public static readonly string[] Modes = new string[]
     {

@@ -28,6 +28,7 @@ public class SyncFromFranka : MonoBehaviour
             linkName += FrankaConstants.LinkNames[i];
             jointArticulationBodies[i] = transform.Find(linkName).GetComponent<ArticulationBody>();
         }
+        Subscribe();
     }
 
     

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-public class FrankaIK : MonoBehaviour
+public class SyncFrankaIK : MonoBehaviour
 {
     private ArticulationBody[] jointArticulationBodies;
 

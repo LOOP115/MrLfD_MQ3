@@ -1,5 +1,6 @@
 using UnityEngine;
 using RosMessageTypes.CtrlInterfaces;
+using System;
 
 
 public class JointsPublisherIK : MonoBehaviour
@@ -9,9 +10,9 @@ public class JointsPublisherIK : MonoBehaviour
     public GameObject baseLink;
     private BioIK.BioIK bioIK;
 
-    public float PublishHz = 20.0f;
-    private float PublishFrequency => 1.0f / PublishHz;
-    private float timeElapsed;
+    // public float PublishHz = 20.0f;
+    // private float PublishFrequency => 1.0f / PublishHz;
+    // private float timeElapsed;
 
     void Start()
     {
@@ -19,24 +20,38 @@ public class JointsPublisherIK : MonoBehaviour
         bioIK = baseLink.GetComponent<BioIK.BioIK>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        timeElapsed += Time.deltaTime;
+        var jointsMsg = new FrankaJointsMsg();
 
-        if (timeElapsed > PublishFrequency)
+        for (var i = 0; i < FrankaConstants.NumJoints; i++)
         {
-            var jointsMsg = new FrankaJointsMsg();
-
-            for (var i = 0; i < FrankaConstants.NumJoints; i++)
-            {
-                jointsMsg.joints[i] = bioIK.Solution[i];
-            }
-
-            // Finally send the message to server_endpoint.py running in ROS
-            rosConnector.GetBridge().Publish(FrankaConstants.topicUnityFrankaJoints, jointsMsg);
-
-            timeElapsed = 0;
+            jointsMsg.joints[i] = formatBioIKSolution((float)bioIK.Solution[i], i) * Mathf.Deg2Rad;
         }
+
+        rosConnector.GetBridge().Publish(FrankaConstants.topicUnityFrankaJoints, jointsMsg);
+    }
+
+    private float formatBioIKSolution(float solution, int jointIndex)
+    {
+        float res = solution * Mathf.Rad2Deg;
+        if (jointIndex ==  1)
+        {
+            return res -45f;
+        }
+        if (jointIndex ==  3)
+        {
+            return res -= 135f;
+        }
+        if (jointIndex ==  5)
+        {
+            return res += 90f;
+        }
+        if (jointIndex ==  6)
+        {
+            return res += 45f;
+        }
+        return res;
     }
     
 }

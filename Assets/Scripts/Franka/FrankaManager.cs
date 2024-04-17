@@ -383,13 +383,13 @@ public class FrankaManager : MonoBehaviour
                 ToggleImage toggleImage = jointDialsToggle.GetComponent<ToggleImage>();
                 if (toggleImage.Image1isActive())
                 {
-                    sliderManager.Subscribe(true);
+                    // sliderManager.Subscribe(true);
                     sliderManager.ActivateSliders();
                     DeactivateToggle(removeToggle);
                 }
                 else
                 {
-                    sliderManager.Unsubscribe(true);
+                    // sliderManager.Unsubscribe(true);
                     sliderManager.DeactivateSliders();
                     ActivateToggle(removeToggle);
                 }

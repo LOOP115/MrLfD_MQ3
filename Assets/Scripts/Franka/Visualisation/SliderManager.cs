@@ -2,15 +2,18 @@ using UnityEngine;
 using System.Collections;
 using RosMessageTypes.CtrlInterfaces;
 using UnityEngine.UI;
+using Unity.Robotics.UrdfImporter;
 using Unity.Robotics.ROSTCPConnector;
+using Unity.VisualScripting;
 
 
 public class SliderManager : MonoBehaviour
 {
+    private UrdfJointRevolute[] jointArticulationBodies;
+
     private GameObject[] sliders = new GameObject[FrankaConstants.NumJoints];
     private float waitTime = 0.001f;
 
-    // private RosConnector rosConnector;
     private ROSConnection rosConnection;
 
     private const string sliderPath = "/Dial-Hollow/Slider";
@@ -25,9 +28,18 @@ public class SliderManager : MonoBehaviour
     {
         // rosConnector = FindObjectOfType<RosConnector>();
         rosConnection = ROSConnection.GetOrCreateInstance();
+
+        // Get joint articulation bodies
+        jointArticulationBodies = new UrdfJointRevolute[FrankaConstants.NumJoints];
+        var linkName = string.Empty;
+        for (var i = 0; i < FrankaConstants.NumJoints; i++)
+        {
+            linkName += FrankaConstants.LinkNames[i];
+            jointArticulationBodies[i] = transform.Find(linkName).GetComponent<UrdfJointRevolute>();
+        }
         
         // Get dials
-        var linkName = string.Empty;
+        linkName = string.Empty;
         for (var i = 0; i < FrankaConstants.NumJoints; i++)
         {
             linkName += FrankaConstants.LinkNamesFromBase[i];
@@ -40,11 +52,22 @@ public class SliderManager : MonoBehaviour
         // Subscribe(true);
     }
 
+    private void FixedUpdate()
+    {
+        var jointsMsg = new FrankaJointsMsg();
+        for (var i = 0; i < FrankaConstants.NumJoints; i++)
+        {
+            jointsMsg.joints[i] = jointArticulationBodies[i].GetPosition();
+        }
+        UpdateSliders(jointsMsg);
+    }
+
 
     private void InitializeSlider(GameObject slider)
     {
         // Create a new material instance for this slider
         Material sliderMaterialInstance = new Material(sliderFillMaterial);
+        sliderMaterialInstance.SetFloat("_MinDist", 0.6f);
 
         Image targetImage = slider.transform.Find(fillPath).GetComponent<Image>();
         if (targetImage != null)

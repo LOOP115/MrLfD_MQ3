@@ -7,6 +7,8 @@ public class GripperController : MonoBehaviour
     private ArticulationBody[] jointArticulationBodies; // Array of ArticulationBody components for each joint
     public float jointAssignmentWait = 0.001f; // Time to wait after setting each joint position
 
+    private bool isGripperClosed = false;
+
 
     void Start()
     {
@@ -19,6 +21,12 @@ public class GripperController : MonoBehaviour
         }
         // Open the gripper on start
         Open();
+    }
+
+
+    void Update()
+    {
+        toggleGripper();
     }
 
 
@@ -62,4 +70,21 @@ public class GripperController : MonoBehaviour
         yield return new WaitForSeconds(jointAssignmentWait);
     }
 
+    private void toggleGripper()
+    {
+        if (OVRInput.GetDown(OVRInput.Button.Three))
+        {
+            if (isGripperClosed)
+            {
+                Open();
+                isGripperClosed = false;
+            }
+            else
+            {
+                Close();
+                isGripperClosed = true;
+            }
+        }
+    }
+    
 }

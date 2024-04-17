@@ -27,15 +27,12 @@ public class FollowTarget : MonoBehaviour
     private float rotZ;
     private float rotW;
 
-    private GripperController gripperController;
-    private bool isGripperClosed = false;
-
 
     void Start()
     {
         rosConnector = FindObjectOfType<RosConnector>();
-        gripperController = FindObjectOfType<GripperController>();
     }
+
 
     private void FixedUpdate()
     {
@@ -101,7 +98,6 @@ public class FollowTarget : MonoBehaviour
             }
         }
 
-        toggleGripper();
     }
 
     IEnumerator DelaySpawnCenterTarget()
@@ -160,23 +156,6 @@ public class FollowTarget : MonoBehaviour
             isSpawned = false;
         }
 
-    }
-
-    private void toggleGripper()
-    {
-        if (OVRInput.GetDown(OVRInput.Button.Three))
-        {
-            if (isGripperClosed)
-            {
-                gripperController.Open();
-                isGripperClosed = false;
-            }
-            else
-            {
-                gripperController.Close();
-                isGripperClosed = true;
-            }
-        }
     }
 
 }

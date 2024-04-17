@@ -19,17 +19,15 @@ public class ReachTarget : MonoBehaviour
     // private float publishFrequency => 1.0f / publishHz;
     // private float timeElapsed;
     
-    private GripperController gripperController;
-    private bool isGripperClosed = false;
     private GameObject rightHandAnchor;
     
 
     void Start()
     {
         rosConnector = FindObjectOfType<RosConnector>();
-        gripperController = FindObjectOfType<GripperController>();
         rightHandAnchor = GameObject.Find("RightHandAnchor");
     }
+
 
     private void Update()
     {
@@ -41,7 +39,6 @@ public class ReachTarget : MonoBehaviour
         }
         publishTarget();
         changeTarget();
-        toggleGripper();
     }
 
 
@@ -116,23 +113,6 @@ public class ReachTarget : MonoBehaviour
                 Vector3 handPosition = rightHandAnchor.transform.position;
                 handPosition.y += 0.05f;
                 endEffectorTarget.transform.position = handPosition;
-            }
-        }
-    }
-
-    private void toggleGripper()
-    {
-        if (OVRInput.GetDown(OVRInput.Button.Three))
-        {
-            if (isGripperClosed)
-            {
-                gripperController.Open();
-                isGripperClosed = false;
-            }
-            else
-            {
-                gripperController.Close();
-                isGripperClosed = true;
             }
         }
     }

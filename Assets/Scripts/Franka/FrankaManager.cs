@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections;
 using System.Collections.Generic;
 using Franka.Control;
 using System;
@@ -162,7 +161,8 @@ public class FrankaManager : MonoBehaviour
     {
         if (rosConnector != null)
         {
-            rosConnector.GetBridge().Publish(FrankaConstants.topicUnityCommand, FrankaConstants.cmdMoveToStart);
+            // rosConnector.GetBridge().Publish(FrankaConstants.topicUnityCommand, FrankaConstants.cmdMoveToStart);
+            rosConnector.GetBridge().Publish(FrankaConstants.topicUnityFrankaJoints, moveToStart.getHomeJoints());
         }
     }
 

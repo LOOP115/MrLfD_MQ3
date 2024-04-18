@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using RosMessageTypes.CtrlInterfaces;
 
 public class MoveToStart : MonoBehaviour
 {
     
     private ArticulationBody[] jointArticulationBodies; // Array of ArticulationBody components for each joint
     public float jointAssignmentWait = 0.001f; // Time to wait after setting each joint position
+    private FrankaJointsMsg homeJointsMsg = new FrankaJointsMsg();
 
 
     void Start()
@@ -19,11 +21,15 @@ public class MoveToStart : MonoBehaviour
             jointArticulationBodies[i] = transform.Find(linkName).GetComponent<ArticulationBody>();
         }
 
-        // Start moving the joints
-        Reset();
+        ResetUnityFranka();
+
+        for (var i = 0; i < FrankaConstants.NumJoints; i++)
+        {
+            homeJointsMsg.joints[i] = FrankaConstants.StartJointPositionsRadians[i];
+        }
     }
 
-    public void Reset()
+    public void ResetUnityFranka()
     {
         StartCoroutine(MoveJointsToStart());
     }
@@ -42,4 +48,8 @@ public class MoveToStart : MonoBehaviour
         yield return new WaitForSeconds(jointAssignmentWait);
     }
 
+    public FrankaJointsMsg getHomeJoints()
+    {
+        return homeJointsMsg;
+    }
 }

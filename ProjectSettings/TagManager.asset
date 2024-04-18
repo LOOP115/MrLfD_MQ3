@@ -6,10 +6,9 @@ TagManager:
   tags:
   - robot
   - SamplesInfoPanel
-  - franka
-  - franka-ik
   - Franka
   - FrankaIK
+  - Object
   layers:
   - Default
   - TransparentFX

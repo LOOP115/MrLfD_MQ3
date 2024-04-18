@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 7928297083899318467}
   - component: {fileID: 598107953816705071}
   - component: {fileID: 363160977810308886}
+  - component: {fileID: 4584764931877762092}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Object
@@ -437,6 +438,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ignoredTag: FrankaIK
+--- !u!114 &4584764931877762092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182043200610797948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435f14dcec3c39d46a089220fd750342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _occlusionType: 1
+  _renderer: {fileID: 261927343091006808}
 --- !u!1 &196751092459723025
 GameObject:
   m_ObjectHideFlags: 0

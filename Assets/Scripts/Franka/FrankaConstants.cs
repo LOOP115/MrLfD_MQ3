@@ -81,6 +81,8 @@ public static class FrankaConstants
     public static readonly string FollowTrajectory = "FollowTrajectory";
 
     public static readonly string Invisible = "Invisible";
+    public static readonly string Plane = "Plane";
+
     public static readonly string JointDials = "JointDials";
     
 

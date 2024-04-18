@@ -37,6 +37,10 @@ public class FrankaManager : MonoBehaviour
 
 
     public GameObject invisibleToggle;
+    public GameObject planeToggle;
+
+
+
     public GameObject jointDialsToggle;
     
     private Dictionary<string, Action> modeActions;
@@ -54,6 +58,8 @@ public class FrankaManager : MonoBehaviour
     // private JointsPublisher jointsPublisher;
     
     private InvisibleFranka invisibleFranka;
+    private PlaneManager planeManager;
+
     private SliderManager sliderManager;
     
     private RosConnector rosConnector;
@@ -68,9 +74,10 @@ public class FrankaManager : MonoBehaviour
             { FrankaConstants.JointController, jointControllerToggle },
             { FrankaConstants.ReachTarget, reachTargetToggle },
             { FrankaConstants.FollowTarget, followTargetToggle },
-            { FrankaConstants.JointDials, jointDialsToggle },
+            { FrankaConstants.FollowTrajectory, followTrajectoryToggle},
             { FrankaConstants.Invisible, invisibleToggle },
-            { FrankaConstants.FollowTrajectory, followTrajectoryToggle}
+            { FrankaConstants.Plane, planeToggle},
+            { FrankaConstants.JointDials, jointDialsToggle }
         };
 
         modeActions = new Dictionary<string, Action>
@@ -80,9 +87,10 @@ public class FrankaManager : MonoBehaviour
             { FrankaConstants.JointController, toggleJointController },
             { FrankaConstants.ReachTarget, toggleReachTarget },
             { FrankaConstants.FollowTarget, toggleFollowTarget },
-            { FrankaConstants.JointDials, toggleJointDials },
+            { FrankaConstants.FollowTrajectory, toggleFollowTrajectory },
             { FrankaConstants.Invisible, toggleFrankaVisibility },
-            { FrankaConstants.FollowTrajectory, toggleFollowTrajectory }
+            { FrankaConstants.Plane, togglePlane },
+            { FrankaConstants.JointDials, toggleJointDials }
         };
 
         rosConnector = FindObjectOfType<RosConnector>();
@@ -131,6 +139,8 @@ public class FrankaManager : MonoBehaviour
             // jointsPublisher = franka.GetComponent<JointsPublisher>();
 
             invisibleFranka = franka.GetComponent<InvisibleFranka>();
+            planeManager = franka.GetComponent<PlaneManager>();
+
             sliderManager = franka.GetComponent<SliderManager>();
             
             
@@ -353,7 +363,7 @@ public class FrankaManager : MonoBehaviour
                 {
                     syncFromFranka.Unsubscribe();
                     jointController.setControllerState(true);
-                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, gripperControllerToggle, jointControllerToggle, jointDialsToggle, invisibleToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, gripperControllerToggle, jointControllerToggle, jointDialsToggle, invisibleToggle, planeToggle});
                 }
                 else
                 {
@@ -376,7 +386,7 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startReachTarget();
-                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, gripperControllerToggle, reachTargetToggle, jointDialsToggle, invisibleToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, gripperControllerToggle, reachTargetToggle, jointDialsToggle, invisibleToggle, planeToggle});
                 }
                 else
                 {
@@ -398,7 +408,7 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startFollowTarget();
-                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, gripperControllerToggle, followTargetToggle, jointDialsToggle, invisibleToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, gripperControllerToggle, followTargetToggle, jointDialsToggle, invisibleToggle, planeToggle});
                 }
                 else
                 {
@@ -420,7 +430,7 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startFollowTrajectory();
-                    DeactivateTogglesExcept(new List<GameObject> {gripperControllerToggle, followTrajectoryToggle, jointDialsToggle, invisibleToggle});
+                    DeactivateTogglesExcept(new List<GameObject> {gripperControllerToggle, followTrajectoryToggle, jointDialsToggle, invisibleToggle, planeToggle});
                 }
                 else
                 {
@@ -442,12 +452,32 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     invisibleFranka.SetVisibility(false);
-                    DeactivateToggle(removeToggle);
+                    // DeactivateToggle(removeToggle);
                 }
                 else
                 {
                     invisibleFranka.SetVisibility(true);
-                    ActivateToggle(removeToggle);
+                    // ActivateToggle(removeToggle);
+                }
+                toggleImage.SwitchToggleImage();
+            }
+        }
+    }
+
+    private void togglePlane()
+    {
+        if (franka != null)
+        {
+            if (planeManager != null)
+            {
+                ToggleImage toggleImage = planeToggle.GetComponent<ToggleImage>();
+                if (toggleImage.Image1isActive())
+                {
+                    planeManager.ActivatePlane();
+                }
+                else
+                {
+                    planeManager.DeactivatePlane();
                 }
                 toggleImage.SwitchToggleImage();
             }
@@ -465,13 +495,13 @@ public class FrankaManager : MonoBehaviour
                 {
                     // sliderManager.Subscribe(true);
                     sliderManager.ActivateSliders();
-                    DeactivateToggle(removeToggle);
+                    // DeactivateToggle(removeToggle);
                 }
                 else
                 {
                     // sliderManager.Unsubscribe(true);
                     sliderManager.DeactivateSliders();
-                    ActivateToggle(removeToggle);
+                    // ActivateToggle(removeToggle);
                 }
                 toggleImage.SwitchToggleImage();
             }

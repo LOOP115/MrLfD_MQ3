@@ -83,7 +83,8 @@ public static class FrankaConstants
     public static readonly string Invisible = "Invisible";
     public static readonly string Plane = "Plane";
 
-    public static readonly string JointDials = "JointDials";
+    public static readonly string JointPostions = "JointPos";
+    public static readonly string Manipulability = "Manip";
     
 
     public static readonly string[] Modes = new string[]
@@ -141,5 +142,6 @@ public static class FrankaConstants
     public static readonly string topicUnityTargetPose = "/unity_target_pose";
     public static readonly string topicUnityCommand = "/unity_command";
     public static readonly string topicFrankaJoints = "/franka_joints";
+    public static readonly string topicManipulability = "/manipulability";
 
 }

@@ -4,17 +4,16 @@ using RosMessageTypes.CtrlInterfaces;
 using UnityEngine.UI;
 using Unity.Robotics.UrdfImporter;
 using Unity.Robotics.ROSTCPConnector;
-using Unity.VisualScripting;
 
 
-public class SliderManager : MonoBehaviour
+public class VisualiseJointPositions : MonoBehaviour
 {
     private UrdfJointRevolute[] jointArticulationBodies;
 
     private GameObject[] sliders = new GameObject[FrankaConstants.NumJoints];
     private float waitTime = 0.001f;
 
-    private ROSConnection rosConnection;
+    // private ROSConnection rosConnection;
 
     private const string sliderPath = "/Dial-Hollow/Slider";
     private const string fillPath = "Fill Area/Fill";
@@ -27,7 +26,7 @@ public class SliderManager : MonoBehaviour
     void Start()
     {
         // rosConnector = FindObjectOfType<RosConnector>();
-        rosConnection = ROSConnection.GetOrCreateInstance();
+        // rosConnection = ROSConnection.GetOrCreateInstance();
 
         // Get joint articulation bodies
         jointArticulationBodies = new UrdfJointRevolute[FrankaConstants.NumJoints];
@@ -138,32 +137,6 @@ public class SliderManager : MonoBehaviour
         sliderComponent.value = normalizedValue;
     }
 
-    public void Subscribe(bool unity=false)
-    {
-        // rosConnector.GetBridge().Subscribe<FrankaJointsMsg>(FrankaConstants.topicFrankaJoints, UpdateSliders);
-        if (unity)
-        {
-            rosConnection.Subscribe<FrankaJointsMsg>(FrankaConstants.topicUnityFrankaJoints, UpdateSliders);
-        }
-        else
-        {
-            rosConnection.Subscribe<FrankaJointsMsg>(FrankaConstants.topicFrankaJoints, UpdateSliders);
-        }
-    }
-    
-    public void Unsubscribe(bool unity=false)
-    {
-        // rosConnector.GetBridge().Unsubscribe(FrankaConstants.topicFrankaJoints);
-        if (unity)
-        {
-            rosConnection.Unsubscribe(FrankaConstants.topicUnityFrankaJoints);
-        }
-        else
-        {
-            rosConnection.Unsubscribe(FrankaConstants.topicFrankaJoints);
-        }
-    }
-
     public void ActivateSliders()
     {
         foreach (var slider in sliders)
@@ -195,5 +168,31 @@ public class SliderManager : MonoBehaviour
             }
         }
     }
+
+    // public void Subscribe(bool unity=false)
+    // {
+    //     // rosConnector.GetBridge().Subscribe<FrankaJointsMsg>(FrankaConstants.topicFrankaJoints, UpdateSliders);
+    //     if (unity)
+    //     {
+    //         rosConnection.Subscribe<FrankaJointsMsg>(FrankaConstants.topicUnityFrankaJoints, UpdateSliders);
+    //     }
+    //     else
+    //     {
+    //         rosConnection.Subscribe<FrankaJointsMsg>(FrankaConstants.topicFrankaJoints, UpdateSliders);
+    //     }
+    // }
+    
+    // public void Unsubscribe(bool unity=false)
+    // {
+    //     // rosConnector.GetBridge().Unsubscribe(FrankaConstants.topicFrankaJoints);
+    //     if (unity)
+    //     {
+    //         rosConnection.Unsubscribe(FrankaConstants.topicUnityFrankaJoints);
+    //     }
+    //     else
+    //     {
+    //         rosConnection.Unsubscribe(FrankaConstants.topicFrankaJoints);
+    //     }
+    // }
 
 }

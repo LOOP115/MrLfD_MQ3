@@ -1,11 +1,10 @@
-Shader "Custom/UI/CircularSliderFillDepth"
+Shader "Custom/UI/CuboidSliderBackgroundDepth"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Color ("Color", Color) = (1,1,1,1)
         _MinDist ("Min Distance", Float) = 0.25
-        _SliderValue ("Slider Value", Range(0,1)) = 0
     }
     SubShader
     {
@@ -50,7 +49,6 @@ Shader "Custom/UI/CircularSliderFillDepth"
             float4 _MainTex_ST;
             fixed4 _Color;
             float _MinDist;
-            float _SliderValue;
 
             v2f vert (appdata v)
             {
@@ -63,12 +61,14 @@ Shader "Custom/UI/CircularSliderFillDepth"
 
                 // v.vertex (object space coordinate) might have a different name in your vert shader
                 META_DEPTH_INITIALIZE_VERTEX_OUTPUT(o, v.vertex);
+             
                 return o;
             }
 
             half4 frag (v2f i) : SV_Target
             {
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
+
                 // Calculate distance from the UV center (0.5, 0.5) to the current fragment
                 float2 center = float2(0.5, 0.5);
                 float dist = distance(i.uv, center);
@@ -79,17 +79,12 @@ Shader "Custom/UI/CircularSliderFillDepth"
                     discard;
                 }
 
-                // Calculate how far the value is from 0.5
-                float distanceFromMiddle = abs(_SliderValue - 0.5) * 2; // Normalized to range [0, 1]
-                // Linearly interpolate between green and red based on distance from the middle
-                // Closer to 0.5 (green) if distanceFromMiddle is small, closer to ends (red) if large
-                fixed3 colorChange = lerp(fixed3(0,1,0), fixed3(1,0,0), distanceFromMiddle);
                 half4 col = tex2D(_MainTex, i.uv);
-                col.rgb *= colorChange; // Apply the blended color
                 
                 col.a *= _Color.a; // Apply the alpha value from _Color to the output color
-                
+
                 META_DEPTH_OCCLUDE_OUTPUT_PREMULTIPLY(i, col, 0.0);
+
                 return col;
             }
             ENDCG

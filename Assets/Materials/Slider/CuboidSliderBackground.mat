@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SliderBackground
-  m_Shader: {fileID: 4800000, guid: e88a17bb14ac08f44b01bcc0654d3f6e, type: 3}
+  m_Name: CuboidSliderBackground
+  m_Shader: {fileID: 4800000, guid: b3bed352d3ab51f488737e44ed8ce357, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -72,7 +72,7 @@ Material:
     - _GlossyReflections: 1
     - _MaxDist: 0.5
     - _Metallic: 0
-    - _MinDist: 0.6
+    - _MinDist: 1
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02

@@ -1,11 +1,10 @@
-Shader "Custom/UICircularSliderFillDepth"
+Shader "Custom/UI/CircularSliderBackgroundDepth"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Color ("Color", Color) = (1,1,1,1)
         _MinDist ("Min Distance", Float) = 0.25
-        _SliderValue ("Slider Value", Range(0,1)) = 0
     }
     SubShader
     {
@@ -50,7 +49,6 @@ Shader "Custom/UICircularSliderFillDepth"
             float4 _MainTex_ST;
             fixed4 _Color;
             float _MinDist;
-            float _SliderValue;
 
             v2f vert (appdata v)
             {

@@ -1,4 +1,4 @@
-Shader "Custom/UI/CircularSliderFillDepth"
+Shader "Custom/UI/CuboidSliderFillDepth"
 {
     Properties
     {
@@ -72,26 +72,37 @@ Shader "Custom/UI/CircularSliderFillDepth"
                 // Calculate distance from the UV center (0.5, 0.5) to the current fragment
                 float2 center = float2(0.5, 0.5);
                 float dist = distance(i.uv, center);
-
+            
                 // Discard fragments closer than _MinDist to the center
-                if(dist < _MinDist)
+                if (dist < _MinDist)
                 {
                     discard;
                 }
-
-                // Calculate how far the value is from 0.5
-                float distanceFromMiddle = abs(_SliderValue - 0.5) * 2; // Normalized to range [0, 1]
-                // Linearly interpolate between green and red based on distance from the middle
-                // Closer to 0.5 (green) if distanceFromMiddle is small, closer to ends (red) if large
-                fixed3 colorChange = lerp(fixed3(0,1,0), fixed3(1,0,0), distanceFromMiddle);
+            
+                // Define color transition range and colors
+                fixed3 greenColor = fixed3(0, 1, 0);  // RGB for green
+                fixed3 redColor = fixed3(1, 0, 0);    // RGB for red
+                fixed3 colorChange;
+            
+                // Check slider value to determine color
+                if (_SliderValue > 0.4)
+                {
+                    colorChange = greenColor; // Use green if slider is above 0.2
+                }
+                else
+                {
+                    // Calculate interpolation factor (from 0.2 down to 0, maps from 0 to 1)
+                    float t = _SliderValue / 0.4; // Normalize the slider value for interpolation
+                    colorChange = lerp(redColor, greenColor, t); // Interpolate from red to green
+                }
+            
                 half4 col = tex2D(_MainTex, i.uv);
-                col.rgb *= colorChange; // Apply the blended color
-                
+                col.rgb *= colorChange; // Apply the color based on the slider value
                 col.a *= _Color.a; // Apply the alpha value from _Color to the output color
-                
+            
                 META_DEPTH_OCCLUDE_OUTPUT_PREMULTIPLY(i, col, 0.0);
                 return col;
-            }
+            }            
             ENDCG
         }
     }

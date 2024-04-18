@@ -4,6 +4,7 @@ using TMPro;
 using System.Collections.Generic;
 using Franka.Control;
 using System;
+using UnityEditor;
 
 public class FrankaManager : MonoBehaviour
 {
@@ -24,9 +25,9 @@ public class FrankaManager : MonoBehaviour
         }
     }
 
+
     public GameObject removeToggle;
     public GameObject resetToggle;
-
 
     public GameObject baseLockToggle;
     public GameObject gripperControllerToggle;
@@ -35,16 +36,19 @@ public class FrankaManager : MonoBehaviour
     public GameObject followTargetToggle;
     public GameObject followTrajectoryToggle;
 
-
     public GameObject invisibleToggle;
     public GameObject planeToggle;
 
-
-
-    public GameObject jointDialsToggle;
+    public GameObject JointPositionsToggle;
+    public GameObject ManipulabilityToggle;
     
+
+    private List<GameObject> togglesKeepActive;
+
+
     private Dictionary<string, Action> modeActions;
     private Dictionary<string, GameObject> modeToggles;
+
 
     private JointController jointController;
     private GripperController gripperController;
@@ -60,7 +64,8 @@ public class FrankaManager : MonoBehaviour
     private InvisibleFranka invisibleFranka;
     private PlaneManager planeManager;
 
-    private SliderManager sliderManager;
+    private VisualiseJointPositions visJointPos;
+    private VisualiseManipulability visManip;
     
     private RosConnector rosConnector;
     // private float fixedUpdateFPS = 30.0f;
@@ -77,7 +82,8 @@ public class FrankaManager : MonoBehaviour
             { FrankaConstants.FollowTrajectory, followTrajectoryToggle},
             { FrankaConstants.Invisible, invisibleToggle },
             { FrankaConstants.Plane, planeToggle},
-            { FrankaConstants.JointDials, jointDialsToggle }
+            { FrankaConstants.JointPostions, JointPositionsToggle },
+            { FrankaConstants.Manipulability, ManipulabilityToggle }
         };
 
         modeActions = new Dictionary<string, Action>
@@ -90,7 +96,18 @@ public class FrankaManager : MonoBehaviour
             { FrankaConstants.FollowTrajectory, toggleFollowTrajectory },
             { FrankaConstants.Invisible, toggleFrankaVisibility },
             { FrankaConstants.Plane, togglePlane },
-            { FrankaConstants.JointDials, toggleJointDials }
+            { FrankaConstants.JointPostions, toggleJointPositionsVisual },
+            { FrankaConstants.Manipulability, toggleManipulabilitVisual }
+        };
+
+        togglesKeepActive = new List<GameObject> 
+        {
+            resetToggle,
+            gripperControllerToggle,
+            invisibleToggle,
+            planeToggle,
+            JointPositionsToggle,
+            ManipulabilityToggle
         };
 
         rosConnector = FindObjectOfType<RosConnector>();
@@ -141,12 +158,10 @@ public class FrankaManager : MonoBehaviour
             invisibleFranka = franka.GetComponent<InvisibleFranka>();
             planeManager = franka.GetComponent<PlaneManager>();
 
-            sliderManager = franka.GetComponent<SliderManager>();
-            
+            visJointPos = franka.GetComponent<VisualiseJointPositions>();
+            visManip = franka.GetComponent<VisualiseManipulability>();
             
             isSpawned = true;
-
-            // syncFromFranka.Subscribe();
             ActivateToggles();
         }
         else
@@ -160,6 +175,7 @@ public class FrankaManager : MonoBehaviour
         if (franka != null)
         {
             syncFromFranka.Unsubscribe();
+            visManip.Unsubscribe();
             Destroy(franka);
             isSpawned = false;
             DeactivateTogglesExcept();
@@ -363,7 +379,7 @@ public class FrankaManager : MonoBehaviour
                 {
                     syncFromFranka.Unsubscribe();
                     jointController.setControllerState(true);
-                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, gripperControllerToggle, jointControllerToggle, jointDialsToggle, invisibleToggle, planeToggle});
+                    DeactivateTogglesExcept(new List<GameObject> (togglesKeepActive) {jointControllerToggle});
                 }
                 else
                 {
@@ -386,7 +402,7 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startReachTarget();
-                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, gripperControllerToggle, reachTargetToggle, jointDialsToggle, invisibleToggle, planeToggle});
+                    DeactivateTogglesExcept(new List<GameObject> (togglesKeepActive) {reachTargetToggle});
                 }
                 else
                 {
@@ -408,7 +424,7 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startFollowTarget();
-                    DeactivateTogglesExcept(new List<GameObject> {resetToggle, gripperControllerToggle, followTargetToggle, jointDialsToggle, invisibleToggle, planeToggle});
+                    DeactivateTogglesExcept(new List<GameObject> (togglesKeepActive) {followTargetToggle});
                 }
                 else
                 {
@@ -430,7 +446,7 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     startFollowTrajectory();
-                    DeactivateTogglesExcept(new List<GameObject> {gripperControllerToggle, followTrajectoryToggle, jointDialsToggle, invisibleToggle, planeToggle});
+                    DeactivateTogglesExcept(new List<GameObject> (togglesKeepActive) {followTrajectoryToggle});
                 }
                 else
                 {
@@ -452,12 +468,10 @@ public class FrankaManager : MonoBehaviour
                 if (toggleImage.Image1isActive())
                 {
                     invisibleFranka.SetVisibility(false);
-                    // DeactivateToggle(removeToggle);
                 }
                 else
                 {
                     invisibleFranka.SetVisibility(true);
-                    // ActivateToggle(removeToggle);
                 }
                 toggleImage.SwitchToggleImage();
             }
@@ -484,24 +498,44 @@ public class FrankaManager : MonoBehaviour
         }
     }
 
-    private void toggleJointDials()
+    private void toggleJointPositionsVisual()
     {
         if (franka != null)
         {
-            if (sliderManager != null)
+            if (visJointPos != null)
             {
-                ToggleImage toggleImage = jointDialsToggle.GetComponent<ToggleImage>();
+                ToggleImage toggleImage = JointPositionsToggle.GetComponent<ToggleImage>();
                 if (toggleImage.Image1isActive())
                 {
                     // sliderManager.Subscribe(true);
-                    sliderManager.ActivateSliders();
+                    visJointPos.ActivateSliders();
                     // DeactivateToggle(removeToggle);
                 }
                 else
                 {
                     // sliderManager.Unsubscribe(true);
-                    sliderManager.DeactivateSliders();
+                    visJointPos.DeactivateSliders();
                     // ActivateToggle(removeToggle);
+                }
+                toggleImage.SwitchToggleImage();
+            }
+        }
+    }
+
+    public void toggleManipulabilitVisual()
+    {
+        if (franka != null)
+        {
+            if (visManip != null)
+            {
+                ToggleImage toggleImage = ManipulabilityToggle.GetComponent<ToggleImage>();
+                if (toggleImage.Image1isActive())
+                {
+                    visManip.ActivateSliders();
+                }
+                else
+                {
+                    visManip.DeactivateSliders();
                 }
                 toggleImage.SwitchToggleImage();
             }

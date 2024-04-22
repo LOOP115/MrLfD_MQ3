@@ -27,6 +27,8 @@ public class FollowTarget : MonoBehaviour
     private float rotZ;
     private float rotW;
 
+    private int updateCount = 0;
+
 
     void Start()
     {
@@ -36,6 +38,11 @@ public class FollowTarget : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (updateCount % 2 != 0)
+        {
+            return;
+        }
+        
         if (!isSpawned && endEffectorTarget == null)
         {
             StartCoroutine(DelaySpawnCenterTarget());
@@ -97,6 +104,8 @@ public class FollowTarget : MonoBehaviour
                 lastTargetPosition = endEffectorTarget.transform.position;
             }
         }
+        
+        updateCount = (updateCount + 1) % 2;
 
     }
 

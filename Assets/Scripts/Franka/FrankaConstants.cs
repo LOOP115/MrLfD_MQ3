@@ -114,6 +114,17 @@ public static class FrankaConstants
         command = "move_to_start"
     };
 
+    public static UnityCommandMsg cmdGripperHome = new UnityCommandMsg
+    {
+        command = "gripper_home"
+    };
+
+    public static UnityCommandMsg cmdGripperGrasp = new UnityCommandMsg
+    {
+        command = "gripper_grasp"
+    };
+
+
 
     public struct JointLimits
     {

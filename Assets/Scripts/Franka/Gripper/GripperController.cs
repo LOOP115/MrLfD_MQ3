@@ -10,9 +10,13 @@ public class GripperController : MonoBehaviour
     private bool isGripperClosed = false;
     private bool controllerIsActive = false;
 
+    private RosConnector rosConnector;
+
 
     void Start()
     {
+        rosConnector = FindObjectOfType<RosConnector>();
+
         jointArticulationBodies = new ArticulationBody[FrankaConstants.NumFingers];
         
         for (var i = 0; i < FrankaConstants.NumFingers; i++)
@@ -44,11 +48,13 @@ public class GripperController : MonoBehaviour
     public void Open()
     {
         StartCoroutine(OpenGripper());
+        rosConnector.GetBridge().Publish(FrankaConstants.topicUnityCommand, FrankaConstants.cmdGripperHome);
     }
 
     public void Close()
     {
         StartCoroutine(CloseGripper());
+        rosConnector.GetBridge().Publish(FrankaConstants.topicUnityCommand, FrankaConstants.cmdGripperGrasp);
     }
     
 

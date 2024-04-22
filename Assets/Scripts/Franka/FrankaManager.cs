@@ -142,6 +142,10 @@ public class FrankaManager : MonoBehaviour
         if (frankaPrefab != null)
         {
             Vector3 handPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+            handPosition.x += 0.008f;
+            handPosition.y -= 0.087f;
+            handPosition.z += 0.097f;
+
             franka = Instantiate(frankaPrefab, handPosition, Quaternion.Euler(0, 180, 0));
 
             jointController = franka.GetComponent<JointController>();
@@ -187,8 +191,8 @@ public class FrankaManager : MonoBehaviour
     {
         if (rosConnector != null)
         {
-            // rosConnector.GetBridge().Publish(FrankaConstants.topicUnityCommand, FrankaConstants.cmdMoveToStart);
-            rosConnector.GetBridge().Publish(FrankaConstants.topicUnityFrankaJoints, moveToStart.getHomeJoints());
+            rosConnector.GetBridge().Publish(FrankaConstants.topicUnityCommand, FrankaConstants.cmdMoveToStart);
+            // rosConnector.GetBridge().Publish(FrankaConstants.topicUnityFrankaJoints, moveToStart.getHomeJoints());
         }
     }
 

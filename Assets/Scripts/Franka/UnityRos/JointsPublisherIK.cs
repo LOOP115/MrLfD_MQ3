@@ -9,6 +9,7 @@ public class JointsPublisherIK : MonoBehaviour
     private RosConnector rosConnector;
     public GameObject baseLink;
     private BioIK.BioIK bioIK;
+    private int updateCount = 0;
 
     // public float PublishHz = 20.0f;
     // private float PublishFrequency => 1.0f / PublishHz;
@@ -22,6 +23,12 @@ public class JointsPublisherIK : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
+
+        if (updateCount % 2 != 0) {
+            return;
+        }
+        
         var jointsMsg = new FrankaJointsMsg();
 
         for (var i = 0; i < FrankaConstants.NumJoints; i++)
@@ -30,6 +37,9 @@ public class JointsPublisherIK : MonoBehaviour
         }
 
         rosConnector.GetBridge().Publish(FrankaConstants.topicUnityFrankaJoints, jointsMsg);
+        
+
+        updateCount = (updateCount + 1) % 2;
     }
 
     private float formatBioIKSolution(float solution, int jointIndex)

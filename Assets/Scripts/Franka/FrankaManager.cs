@@ -142,9 +142,9 @@ public class FrankaManager : MonoBehaviour
         if (frankaPrefab != null)
         {
             Vector3 handPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
-            handPosition.x += 0.008f;
-            handPosition.y -= 0.087f;
-            handPosition.z += 0.097f;
+            handPosition.x -= 0.0033f;
+            handPosition.y -= 0.1474954f;
+            handPosition.z -= 0.104012f;
 
             franka = Instantiate(frankaPrefab, handPosition, Quaternion.Euler(0, 180, 0));
 

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8647916077034930507}
   m_Layer: 0
   m_Name: HandGrabInteractable
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 5663945216218112351}
   m_Layer: 0
   m_Name: SnapZone-Target
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 1615203810698742910}
   m_Layer: 0
   m_Name: Target-Grabbable-Distant
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -288,6 +288,11 @@ PrefabInstance:
     - target: {fileID: 5270983659149341059, guid: 504a739c83fc2ca47a574e11dd02d195,
         type: 3}
       propertyPath: m_Name
+      value: Target
+      objectReference: {fileID: 0}
+    - target: {fileID: 5270983659149341059, guid: 504a739c83fc2ca47a574e11dd02d195,
+        type: 3}
+      propertyPath: m_TagString
       value: Target
       objectReference: {fileID: 0}
     - target: {fileID: 5815492272996830905, guid: 504a739c83fc2ca47a574e11dd02d195,
@@ -408,9 +413,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &6728700804175153628
 MonoBehaviour:
   m_ObjectHideFlags: 0

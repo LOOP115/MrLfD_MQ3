@@ -9,6 +9,10 @@ TagManager:
   - Franka
   - FrankaIK
   - Object
+  - Target
+  - Wall
+  - TextCanvas
+  - franka
   layers:
   - Default
   - TransparentFX

@@ -23,22 +23,23 @@ public class JointsPublisherIK : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-
-        if (updateCount % 2 != 0) {
+        if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger) == 0.0f && OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) == 0.0f)
+        {
             return;
         }
         
-        var jointsMsg = new FrankaJointsMsg();
+        if (updateCount % 2 == 0) {
 
-        for (var i = 0; i < FrankaConstants.NumJoints; i++)
-        {
-            jointsMsg.joints[i] = formatBioIKSolution((float)bioIK.Solution[i], i) * Mathf.Deg2Rad;
+            var jointsMsg = new FrankaJointsMsg();
+
+            for (var i = 0; i < FrankaConstants.NumJoints; i++)
+            {
+                jointsMsg.joints[i] = formatBioIKSolution((float)bioIK.Solution[i], i) * Mathf.Deg2Rad;
+            }
+
+            rosConnector.GetBridge().Publish(FrankaConstants.topicUnityFrankaJoints, jointsMsg);
         }
-
-        rosConnector.GetBridge().Publish(FrankaConstants.topicUnityFrankaJoints, jointsMsg);
         
-
         updateCount = (updateCount + 1) % 2;
     }
 

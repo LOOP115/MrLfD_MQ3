@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class GripperController : MonoBehaviour
 {
@@ -10,12 +11,19 @@ public class GripperController : MonoBehaviour
     private bool isGripperClosed = false;
     private bool controllerIsActive = false;
 
+    
+
     private RosConnector rosConnector;
+    
+    private TextMeshProUGUI textComponent;
 
 
     void Start()
     {
         rosConnector = FindObjectOfType<RosConnector>();
+
+        GameObject cameraRig = GameObject.FindGameObjectWithTag("TextCanvas");
+        textComponent = cameraRig.GetComponentInChildren<TextMeshProUGUI>();
 
         jointArticulationBodies = new ArticulationBody[FrankaConstants.NumFingers];
         
@@ -47,14 +55,14 @@ public class GripperController : MonoBehaviour
 
     public void Open()
     {
-        StartCoroutine(OpenGripper());
         rosConnector.GetBridge().Publish(FrankaConstants.topicUnityCommand, FrankaConstants.cmdGripperHome);
+        StartCoroutine(OpenGripper());
     }
 
     public void Close()
     {
-        StartCoroutine(CloseGripper());
         rosConnector.GetBridge().Publish(FrankaConstants.topicUnityCommand, FrankaConstants.cmdGripperGrasp);
+        StartCoroutine(CloseGripper());
     }
     
 
@@ -95,13 +103,24 @@ public class GripperController : MonoBehaviour
             {
                 Open();
                 isGripperClosed = false;
+                textComponent.text = "Gripper Homing ...";
+                StartCoroutine(ClearTextAfterDelay()); // Start the coroutine to clear text
             }
             else
             {
                 Close();
                 isGripperClosed = true;
+                textComponent.text = "Gripper Grasp ...";
+                StartCoroutine(ClearTextAfterDelay()); // Start the coroutine to clear text
             }
         }
     }
+
+    private IEnumerator ClearTextAfterDelay(int seconds = 3)
+    {
+        yield return new WaitForSeconds(seconds); // Wait for 3 seconds
+        textComponent.text = ""; // Clear the text
+    }
+
     
 }

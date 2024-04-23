@@ -191,7 +191,7 @@ public class FrankaManager : MonoBehaviour
     {
         if (rosConnector != null)
         {
-            rosConnector.GetBridge().Publish(FrankaConstants.topicUnityCommand, FrankaConstants.cmdMoveToStart);
+            moveToStart.SendMoveToStartCMD();
             // rosConnector.GetBridge().Publish(FrankaConstants.topicUnityFrankaJoints, moveToStart.getHomeJoints());
         }
     }

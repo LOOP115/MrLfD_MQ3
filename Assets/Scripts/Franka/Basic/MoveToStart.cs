@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using RosMessageTypes.CtrlInterfaces;
+using TMPro;
+
 
 public class MoveToStart : MonoBehaviour
 {
@@ -9,9 +11,15 @@ public class MoveToStart : MonoBehaviour
     public float jointAssignmentWait = 0.001f; // Time to wait after setting each joint position
     private FrankaJointsMsg homeJointsMsg = new FrankaJointsMsg();
 
+    private RosConnector rosConnector;
+    
+    private TextMeshProUGUI textComponent;
+
 
     void Start()
     {
+        rosConnector = FindObjectOfType<RosConnector>();
+        
         jointArticulationBodies = new ArticulationBody[FrankaConstants.NumJoints];
         
         var linkName = string.Empty;
@@ -27,6 +35,10 @@ public class MoveToStart : MonoBehaviour
         {
             homeJointsMsg.joints[i] = FrankaConstants.StartJointPositionsRadians[i];
         }
+
+
+        GameObject cameraRig = GameObject.FindGameObjectWithTag("TextCanvas");
+        textComponent = cameraRig.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     public void ResetUnityFranka()
@@ -52,4 +64,18 @@ public class MoveToStart : MonoBehaviour
     {
         return homeJointsMsg;
     }
+
+    public void SendMoveToStartCMD()
+    {
+        rosConnector.GetBridge().Publish(FrankaConstants.topicUnityCommand, FrankaConstants.cmdMoveToStart);
+        textComponent.text = "Resetting Franka ...";
+        StartCoroutine(ClearTextAfterDelay());
+    }
+
+    private IEnumerator ClearTextAfterDelay(int seconds = 3)
+    {
+        yield return new WaitForSeconds(seconds); // Wait for 3 seconds
+        textComponent.text = ""; // Clear the text
+    }
+    
 }

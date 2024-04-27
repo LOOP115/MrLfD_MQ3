@@ -15,9 +15,9 @@ public class FollowTarget : MonoBehaviour
     private bool isSpawned = false;
 
     private RosConnector rosConnector;
-    private float publishHz = 0.5f;
-    private float publishFrequency => 1.0f / publishHz;
-    private float timeElapsed;
+    // private float publishHz = 0.5f;
+    // private float publishFrequency => 1.0f / publishHz;
+    // private float timeElapsed;
 
     private Vector3 lastFramePosition;
     private bool isTargetStill = true;
@@ -38,11 +38,6 @@ public class FollowTarget : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (updateCount % 2 != 0)
-        {
-            return;
-        }
-        
         if (!isSpawned && endEffectorTarget == null)
         {
             StartCoroutine(DelaySpawnCenterTarget());
@@ -51,7 +46,7 @@ public class FollowTarget : MonoBehaviour
         }
 
         // Check if the target has moved since the last frame
-        if (endEffectorTarget != null)
+        if (endEffectorTarget != null && updateCount % 2 == 0)
         {
             float distanceMoved = Vector3.Distance(endEffectorTarget.transform.position, lastFramePosition);
             if (distanceMoved <= FrankaConstants.targetMoveThreshold)
@@ -70,11 +65,8 @@ public class FollowTarget : MonoBehaviour
             }
             // Update lastFramePosition for the next frame's comparison
             lastFramePosition = endEffectorTarget.transform.position;
-        } 
 
-        // timeElapsed += Time.fixedDeltaTime;
-        if (endEffectorTarget != null)
-        {
+
             var targetPosition = endEffectorTarget.transform.localPosition.To<FLU>();
             // var targetRotation = endEffectorTarget.transform.localRotation.To<FLU>();
             
@@ -95,7 +87,6 @@ public class FollowTarget : MonoBehaviour
             //     {
             //         rosConnector.GetBridge().Publish(rosConnector.topicUnityTargetPose, targetPoseMsg);
             //     }
-            //     timeElapsed = 0;
             // }
 
             if (isTargetStill && !FrankaConstants.similarPosition(endEffectorTarget.transform.position, lastTargetPosition))
@@ -103,10 +94,10 @@ public class FollowTarget : MonoBehaviour
                 rosConnector.GetBridge().Publish(FrankaConstants.topicUnityTargetPose, targetPoseMsg);
                 lastTargetPosition = endEffectorTarget.transform.position;
             }
-        }
-        
-        updateCount = (updateCount + 1) % 2;
 
+        }
+
+        updateCount = (updateCount + 1) % 2;
     }
 
     IEnumerator DelaySpawnCenterTarget()

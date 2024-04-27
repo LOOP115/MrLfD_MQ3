@@ -97,8 +97,14 @@ public class GripperController : MonoBehaviour
 
     private void toggleGripper()
     {
-        if (OVRInput.GetDown(OVRInput.Button.Three))
+        if (OVRInput.GetDown(OVRInput.Button.Two))
         {
+            if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger) > 0.0f || OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0.0f)
+            {
+                textComponent.text = "Please release your hand trigger before using the gripper!";
+                // StartCoroutine(ClearTextAfterDelay(1)); // Start the coroutine to clear text
+                return;
+            }
             if (isGripperClosed)
             {
                 Open();

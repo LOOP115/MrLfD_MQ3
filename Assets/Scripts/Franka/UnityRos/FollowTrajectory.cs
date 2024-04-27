@@ -13,6 +13,11 @@ public class FollowTrajectory : MonoBehaviour
         if (frankaIKPrefab != null)
         {
             franakIK = Instantiate(frankaIKPrefab, transform.position, transform.rotation);
+            franakIK.transform.SetParent(transform);
+            // if (franakIK != null && franakIK.GetComponent<InvisibleFranka>() != null)
+            // {
+            //     franakIK.GetComponent<InvisibleFranka>().SetVisibility(false);
+            // }
         }
         else
         {

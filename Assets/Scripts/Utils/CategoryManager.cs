@@ -8,6 +8,8 @@ public class CategoryManager : MonoBehaviour
     public Material transparentRed;
     public Transform spawnPoint;
 
+    public GameObject lockToggle;
+
     private List<GameObject> redSpheres = new List<GameObject>();
     private List<GameObject> blueSpheres = new List<GameObject>();
 
@@ -67,6 +69,23 @@ public class CategoryManager : MonoBehaviour
     {
         ClearAllRedSpheres();
         ClearAllBlueSpheres();
+    }
+
+    public void toggleCategoryLock()
+    {
+        if (lockToggle != null)
+        {
+            ToggleImage toggleImage = lockToggle.GetComponent<ToggleImage>();
+            if (toggleImage.Image1isActive())
+            {
+                SetCollidersEnabled(false);
+            }
+            else
+            {
+                SetCollidersEnabled(true);
+            }
+            toggleImage.SwitchToggleImage();
+        }
     }
 
     public void SetCollidersEnabled(bool enabled)

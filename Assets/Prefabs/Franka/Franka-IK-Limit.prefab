@@ -5696,7 +5696,7 @@ MonoBehaviour:
   Root: {fileID: 4946792981363560907}
   Solution: []
   SelectedSegment: {fileID: 8335729734895224104}
-  Scroll: {x: 0, y: 3714.9998}
+  Scroll: {x: 0, y: 0}
 --- !u!114 &4946792981363560907
 MonoBehaviour:
   m_ObjectHideFlags: 0

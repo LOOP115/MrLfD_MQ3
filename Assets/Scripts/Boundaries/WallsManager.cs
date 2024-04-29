@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AirWallsManager : MonoBehaviour
+public class WallsManager : MonoBehaviour
 {
     private MeshRenderer[] wallRenderers;
 

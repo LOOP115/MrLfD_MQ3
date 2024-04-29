@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class WallCollisionReporter : MonoBehaviour
 {
-    private AirWallsManager parentController;
+    private WallsManager parentController;
 
     void Start()
     {
-        parentController = GetComponentInParent<AirWallsManager>();
+        parentController = GetComponentInParent<WallsManager>();
     }
 
     void OnCollisionEnter(Collision collision)

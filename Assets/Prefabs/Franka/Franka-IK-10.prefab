@@ -1204,8 +1204,8 @@ MonoBehaviour:
     Joint: {fileID: 869687012277219534}
     Enabled: 1
     Constrained: 1
-    LowerLimit: -136
-    UpperLimit: 136
+    LowerLimit: -156
+    UpperLimit: 156
     TargetValue: 0
     CurrentValue: 0
     CurrentError: 0
@@ -2949,8 +2949,8 @@ MonoBehaviour:
     Joint: {fileID: 5836511476424445635}
     Enabled: 1
     Constrained: 1
-    LowerLimit: -181
-    UpperLimit: 91
+    LowerLimit: -201
+    UpperLimit: 111
     TargetValue: 0
     CurrentValue: 0
     CurrentError: 0
@@ -5696,7 +5696,7 @@ MonoBehaviour:
   Root: {fileID: 4946792981363560907}
   Solution: []
   SelectedSegment: {fileID: 8335729734895224104}
-  Scroll: {x: 0, y: 0}
+  Scroll: {x: 0, y: 3900.7603}
 --- !u!114 &4946792981363560907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7872,7 +7872,7 @@ GameObject:
   - component: {fileID: 1756921487674134217}
   - component: {fileID: 6981401625578971338}
   m_Layer: 0
-  m_Name: Franka-IK-Limit
+  m_Name: Franka-IK-10
   m_TagString: robot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8500,8 +8500,8 @@ MonoBehaviour:
     Joint: {fileID: 1156431567968111130}
     Enabled: 1
     Constrained: 1
-    LowerLimit: -136
-    UpperLimit: 136
+    LowerLimit: -156
+    UpperLimit: 156
     TargetValue: 0
     CurrentValue: 0
     CurrentError: 0
@@ -13697,8 +13697,8 @@ MonoBehaviour:
     Joint: {fileID: 179019710302741898}
     Enabled: 1
     Constrained: 1
-    LowerLimit: -11
-    UpperLimit: 101
+    LowerLimit: -31
+    UpperLimit: 121
     TargetValue: 0
     CurrentValue: 0
     CurrentError: 0
@@ -14117,8 +14117,8 @@ MonoBehaviour:
     Joint: {fileID: 2478596533873839317}
     Enabled: 1
     Constrained: 1
-    LowerLimit: -61
-    UpperLimit: 95
+    LowerLimit: -81
+    UpperLimit: 115
     TargetValue: 0
     CurrentValue: 0
     CurrentError: 0
@@ -14668,8 +14668,8 @@ MonoBehaviour:
     Joint: {fileID: 2659250383822876404}
     Enabled: 1
     Constrained: 1
-    LowerLimit: -136
-    UpperLimit: 136
+    LowerLimit: -156
+    UpperLimit: 156
     TargetValue: 0
     CurrentValue: 0
     CurrentError: 0
@@ -15491,8 +15491,8 @@ MonoBehaviour:
     Joint: {fileID: 3376471979019616455}
     Enabled: 1
     Constrained: 1
-    LowerLimit: -26
-    UpperLimit: 116
+    LowerLimit: -46
+    UpperLimit: 136
     TargetValue: 0
     CurrentValue: 0
     CurrentError: 0

@@ -2177,7 +2177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d40e1e9707c3aa4aa25f764664c97d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frankaIKPrefab: {fileID: 4453752460822033976, guid: e79ec062d0ca21744b41e0c74b4f9dbd,
+  frankaIKPrefab: {fileID: 4453752460822033976, guid: 158a1dead8e3752499d8c65a954aef5c,
     type: 3}
 --- !u!114 &3012138899955535532
 MonoBehaviour:

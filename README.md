@@ -15,12 +15,6 @@ This is the Unity endpoint for [XRFranka](https://github.com/LOOP115/Franka_XR_H
 
 <br>
 
-## Run in the Unity Editor
-
-- [Setup Meta Quest Link](https://www.meta.com/en-gb/help/quest/articles/headsets-and-accessories/oculus-link/set-up-link/)
-
-<br>
-
 ## Build and Run on the Quest 3
 
 - If you want to run in the Unity Editor, please first setup [Meta Quest Link](https://www.meta.com/en-gb/help/quest/articles/headsets-and-accessories/oculus-link/set-up-link/). Note that the **Passthrough** and **DepthAPI** might not work optimally if run in the Unity Editor.

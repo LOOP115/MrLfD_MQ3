@@ -193,6 +193,15 @@ public class FrankaManager : MonoBehaviour
         {
             moveToStart.SendMoveToStartCMD();
             // rosConnector.GetBridge().Publish(FrankaConstants.topicUnityFrankaJoints, moveToStart.getHomeJoints());
+
+            if (followTrajectoryToggle != null)
+            {
+                ToggleImage toggleImage = followTrajectoryToggle.GetComponent<ToggleImage>();
+                if (!toggleImage.Image1isActive())
+                {
+                    toggleFollowTrajectory();
+                }
+            }
         }
     }
 

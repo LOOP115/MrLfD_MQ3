@@ -8,7 +8,9 @@ You can view the [demo](https://www.youtube.com/watch?v=FrHReF052ss&list=PLGZ6M3
 
 ## Requirements
 
-- Unity Editor Version: `2022.3.19f1 (>= 2022.3)`
+- Unity Editor Version: `2022.3.19f1`
+  - [Download Unity](https://unity.com/download)
+
 - Packages
   - [Meta XR All-in-One SDK](https://assetstore.unity.com/packages/tools/integration/meta-xr-all-in-one-sdk-269657)
   - [DepthAPI](https://github.com/oculus-samples/Unity-DepthAPI)

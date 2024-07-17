@@ -1,6 +1,6 @@
-# XRFranka Meta
+# Mr.LfD - Meta Quest 3
 
-This is the Unity endpoint for [XRFranka](https://github.com/LOOP115/Franka_XR_Hub). It is built based on the Meta SDK and can run natively on the Meta Quest 3.
+This is the Unity endpoint for [Mr.LfD](https://github.com/LOOP115/MrLfD_Hub). It is built based on the Meta SDK and can run natively on the Meta Quest 3.
 
 You can view the [demo](https://www.youtube.com/watch?v=FrHReF052ss&list=PLGZ6M30GmbVPnrU4zVaIsvYRqLYsf4KVH&index=11) or find more information in the [user manual](UserManual.md).
 
